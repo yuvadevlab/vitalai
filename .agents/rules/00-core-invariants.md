@@ -34,18 +34,19 @@ vitalai/
 
 ---
 
-## 2. Git Branching & Protection Invariants (Zero Exceptions)
+## 2. Git Branching Protocol (Zero Auto-Branch Creation)
 
-1. **Always Branch from `dev`**: ALL new branches (`feat/*`, `fix/*`, `chore/*`, `docs/*`) MUST ALWAYS be branched from `dev`:
+1. **Zero Auto-Branch Creation**: AI agents are strictly forbidden from creating git branches (`git checkout -b <name>`) automatically. The agent must ask the user to create the branch themselves, provide the exact branch name and git command (`git checkout dev && git pull origin dev && git checkout -b feat/<name>`), and wait for user confirmation before proceeding.
+2. **Always Branch from `dev`**: When confirmed, new branches (`feat/*`, `fix/*`, `chore/*`, `docs/*`) MUST ALWAYS originate from `dev`:
    ```bash
    git checkout dev && git pull origin dev
    git checkout -b feat/<feature-name>
    ```
-2. **NEVER Checkout to `main`**: AI agents and developers must NEVER checkout to `main` locally. `main` is strictly reserved for production deployments and automated CI reverse-syncs.
-3. **Direct Pushes Prohibited**: Direct pushes to `main` and `dev` are strictly blocked.
-4. **Pull Request Target**: All feature and fix branches must target `dev` via Pull Request.
-5. **Promotion to Main**: `main` is strictly updated via Pull Request originating from `dev` (enforced by `validate-main-pr.yml`).
-6. **Reverse Synchronization**: Any merge into `main` automatically triggers `reverse-sync.yml` to create an automated synchronization PR back into `dev`.
+3. **NEVER Checkout to `main`**: AI agents and developers must NEVER checkout to `main` locally. `main` is strictly reserved for production deployments and automated CI reverse-syncs.
+4. **Direct Pushes Prohibited**: Direct pushes to `main` and `dev` are strictly blocked.
+5. **Pull Request Target**: All feature and fix branches must target `dev` via Pull Request.
+6. **Promotion to Main**: `main` is strictly updated via Pull Request originating from `dev` (enforced by `validate-main-pr.yml`).
+7. **Reverse Synchronization**: Any merge into `main` automatically triggers `reverse-sync.yml` to create an automated synchronization PR back into `dev`.
 
 ---
 

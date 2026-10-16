@@ -9,6 +9,7 @@ Powered by advanced Code-First GraphQL, NestJS, Next.js 15, and modular AI engin
 ## Workspace Navigation & Implementation Roadmap
 
 - 📋 **[Master Implementation Plan & Live Progress Tracker](IMPLEMENTATION_PLAN.md)**: Current phase status, completed tasks, and upcoming implementation specifications for AI agents and developers.
+- 🎨 **[Design System & UI Architecture Dossier](DESIGN_SYSTEM_AND_UI_ARCHITECTURE.md)**: Master UI component hierarchy, package boundaries (@yuva-devlab/ui vs @vitalai/ui), page specifications, and visual tokens.
 - 📐 **[Agent Guidelines & Architecture Standards](AGENTS.md)**: Coding standards, package boundaries, GraphQL rules, and universal invariants.
 - 🏛️ **[Master Technical Dossier](PROJECT_INFO.md)**: Deep architectural dossier, database models, and persona design.
 
@@ -64,6 +65,7 @@ vitalai/
 │   ├── actions/                 # Composite GitHub Actions (setup-node-env)
 │   └── workflows/               # CI Pipeline & Pull Request Validation
 │
+├── DESIGN_SYSTEM_AND_UI_ARCHITECTURE.md # Master UI Architecture & Component Catalog
 ├── IMPLEMENTATION_PLAN.md       # Master Roadmap & Progress Tracker
 ├── package.json                 # Root Workspace Scripts & Tooling
 ├── pnpm-workspace.yaml          # Monorepo Workspace Configuration & Package Overrides

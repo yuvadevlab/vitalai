@@ -12,13 +12,13 @@
 
 All AI agents must inspect and adhere to the relevant topic rulebooks:
 
-| Topic                          | Rulebook                                                           | Primary Scope                                                                   |
-| :----------------------------- | :----------------------------------------------------------------- | :------------------------------------------------------------------------------ |
-| **Universal Core Invariants**  | [`00-core-invariants.md`](.agents/rules/00-core-invariants.md)     | Monorepo boundaries, 250-line rule, branch protection, seed & string invariants |
-| **Frontend & Web**             | [`01-frontend-web.md`](.agents/rules/01-frontend-web.md)           | GraphQL client, React Query v5, Tailwind tokens, `@vitalai/ui`                  |
-| **Backend API (GraphQL)**      | [`02-backend-api.md`](.agents/rules/02-backend-api.md)             | 5-layer NestJS, Code-First GraphQL, DataLoaders, SSE Streaming                  |
-| **AI Advisor & Health Engine** | [`03-ai-advisor.md`](.agents/rules/03-ai-advisor.md)               | `@vitalai/ai-engine`, clinical personas, safety guardrails                      |
-| **Testing Standards**          | [`04-testing-standards.md`](.agents/rules/04-testing-standards.md) | Vitest, mock contracts, zero test side-effects                                  |
+| Topic                          | Rulebook                                                           | Primary Scope                                                         |
+| :----------------------------- | :----------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| **Universal Core Invariants**  | [`00-core-invariants.md`](.agents/rules/00-core-invariants.md)     | Monorepo boundaries, 250-line rule, branch & commit safeguards, enums |
+| **Frontend & Web**             | [`01-frontend-web.md`](.agents/rules/01-frontend-web.md)           | GraphQL client, React Query v5, Tailwind tokens, `@vitalai/ui`        |
+| **Backend API (GraphQL)**      | [`02-backend-api.md`](.agents/rules/02-backend-api.md)             | 5-layer NestJS, Code-First GraphQL, DataLoaders, SSE Streaming        |
+| **AI Advisor & Health Engine** | [`03-ai-advisor.md`](.agents/rules/03-ai-advisor.md)               | `@vitalai/ai-engine`, clinical personas, safety guardrails            |
+| **Testing Standards**          | [`04-testing-standards.md`](.agents/rules/04-testing-standards.md) | Vitest, mock contracts, zero test side-effects                        |
 
 ---
 
@@ -37,11 +37,11 @@ All AI agents must inspect and adhere to the relevant topic rulebooks:
 3. **Database Seed Safeguards (Zero Auto-Seeding)**:
    - **AGENTS MUST NEVER RUN SEED COMMANDS WITHOUT EXPLICIT USER CONFIRMATION.**
    - Never run `db:seed`, `prisma db seed`, or automatic migrations containing seed data without asking the user first.
-4. **Git Branching & Branch Protection Protocol**:
+4. **Git Branching Protocol (Zero Auto-Branch Creation)**:
+   - **AGENTS MUST NEVER CREATE BRANCHES AUTOMATICALLY.** Always ask the user to create the branch themselves, providing the exact branch name and git command (`git checkout dev && git pull origin dev && git checkout -b <branch>`), and wait for the user to confirm before proceeding.
    - **ALWAYS CREATE BRANCHES FROM `dev` (`git checkout -b <branch> dev`).**
    - **NEVER CHECKOUT TO `main` LOCALLY.** Agents and developers must leave `main` untouched.
    - **DIRECT PUSHES TO `main` AND `dev` ARE STRICTLY PROHIBITED.**
-   - All AI agents and developers must work exclusively in dedicated `feat/<name>`, `fix/<name>`, or `chore/<name>` branches.
    - All pull requests must target `dev`. Direct PRs to `main` are automatically rejected by CI unless originating from `dev`.
    - Reverse sync from `main` to `dev` is automated via `reverse-sync.yml`.
 5. **No Auto-Commit / Auto-Push Protocol (Mandatory User Approval)**:
