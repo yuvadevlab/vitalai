@@ -29,8 +29,10 @@ All AI agents must inspect and adhere to the relevant topic rulebooks:
    - LLM prompts, clinical personas, and templates MUST live in `@vitalai/ai-engine`.
    - Zod validation schemas MUST live in `@vitalai/validation`. Never create inline Zod schemas in web or API.
 2. **Git Branching & Branch Protection Protocol**:
+   - **ALWAYS CREATE BRANCHES FROM `dev` (`git checkout -b <branch> dev`).**
+   - **NEVER CHECKOUT TO `main` LOCALLY.** Agents and developers must leave `main` untouched.
    - **DIRECT PUSHES TO `main` AND `dev` ARE STRICTLY PROHIBITED.**
-   - All AI agents and developers must create and work exclusively in dedicated `feat/<name>`, `fix/<name>`, or `chore/<name>` branches.
+   - All AI agents and developers must work exclusively in dedicated `feat/<name>`, `fix/<name>`, or `chore/<name>` branches.
    - All pull requests must target `dev`. Direct PRs to `main` are automatically rejected by CI unless originating from `dev`.
    - Reverse sync from `main` to `dev` is automated via `reverse-sync.yml`.
 3. **Advanced GraphQL Architecture**:

@@ -36,15 +36,16 @@ vitalai/
 
 ## 2. Git Branching & Protection Invariants (Zero Exceptions)
 
-1. **Direct Pushes Prohibited**: NEVER push directly to `main` or `dev`. Direct pushes to protected branches are strictly forbidden.
-2. **Feature Branch Mandate**: Always create and work in a dedicated branch:
-   - Features: `feat/<feature-name>`
-   - Bugfixes: `fix/<issue-name>`
-   - Maintenance: `chore/<task-name>`
-   - Documentation: `docs/<topic-name>`
-3. **Pull Request Target**: All feature and fix branches must target `dev` via Pull Request.
-4. **Promotion to Main**: `main` is strictly updated via Pull Request originating from `dev` (enforced by `validate-main-pr.yml`).
-5. **Reverse Synchronization**: Any merge into `main` automatically triggers `reverse-sync.yml` to create an automated synchronization PR back into `dev`.
+1. **Always Branch from `dev`**: ALL new branches (`feat/*`, `fix/*`, `chore/*`, `docs/*`) MUST ALWAYS be branched from `dev`:
+   ```bash
+   git checkout dev && git pull origin dev
+   git checkout -b feat/<feature-name>
+   ```
+2. **NEVER Checkout to `main`**: AI agents and developers must NEVER checkout to `main` locally. `main` is strictly reserved for production deployments and automated CI reverse-syncs.
+3. **Direct Pushes Prohibited**: Direct pushes to `main` and `dev` are strictly blocked.
+4. **Pull Request Target**: All feature and fix branches must target `dev` via Pull Request.
+5. **Promotion to Main**: `main` is strictly updated via Pull Request originating from `dev` (enforced by `validate-main-pr.yml`).
+6. **Reverse Synchronization**: Any merge into `main` automatically triggers `reverse-sync.yml` to create an automated synchronization PR back into `dev`.
 
 ---
 
