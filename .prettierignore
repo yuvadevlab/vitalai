@@ -1,0 +1,9 @@
+node_modules
+.next
+.turbo
+dist
+build
+coverage
+storybook-static
+pnpm-lock.yaml
+**/__generated__

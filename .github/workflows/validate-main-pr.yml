@@ -1,0 +1,21 @@
+name: 🔒 Validate Main PR Source
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate-branch:
+    name: Verify Base Branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assert Pull Request is from dev branch
+        run: |
+          echo "Target branch : ${{ github.base_ref }}"
+          echo "Source branch : ${{ github.head_ref }}"
+          if [ "${{ github.head_ref }}" != "dev" ]; then
+            echo "❌ Direct PRs to main are prohibited. Merge to 'dev' first, then create a PR from 'dev' to 'main'."
+            exit 1
+          fi
+          echo "✅ PR origin validated: 'dev' -> 'main'"
