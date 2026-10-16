@@ -6,6 +6,15 @@ Powered by advanced Code-First GraphQL, NestJS, Next.js 15, and modular AI engin
 
 ---
 
+## Workspace Navigation & Implementation Roadmap
+
+- 📋 **[Master Implementation Plan & Live Progress Tracker](IMPLEMENTATION_PLAN.md)**: Current phase status, completed tasks, and upcoming implementation specifications for AI agents and developers.
+- 🎨 **[Design System & UI Architecture Dossier](DESIGN_SYSTEM_AND_UI_ARCHITECTURE.md)**: Master UI component hierarchy, package boundaries (@yuva-devlab/ui vs @vitalai/ui), page specifications, and visual tokens.
+- 📐 **[Agent Guidelines & Architecture Standards](AGENTS.md)**: Coding standards, package boundaries, GraphQL rules, and universal invariants.
+- 🏛️ **[Master Technical Dossier](PROJECT_INFO.md)**: Deep architectural dossier, database models, and persona design.
+
+---
+
 ## Workspace Coding Standards & Agent Guidelines (`.agents/AGENTS.md`)
 
 Before writing or modifying code in VitalAI, review the official [**`VitalAI Coding Standards & Agent Guidelines`**](.agents/AGENTS.md):
@@ -23,7 +32,7 @@ Before writing or modifying code in VitalAI, review the official [**`VitalAI Cod
 
 This monorepo follows a strict modular architecture governed by topic-specific rulebooks:
 
-- 🏛️ **[`00-core-invariants.md`](.agents/rules/00-core-invariants.md)**: Monorepo package boundaries, hard 250-line rule, and database seed safeguards.
+- 🏛️ **[`00-core-invariants.md`](.agents/rules/00-core-invariants.md)**: Monorepo package boundaries, hard 250-line rule, branch protection, and seed safeguards.
 - 💻 **[`01-frontend-web.md`](.agents/rules/01-frontend-web.md)**: SSR boundaries, GraphQL hooks, React Query caching, and `@vitalai/ui`.
 - ⚙️ **[`02-backend-api.md`](.agents/rules/02-backend-api.md)**: 5-layer NestJS architecture, Code-First GraphQL resolvers, DataLoaders, and SSE streaming.
 - 🤖 **[`03-ai-advisor.md`](.agents/rules/03-ai-advisor.md)**: Multi-persona ReAct agent loop, clinical guardrails, and two-phase write confirmations.
@@ -56,6 +65,8 @@ vitalai/
 │   ├── actions/                 # Composite GitHub Actions (setup-node-env)
 │   └── workflows/               # CI Pipeline & Pull Request Validation
 │
+├── DESIGN_SYSTEM_AND_UI_ARCHITECTURE.md # Master UI Architecture & Component Catalog
+├── IMPLEMENTATION_PLAN.md       # Master Roadmap & Progress Tracker
 ├── package.json                 # Root Workspace Scripts & Tooling
 ├── pnpm-workspace.yaml          # Monorepo Workspace Configuration & Package Overrides
 └── turbo.json                   # Turborepo Build & Task Cache Engine
