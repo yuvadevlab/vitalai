@@ -9,13 +9,13 @@
 
 All AI agents must inspect and adhere to the relevant topic rulebooks:
 
-| Topic                         | Rulebook                                                   | Primary Scope                                                      |
-| :---------------------------- | :--------------------------------------------------------- | :----------------------------------------------------------------- |
-| **Universal Core Invariants** | [`00-core-invariants.md`](.agents/rules/00-core-invariants.md)   | Monorepo boundaries, 250-line rule, branch protection, seed & string invariants |
-| **Frontend & Web**            | [`01-frontend-web.md`](.agents/rules/01-frontend-web.md)         | GraphQL client, React Query v5, Tailwind tokens, `@vitalai/ui`     |
-| **Backend API (GraphQL)**     | [`02-backend-api.md`](.agents/rules/02-backend-api.md)           | 5-layer NestJS, Code-First GraphQL, DataLoaders, SSE Streaming     |
-| **AI Advisor & Health Engine**| [`03-ai-advisor.md`](.agents/rules/03-ai-advisor.md)             | `@vitalai/ai-engine`, clinical personas, safety guardrails        |
-| **Testing Standards**         | [`04-testing-standards.md`](.agents/rules/04-testing-standards.md) | Vitest, mock contracts, zero test side-effects                     |
+| Topic                          | Rulebook                                                           | Primary Scope                                                                   |
+| :----------------------------- | :----------------------------------------------------------------- | :------------------------------------------------------------------------------ |
+| **Universal Core Invariants**  | [`00-core-invariants.md`](.agents/rules/00-core-invariants.md)     | Monorepo boundaries, 250-line rule, branch protection, seed & string invariants |
+| **Frontend & Web**             | [`01-frontend-web.md`](.agents/rules/01-frontend-web.md)           | GraphQL client, React Query v5, Tailwind tokens, `@vitalai/ui`                  |
+| **Backend API (GraphQL)**      | [`02-backend-api.md`](.agents/rules/02-backend-api.md)             | 5-layer NestJS, Code-First GraphQL, DataLoaders, SSE Streaming                  |
+| **AI Advisor & Health Engine** | [`03-ai-advisor.md`](.agents/rules/03-ai-advisor.md)               | `@vitalai/ai-engine`, clinical personas, safety guardrails                      |
+| **Testing Standards**          | [`04-testing-standards.md`](.agents/rules/04-testing-standards.md) | Vitest, mock contracts, zero test side-effects                                  |
 
 ---
 
@@ -43,7 +43,7 @@ All AI agents must inspect and adhere to the relevant topic rulebooks:
    - Reverse sync from `main` to `dev` is automated via `reverse-sync.yml`.
 5. **No Auto-Commit / Auto-Push Protocol (Mandatory User Approval)**:
    - **AGENTS MUST NEVER RUN `git commit` OR `git push` WITHOUT EXPLICIT USER CONSENT.**
-   - When an implementation is complete, the agent must STOP, provide a concise summary of the changes, and explicitly ask: *"Would you like me to commit these changes?"*.
+   - When an implementation is complete, the agent must STOP, provide a concise summary of the changes, and explicitly ask: _"Would you like me to commit these changes?"_.
    - Only execute commit and push commands after the user grants explicit permission.
 6. **Advanced GraphQL Architecture**:
    - Use Code-First GraphQL (`@nestjs/graphql`) with strongly typed ObjectTypes, InputTypes, and Args.

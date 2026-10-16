@@ -33,14 +33,14 @@ apps/api/src/modules/<feature>/
 
 ### Layer Responsibilities & Rules
 
-| Layer | Allowed | Forbidden |
-| :--- | :--- | :--- |
-| **1. Resolvers** (`*.resolver.ts`) | `@Query()`, `@Mutation()`, `@ResolveField()`, `@UseGuards(GqlAuthGuard)` | Direct Prisma queries, business calculations |
-| **2. DTOs** (`dto/`) | NestJS GraphQL decorators, re-exporting Zod types (`@vitalai/validation`) | Database queries, runtime business logic |
-| **3. Loaders** (`loaders/`) | Batch fetching entities by ID arrays via DataLoader | Business logic, direct controller handling |
-| **4. Repositories** (`repositories/`) | Prisma client queries, ordering, relations, cursor pagination | HTTP/GraphQL context, LLM API calls |
-| **5. Services** (`services/`) | Co-ordinating repositories, business checks, atomic workflows | Raw SQL queries, presentation formatting |
-| **6. Utils** (`utils/`) | Pure formulas, formatters (zero DB/IO) | Database access, HTTP calls |
+| Layer                                 | Allowed                                                                   | Forbidden                                    |
+| :------------------------------------ | :------------------------------------------------------------------------ | :------------------------------------------- |
+| **1. Resolvers** (`*.resolver.ts`)    | `@Query()`, `@Mutation()`, `@ResolveField()`, `@UseGuards(GqlAuthGuard)`  | Direct Prisma queries, business calculations |
+| **2. DTOs** (`dto/`)                  | NestJS GraphQL decorators, re-exporting Zod types (`@vitalai/validation`) | Database queries, runtime business logic     |
+| **3. Loaders** (`loaders/`)           | Batch fetching entities by ID arrays via DataLoader                       | Business logic, direct controller handling   |
+| **4. Repositories** (`repositories/`) | Prisma client queries, ordering, relations, cursor pagination             | HTTP/GraphQL context, LLM API calls          |
+| **5. Services** (`services/`)         | Co-ordinating repositories, business checks, atomic workflows             | Raw SQL queries, presentation formatting     |
+| **6. Utils** (`utils/`)               | Pure formulas, formatters (zero DB/IO)                                    | Database access, HTTP calls                  |
 
 ---
 

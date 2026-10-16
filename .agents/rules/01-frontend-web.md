@@ -34,6 +34,7 @@
 ## 3. Two-File Modal Pattern
 
 Every interactive creation/editing dialog follows the strict two-file pattern:
+
 1. **`<Entity>Dialog.tsx`**: Manages modal visibility, mutation hook binding, Zod `safeParse()` validation, and toast notifications.
 2. **`<Entity>Form.tsx`**: Pure presentation form using design system inputs (`<FormDialogField>`), receiving state and handlers via props.
 

@@ -46,6 +46,7 @@ Unlike single-purpose gym trackers or generic chat assistants that hallucinate d
 ## 3. Application Directory Breakdown
 
 ### 3.1. Web Application (`apps/web` — Port `3000`)
+
 - **Technology Stack**: Next.js 15 (App Router), React 19, Tailwind CSS v4, React Query v5, `@vitalai/ui`, `@yuva-devlab/tokens`.
 - **Feature Modules**:
   - **Health Vault**: Interactive management of medical conditions, orthopedic history, and pregnancy stages.
@@ -56,6 +57,7 @@ Unlike single-purpose gym trackers or generic chat assistants that hallucinate d
   - **Anatomy Visualizer**: Interactive SVG muscle heatmap highlighting primary drivers and secondary stabilizers.
 
 ### 3.2. API Gateway (`apps/api` — Port `4000`)
+
 - **Technology Stack**: NestJS 11, Fastify HTTP adapter, `@nestjs/graphql`, Prisma ORM.
 - **Advanced GraphQL Architecture**:
   - Code-First Schema definition using decorators (`@ObjectType()`, `@InputType()`, `@Resolver()`, `@Query()`, `@Mutation()`).
@@ -67,12 +69,12 @@ Unlike single-purpose gym trackers or generic chat assistants that hallucinate d
 
 ## 4. Package Directory Breakdown
 
-| Package | Purpose & Core Invariants |
-| :--- | :--- |
+| Package                     | Purpose & Core Invariants                                                                                                                                                                                                         |
+| :-------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`@vitalai/vital-engine`** | **Pure Functional Science Core**: Zero I/O, zero network calls. Computes TDEE, macro distributions, volume landmarks (MEV/MAV/MRV), purine indices, glycemic load values, and trimester-specific caloric and micronutrient needs. |
-| **`@vitalai/ai-engine`** | **Cognitive Advisory Harness**: Manages prompts, clinical personas, ReAct tool definitions, and immutable contraindication filters. |
-| **`@vitalai/shared-types`** | **Canonical Types & Enums**: Houses `LifeStage`, `HealthCondition`, `NutritionalGoal`, `WorkoutSplit`, `MuscleGroup`, `API_ENDPOINTS`, and `QUERY_KEYS`. |
-| **`@vitalai/validation`** | **Zod Schemas**: Centralized validation schemas for onboarding, health memories, workout set logging, and meal input. |
-| **`@vitalai/constants`** | **Domain Taxonomies**: 1,300+ Exercise library, food purine and glycemic tables, and trimester safety rules. |
-| **`@vitalai/database`** | **Prisma Client**: SQLite database schema definitions, repository interfaces, and migration configurations. |
-| **`@vitalai/ui`** | **Domain UI Primitives**: `<MuscleHighlighter />`, `<MacroRingGauge />`, `<HealthBadge />`, and `<TrimesterTimeline />`. |
+| **`@vitalai/ai-engine`**    | **Cognitive Advisory Harness**: Manages prompts, clinical personas, ReAct tool definitions, and immutable contraindication filters.                                                                                               |
+| **`@vitalai/shared-types`** | **Canonical Types & Enums**: Houses `LifeStage`, `HealthCondition`, `NutritionalGoal`, `WorkoutSplit`, `MuscleGroup`, `API_ENDPOINTS`, and `QUERY_KEYS`.                                                                          |
+| **`@vitalai/validation`**   | **Zod Schemas**: Centralized validation schemas for onboarding, health memories, workout set logging, and meal input.                                                                                                             |
+| **`@vitalai/constants`**    | **Domain Taxonomies**: 1,300+ Exercise library, food purine and glycemic tables, and trimester safety rules.                                                                                                                      |
+| **`@vitalai/database`**     | **Prisma Client**: SQLite database schema definitions, repository interfaces, and migration configurations.                                                                                                                       |
+| **`@vitalai/ui`**           | **Domain UI Primitives**: `<MuscleHighlighter />`, `<MacroRingGauge />`, `<HealthBadge />`, and `<TrimesterTimeline />`.                                                                                                          |

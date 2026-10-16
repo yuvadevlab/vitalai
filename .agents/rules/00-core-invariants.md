@@ -55,7 +55,7 @@ vitalai/
 2. **Standard Completion Workflow**:
    - Complete code modifications and test verifications on the active feature branch.
    - Stop calling tools and output a clear summary of all files changed.
-   - Explicitly ask the user: *"Would you like me to commit these changes?"*.
+   - Explicitly ask the user: _"Would you like me to commit these changes?"_.
    - Await explicit user approval before running `git commit` or `git push`.
 
 ---
