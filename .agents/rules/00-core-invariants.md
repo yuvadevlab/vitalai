@@ -34,7 +34,21 @@ vitalai/
 
 ---
 
-## 2. Hard Line-Count Rule — Maximum 250 Lines
+## 2. Git Branching & Protection Invariants (Zero Exceptions)
+
+1. **Direct Pushes Prohibited**: NEVER push directly to `main` or `dev`. Direct pushes to protected branches are strictly forbidden.
+2. **Feature Branch Mandate**: Always create and work in a dedicated branch:
+   - Features: `feat/<feature-name>`
+   - Bugfixes: `fix/<issue-name>`
+   - Maintenance: `chore/<task-name>`
+   - Documentation: `docs/<topic-name>`
+3. **Pull Request Target**: All feature and fix branches must target `dev` via Pull Request.
+4. **Promotion to Main**: `main` is strictly updated via Pull Request originating from `dev` (enforced by `validate-main-pr.yml`).
+5. **Reverse Synchronization**: Any merge into `main` automatically triggers `reverse-sync.yml` to create an automated synchronization PR back into `dev`.
+
+---
+
+## 3. Hard Line-Count Rule — Maximum 250 Lines
 
 1. **Strict 250-Line Maximum**: NO file in `apps/web`, `apps/api`, or packages may exceed **250 lines of code**.
 2. **Proactive Decomposition**: Whenever a file approaches or exceeds **200 lines**, immediately break it down:
@@ -44,7 +58,7 @@ vitalai/
 
 ---
 
-## 3. Zero-Hardcoding & Centralized Contract Catalogs
+## 4. Zero-Hardcoding & Centralized Contract Catalogs
 
 1. **No Raw String/Number Literals**:
    - **Route Paths**: Use `APP_ROUTES` and `API_ROUTES` from `@/lib/routes.ts`.
@@ -55,7 +69,7 @@ vitalai/
 
 ---
 
-## 4. Standardized Backend Logging (`.info`, `.warn`, `.error` ONLY)
+## 5. Standardized Backend Logging (`.info`, `.warn`, `.error` ONLY)
 
 1. **Strict Levels**: Use ONLY `.info`, `.warn`, and `.error` via `@yuva-devlab/logger`. NEVER use `.debug`, `.log`, `.verbose`, or `.trace`.
 2. **No Redundant Class Names**:
@@ -65,7 +79,7 @@ vitalai/
 
 ---
 
-## 5. Database & Seed Management Safeguards
+## 6. Database & Seed Management Safeguards
 
 ### CRITICAL: AI AGENTS MUST NEVER RUN SEED COMMANDS AUTOMATICALLY
 
