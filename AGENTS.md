@@ -2,6 +2,9 @@
 
 > **FOR ALL AI ASSISTANTS (Antigravity, GitHub Copilot, Claude Code):**
 > This repository uses a modular rules architecture. Master invariants are listed below, and domain-specific rulebooks are imported from `.agents/rules/`.
+>
+> 📋 **MASTER IMPLEMENTATION PLAN & PROGRESS TRACKER**:
+> Before starting any task, read [**`IMPLEMENTATION_PLAN.md`**](IMPLEMENTATION_PLAN.md) to know the current phase, completed tasks, and next immediate implementation steps.
 
 ---
 
