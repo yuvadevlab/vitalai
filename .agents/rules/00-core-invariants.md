@@ -49,7 +49,52 @@ vitalai/
 
 ---
 
-## 3. Hard Line-Count Rule — Maximum 250 Lines
+## 3. Commit & Push Safeguards (Mandatory User Confirmation)
+
+1. **Zero Auto-Commits / Zero Auto-Pushes**: AI agents are strictly forbidden from executing `git commit` or `git push` automatically without prior explicit confirmation.
+2. **Standard Completion Workflow**:
+   - Complete code modifications and test verifications on the active feature branch.
+   - Stop calling tools and output a clear summary of all files changed.
+   - Explicitly ask the user: *"Would you like me to commit these changes?"*.
+   - Await explicit user approval before running `git commit` or `git push`.
+
+---
+
+## 4. Database Seed Safeguards (Zero Auto-Seeding)
+
+### CRITICAL: AI AGENTS MUST NEVER RUN SEED COMMANDS WITHOUT EXPLICIT CONFIRMATION
+
+> **Agents MUST NOT execute `db:seed`, `prisma db seed`, or any seed-related command without explicit user confirmation.**
+
+1. If seed data is missing or stale, **inform the user** and ask before running:
+   ```bash
+   pnpm --filter @vitalai/database db:seed
+   ```
+2. Automatic or silent execution of seed scripts during initialization or test runs is strictly prohibited.
+
+---
+
+## 5. Zero-Hardcoding, Enums & Shared Types Invariants
+
+1. **Mandatory Canonical Enums from `@vitalai/shared-types`**:
+   - NEVER use bare string literals (e.g. `'T1'`, `'DIABETES'`, `'CHEST'`, `'active'`, `'pending'`).
+   - ALWAYS import and use canonical TypeScript enums:
+     - `LifeStage` (`LifeStage.PREGNANCY_T1`, `LifeStage.POSTPARTUM`)
+     - `HealthCondition` (`HealthCondition.DIABETES_T2`, `HealthCondition.HYPERURICEMIA_GOUT`)
+     - `MuscleGroup` (`MuscleGroup.CHEST`, `MuscleGroup.LATS`)
+     - `WorkoutSplit` (`WorkoutSplit.UPPER_LOWER`, `WorkoutSplit.PPL`)
+2. **Single Source of Truth for Types**:
+   - Never duplicate cross-package interfaces or contracts. All shared DTOs, query contracts, mutation inputs, and entity shapes MUST live in `@vitalai/shared-types`.
+3. **No Raw String Literals for Queries & Routes**:
+   - **React Query Keys**: Use `QUERY_KEYS` from `@vitalai/shared-types`. Always use `as const` tuples (`readonly (readonly unknown[])[]`). Never use raw string arrays like `["healthVault"]`.
+   - **API Endpoints**: Use `API_ENDPOINTS` from `@vitalai/shared-types`.
+   - **Route Paths**: Use `APP_ROUTES` and `API_ROUTES` from `@/lib/routes.ts`. Never hardcode raw URLs like `"/advisor"` or `"/advisor/${id}"`.
+4. **UI Copy Dictionaries**:
+   - Zero hardcoded user-facing strings in UI components. All labels, headers, button copy, and error messages MUST be imported from `@/lib/ui-copy/`.
+
+---
+
+## 6. Hard Line-Count Rule — Maximum 250 Lines
 
 1. **Strict 250-Line Maximum**: NO file in `apps/web`, `apps/api`, or packages may exceed **250 lines of code**.
 2. **Proactive Decomposition**: Whenever a file approaches or exceeds **200 lines**, immediately break it down:
@@ -59,34 +104,10 @@ vitalai/
 
 ---
 
-## 4. Zero-Hardcoding & Centralized Contract Catalogs
-
-1. **No Raw String/Number Literals**:
-   - **Route Paths**: Use `APP_ROUTES` and `API_ROUTES` from `@/lib/routes.ts`.
-   - **API Endpoints**: Use `API_ENDPOINTS` from `@vitalai/shared-types`.
-   - **React Query Keys**: Use `QUERY_KEYS` from `@vitalai/shared-types`. Always use `as const` tuples.
-   - **UI Copy Dictionaries**: Use `UI_COPY` from `@/lib/ui-copy/`. Zero hardcoded user-facing strings in UI components.
-   - **Enums**: Use canonical enums from `@vitalai/shared-types`.
-
----
-
-## 5. Standardized Backend Logging (`.info`, `.warn`, `.error` ONLY)
+## 7. Standardized Backend Logging (`.info`, `.warn`, `.error` ONLY)
 
 1. **Strict Levels**: Use ONLY `.info`, `.warn`, and `.error` via `@yuva-devlab/logger`. NEVER use `.debug`, `.log`, `.verbose`, or `.trace`.
 2. **No Redundant Class Names**:
    - `new Logger(ClassName.name)` already prepends `[ClassName]`.
    - Log payloads must NOT repeat the class name.
    - Prefix only with the method/action tag: `[methodName] message`.
-
----
-
-## 6. Database & Seed Management Safeguards
-
-### CRITICAL: AI AGENTS MUST NEVER RUN SEED COMMANDS AUTOMATICALLY
-
-> **Agents MUST NOT execute `db:seed`, `prisma db seed`, or any seed-related command without explicit user instruction.**
-
-1. If seed data is missing or stale, **inform the user** and provide the command for them to run manually:
-   ```bash
-   pnpm --filter @vitalai/database db:seed
-   ```
