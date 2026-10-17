@@ -304,6 +304,7 @@ model MealItem {
 
 model AdvisorPersona {
   id                 String           @id @default(uuid())
+  slug               String?          @unique
   userId             String?          @map("user_id")
   name               String
   title              String
@@ -312,6 +313,9 @@ model AdvisorPersona {
   tone               AdvisorTone
   specialties        String[]         @default([])
   systemInstructions String           @map("system_instructions")
+  modelConfig        Json?            @default("{}") @map("model_config")
+  enabledTools       String[]         @default([]) @map("enabled_tools")
+  sortOrder          Int              @default(0) @map("sort_order")
   isPrebuilt         Boolean          @default(false) @map("is_prebuilt")
   isActive           Boolean          @default(true) @map("is_active")
   createdAt          DateTime         @default(now()) @map("created_at")
@@ -322,6 +326,86 @@ model AdvisorPersona {
 
   @@index([userId, isActive])
   @@map("advisor_personas")
+}
+
+model LlmProvider {
+  id           String     @id @default(uuid())
+  name         String
+  slug         String     @unique
+  providerType String     @map("provider_type")
+  description  String?
+  baseUrl      String?    @map("base_url")
+  config       Json       @default("{}")
+  isEnabled    Boolean    @default(true) @map("is_enabled")
+  sortOrder    Int        @default(0) @map("sort_order")
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+  models       LlmModel[]
+
+  @@map("llm_providers")
+}
+
+model LlmModel {
+  id              String      @id @default(uuid())
+  providerId      String      @map("provider_id")
+  name            String
+  modelIdentifier String      @map("model_identifier")
+  description     String?
+  capabilities    Json        @default("{}")
+  defaultConfig   Json        @default("{}") @map("default_config")
+  contextWindow   Int         @default(8192) @map("context_window")
+  isDefault       Boolean     @default(false) @map("is_default")
+  isEnabled       Boolean     @default(true) @map("is_enabled")
+  sortOrder       Int         @default(0) @map("sort_order")
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
+  provider        LlmProvider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@unique([providerId, modelIdentifier])
+  @@map("llm_models")
+}
+
+model NavItem {
+  id        String   @id @default(uuid())
+  label     String
+  icon      String?
+  href      String
+  roles     String[] @default([])
+  section   String   @default("main")
+  isVisible Boolean  @default(true) @map("is_visible")
+  isEnabled Boolean  @default(true) @map("is_enabled")
+  sortOrder Int      @default(0) @map("sort_order")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("nav_items")
+}
+
+model PlatformConfig {
+  id          String   @id @default(uuid())
+  namespace   String
+  key         String
+  value       Json
+  description String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@unique([namespace, key])
+  @@map("platform_configs")
+}
+
+model SystemPromptTemplate {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  name        String
+  description String?
+  version     Int      @default(1)
+  content     String
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("system_prompt_templates")
 }
 
 model ChatMessage {

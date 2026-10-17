@@ -9,3 +9,4 @@ export * from "./health-condition.enum";
 export * from "./fitness.enum";
 export * from "./advisor.enum";
 export * from "./nutrition.enum";
+export * from "./platform.enum";

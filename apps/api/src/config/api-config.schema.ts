@@ -33,6 +33,43 @@ export const apiConfigSchema = z.object({
     .transform((val) => val !== "false")
     .default("true"),
   logLevel: z.enum(["info", "warn", "error"]).default("info"),
+
+  // Multi-LLM Provider & Model Configurations
+  aiProvider: z
+    .enum(["ollama", "groq", "google-ai-studio", "openrouter", "anthropic"])
+    .default("ollama"),
+  aiProviderAgent: z
+    .enum(["ollama", "groq", "google-ai-studio", "openrouter", "anthropic"])
+    .optional(),
+  aiProviderChat: z
+    .enum(["ollama", "groq", "google-ai-studio", "openrouter", "anthropic"])
+    .optional(),
+
+  // Ollama local AI configuration
+  ollamaBaseUrl: z.string().default("http://localhost:11434"),
+  ollamaModel: z.string().default("qwen3:8b"),
+  ollamaAgentModel: z.string().default("qwen3:14b"),
+
+  // Groq configuration
+  groqBaseUrl: z.string().default("https://api.groq.com"),
+  groqApiKey: z.string().optional(),
+  groqModel: z.string().default("llama-3.3-70b-versatile"),
+  groqAgentModel: z.string().optional(),
+
+  // Google AI Studio configuration
+  googleAiStudioBaseUrl: z.string().default("https://generativelanguage.googleapis.com"),
+  googleAiStudioApiKey: z.string().optional(),
+  googleAiStudioModel: z.string().default("gemini-2.0-flash"),
+
+  // OpenRouter configuration
+  openrouterBaseUrl: z.string().default("https://openrouter.ai/api"),
+  openrouterApiKey: z.string().optional(),
+  openrouterModel: z.string().optional(),
+
+  // Anthropic configuration
+  anthropicBaseUrl: z.string().optional(),
+  anthropicApiKey: z.string().optional(),
+  anthropicModel: z.string().default("claude-3-7-sonnet-latest"),
 });
 
 export type ApiConfig = z.infer<typeof apiConfigSchema>;

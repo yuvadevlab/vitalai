@@ -19,6 +19,7 @@ import { HealthConditionModule } from "./modules/health-condition/health-conditi
 import { WorkoutModule } from "./modules/workout/workout.module";
 import { NutritionModule } from "./modules/nutrition/nutrition.module";
 import { AdvisorModule } from "./modules/advisor/advisor.module";
+import { PlatformModule } from "./modules/platform/platform.module";
 import { AppController } from "./app.controller";
 import { AppResolver } from "./app.resolver";
 
@@ -35,6 +36,7 @@ import { AppResolver } from "./app.resolver";
     WorkoutModule,
     NutritionModule,
     AdvisorModule,
+    PlatformModule,
     GraphQLModule.forRootAsync<MercuriusDriverConfig>({
       driver: MercuriusDriver,
       imports: [DataLoaderModule],

@@ -22,6 +22,7 @@
     "@nestjs/platform-fastify": "^11.0.11",
     "@nestjs/swagger": "^11.2.4",
     "@nestjs/throttler": "^6.4.0",
+    "@vitalai/ai-engine": "workspace:*",
     "@vitalai/constants": "workspace:*",
     "@vitalai/database": "workspace:*",
     "@vitalai/shared-types": "workspace:*",

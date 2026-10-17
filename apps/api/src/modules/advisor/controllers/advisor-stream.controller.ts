@@ -35,27 +35,25 @@ export class AdvisorStreamController {
     reply.raw.setHeader("Connection", "keep-alive");
     reply.raw.setHeader("Access-Control-Allow-Origin", "*");
 
-    // 1. Emit Initial Reasoning Phase
-    const step1 = JSON.stringify({
-      type: "reasoning",
-      phase: "Health Vault Cross-Reference",
-      detail: "Scanning clinical contraindications and active injury records...",
+    const response = await this.service.streamUserMessage(user.id, body, {
+      onReasoningPhase: (phase, detail) => {
+        reply.raw.write(`data: ${JSON.stringify({ type: "reasoning", phase, detail })}\n\n`);
+      },
+      onToken: (token) => {
+        reply.raw.write(`data: ${JSON.stringify({ type: "token", token })}\n\n`);
+      },
     });
-    reply.raw.write(`data: ${step1}\n\n`);
 
-    // 2. Process query via service
-    const response = await this.service.processUserMessage(user.id, body);
-
-    // 3. Emit tokens
-    const step2 = JSON.stringify({
-      type: "token",
-      content: response.content,
-      advisor: response.advisor,
-    });
-    reply.raw.write(`data: ${step2}\n\n`);
-
-    // 4. Emit Completed Event
-    reply.raw.write(`data: ${JSON.stringify({ type: "done", messageId: response.id })}\n\n`);
+    reply.raw.write(
+      `data: ${JSON.stringify({
+        type: "done",
+        messageId: response.id,
+        content: response.content,
+        advisor: response.advisor,
+        reasoningTrace: response.reasoningTrace,
+        actionProposal: response.actionProposal,
+      })}\n\n`,
+    );
     reply.raw.end();
   }
 }
