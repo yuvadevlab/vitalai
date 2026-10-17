@@ -102,14 +102,24 @@ _Goal_: Build the foundational TypeScript packages containing zero I/O and zero 
 
 ---
 
-### Phase 2: Database & Persistence Layer (`STATUS: PENDING ⏳`)
+### Phase 2: Database & Persistence Layer (`STATUS: ACTIVE 🚀`)
 
-_Goal_: Create the PostgreSQL (`vitalai_dev`) database schema and Prisma repository interfaces.
+_Goal_: Create the PostgreSQL (`vitalai_dev`) database schema and Prisma repository interfaces supporting the complete UI architecture extracted from `friendly-error-pages-99f72791`.
 
 - [ ] Create `packages/database/package.json`, `tsconfig.json`, `prisma.config.ts`, and `prisma/schema.prisma`.
-- [ ] Configure PostgreSQL datasource with `DATABASE_URL` pointing to `vitalai_dev`.
-- [ ] Define PostgreSQL models with native UUIDs and Enums:
-  - `User`, `HealthMemory`, `Mesocycle`, `WorkoutSession`, `Exercise`, `SetLog`, `MealLog`, `ChatMessage`.
+- [ ] Configure PostgreSQL datasource with `DATABASE_URL=postgresql://localhost:5432/vitalai_dev?schema=public` (matching `finai_dev` & `orchestrai_dev`).
+- [ ] Define PostgreSQL models with native UUIDs, Enums, and arrays:
+  - `User`: Onboarding traits, caloric goals, activity level, available equipment (`availableEquipmentIds String[]`).
+  - `HealthMemory`: Category, severity, active flag, blacklisted movements, blacklisted ingredients, diagnosedAt.
+  - `Mesocycle`: 6-week periodization cycles, current week, phase (`baseline`, `overload`, `peak`, `deload`).
+  - `WorkoutSession`: Session name, day of week, completed status, estimated duration.
+  - `Exercise`: Muscle target, required equipment, default tempo, target sets/reps/RIR, notes.
+  - `SetLog`: Set number, target reps/RIR, actual reps/RIR, weightKg, completed, restSeconds.
+  - `ExerciseSwap`: Original exercise, proposed substitute, biomechanical rationale, trigger reason.
+  - `DailyMealPlan`: Date, macro targets, total water logged, daily purine total, glycemic summary.
+  - `MealItem`: Meal type, calories, protein, carbs, fats, purineMg, glycemicLoad, food tags.
+  - `AdvisorPersona`: Clinical/coaching personas (Elena, Marcus, Julian), avatar, tone, specialties, custom flag.
+  - `ChatMessage`: Role, content, advisorId, autoAssigned flag, reasoning trace JSON, action proposal JSON.
 - [ ] Implement typed repository classes with mandatory `userId` scoping:
   - `UserRepository`, `HealthMemoryRepository`, `WorkoutRepository`, `NutritionRepository`, `ChatRepository`.
 - [ ] Add Prisma migration scripts (`pnpm db:migrate`).
@@ -152,14 +162,18 @@ _Goal_: Build the multi-persona ReAct agent engine using local Ollama models.
 
 ### Phase 5: Domain UI Component System (`STATUS: PENDING ⏳`)
 
-_Goal_: Build presentation components and visual human anatomy maps in `@vitalai/ui`.
+_Goal_: Build presentation components and visual human anatomy maps in `@vitalai/ui`, elevating the prototypes from `friendly-error-pages-99f72791` into a high-craft, state-of-the-art design system using `@yuva-devlab/tokens`.
 
 - [ ] Create `packages/ui` linked to `@yuva-devlab/tokens`.
-- [ ] Build `<MuscleHighlighter />`: Pure SVG anterior and posterior human anatomy map with dynamic target highlights.
-- [ ] Build `<MacroRingGauge />`: Multi-ring circular visualizer for Calories, Protein, Carbs, and Fats.
-- [ ] Build `<HealthBadge />`: Medical condition and injury warning badges.
-- [ ] Build `<TrimesterTimeline />`: Gestational progress bar with week-by-week milestones.
-- [ ] Build `<RestTimer />`: Interactive interval timer for active gym sessions.
+- [ ] Build `<ReasoningTrace />`: Collapsible multi-phase AI clinical evaluation HUD with animated step indicators and timing.
+- [ ] Build `<SwapActionCard />`: Two-phase proposal card (original vs. proposed substitute) with Accept/Reject mutation triggers.
+- [ ] Build `<MultiRingGauge />`: Precision SVG multi-ring circular visualizer for Calories, Protein, Carbs, and Fats.
+- [ ] Build `<MuscleHighlighter />`: Interactive SVG anterior and posterior anatomy heatmap with dynamic primary/secondary muscle highlights.
+- [ ] Build `<ActiveWorkoutHUD />`: Live gym session interval rest timer with sound/vibration cues and set completion toggles.
+- [ ] Build `<EquipmentChecklist />`: Muscle Monster-style multi-select equipment selector for home and gym onboarding.
+- [ ] Build `<PurineSafetyGauge />`: Clinical purine meter highlighting Safe (<300mg), Caution (300-500mg), and High Risk zones.
+- [ ] Build `<GlycemicTimeline />`: Visual curve of postprandial glycemic load relative to peri-workout windows.
+- [ ] Build `<TrimesterTimeline />`: Gestational progress bar with week-by-week fetal milestones and safe movement guidance.
 
 ---
 
