@@ -1,0 +1,52 @@
+{
+  "name": "@vitalai/api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "nest start --watch",
+    "build": "nest build",
+    "start": "node dist/main.js",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
+    "clean": "rm -rf dist .turbo",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@fastify/cors": "^10.0.2",
+    "@fastify/helmet": "^13.0.1",
+    "@nestjs/common": "^11.0.11",
+    "@nestjs/core": "^11.0.11",
+    "@nestjs/graphql": "^13.1.0",
+    "@nestjs/mercurius": "^13.1.0",
+    "@nestjs/passport": "^11.0.5",
+    "@nestjs/platform-fastify": "^11.0.11",
+    "@nestjs/swagger": "^11.2.4",
+    "@nestjs/throttler": "^6.4.0",
+    "@vitalai/constants": "workspace:*",
+    "@vitalai/database": "workspace:*",
+    "@vitalai/shared-types": "workspace:*",
+    "@vitalai/validation": "workspace:*",
+    "@vitalai/vital-engine": "workspace:*",
+    "@yuva-devlab/auth-server": "^0.3.0",
+    "@yuva-devlab/logger": "^1.2.0",
+    "dataloader": "^2.2.3",
+    "dotenv": "^17.4.2",
+    "fastify": "^5.2.1",
+    "graphql": "^16.10.0",
+    "mercurius": "^16.0.1",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.5",
+    "@nestjs/schematics": "^11.0.5",
+    "@nestjs/testing": "^11.0.11",
+    "@types/node": "^22.13.8",
+    "@types/passport-jwt": "^4.0.1",
+    "typescript": "^5.9.2",
+    "vitest": "^3.0.7"
+  }
+}

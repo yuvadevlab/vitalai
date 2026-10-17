@@ -117,29 +117,29 @@ enum MessageRole {
 
 // ─── Models ─────────────────────────────────────────────────────────────────
 model User {
-  id                  String             @id @default(uuid())
-  email               String             @unique
+  id                  String         @id @default(uuid())
+  email               String         @unique
   name                String
-  passwordHash        String?            @map("password_hash")
-  avatarUrl           String?            @map("avatar_url")
-  onboardingCompleted Boolean            @default(false) @map("onboarding_completed")
-  biologicalSex       BiologicalSex?     @map("biological_sex")
-  activityLevel       ActivityLevel?     @map("activity_level")
-  caloricGoal         CaloricGoal?       @map("caloric_goal")
-  lifeStage           LifeStage          @default(general_adult) @map("life_stage")
-  weightKg            Float?             @map("weight_kg")
-  heightCm            Float?             @map("height_cm")
+  passwordHash        String?        @map("password_hash")
+  avatarUrl           String?        @map("avatar_url")
+  onboardingCompleted Boolean        @default(false) @map("onboarding_completed")
+  biologicalSex       BiologicalSex? @map("biological_sex")
+  activityLevel       ActivityLevel? @map("activity_level")
+  caloricGoal         CaloricGoal?   @map("caloric_goal")
+  lifeStage           LifeStage      @default(general_adult) @map("life_stage")
+  weightKg            Float?         @map("weight_kg")
+  heightCm            Float?         @map("height_cm")
   age                 Int?
-  availableEquipment  String[]           @default([]) @map("available_equipment")
-  isHomeGym           Boolean            @default(false) @map("is_home_gym")
-  createdAt           DateTime           @default(now()) @map("created_at")
-  updatedAt           DateTime           @updatedAt @map("updated_at")
+  availableEquipment  String[]       @default([]) @map("available_equipment")
+  isHomeGym           Boolean        @default(false) @map("is_home_gym")
+  createdAt           DateTime       @default(now()) @map("created_at")
+  updatedAt           DateTime       @updatedAt @map("updated_at")
 
-  healthConditions    HealthCondition[]
-  mesocycles          Mesocycle[]
-  mealPlans           DailyMealPlan[]
-  chatMessages        ChatMessage[]
-  advisorPersonas     AdvisorPersona[]
+  healthConditions HealthCondition[]
+  mesocycles       Mesocycle[]
+  mealPlans        DailyMealPlan[]
+  chatMessages     ChatMessage[]
+  advisorPersonas  AdvisorPersona[]
 
   @@map("users")
 }
