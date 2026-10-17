@@ -1,58 +1,63 @@
--- CreateEnum
-CREATE TYPE "BiologicalSex" AS ENUM ('MALE', 'FEMALE');
+-- CreateSchema
+CREATE SCHEMA IF NOT EXISTS "public";
 
 -- CreateEnum
-CREATE TYPE "ActivityLevel" AS ENUM ('SEDENTARY', 'LIGHTLY_ACTIVE', 'MODERATELY_ACTIVE', 'VERY_ACTIVE', 'EXTRA_ACTIVE');
+CREATE TYPE "BiologicalSex" AS ENUM ('male', 'female');
 
 -- CreateEnum
-CREATE TYPE "CaloricGoal" AS ENUM ('MAINTENANCE', 'DEFICIT', 'SURPLUS');
+CREATE TYPE "ActivityLevel" AS ENUM ('sedentary', 'lightly_active', 'moderately_active', 'very_active', 'extra_active');
 
 -- CreateEnum
-CREATE TYPE "LifeStage" AS ENUM ('GENERAL_ADULT', 'PRECONCEPTION', 'PREGNANCY_FIRST_TRIMESTER', 'PREGNANCY_SECOND_TRIMESTER', 'PREGNANCY_THIRD_TRIMESTER', 'POSTPARTUM_EARLY', 'POSTPARTUM_RECOVERY', 'LACTATION', 'MASTERS_ATHLETE');
+CREATE TYPE "CaloricGoal" AS ENUM ('maintenance', 'deficit', 'surplus');
 
 -- CreateEnum
-CREATE TYPE "ConditionCategory" AS ENUM ('ORTHOPEDIC', 'METABOLIC', 'CARDIOVASCULAR', 'HORMONAL', 'AUTOIMMUNE', 'DIGESTIVE');
+CREATE TYPE "LifeStage" AS ENUM ('general_adult', 'preconception', 'pregnancy_first_trimester', 'pregnancy_second_trimester', 'pregnancy_third_trimester', 'postpartum_early', 'postpartum_recovery', 'lactation', 'masters_athlete');
 
 -- CreateEnum
-CREATE TYPE "ConditionSeverity" AS ENUM ('OBSERVE', 'CAUTION', 'STRICT_CONTRAINDICATION');
+CREATE TYPE "ConditionCategory" AS ENUM ('orthopedic', 'metabolic', 'cardiovascular', 'hormonal', 'autoimmune', 'digestive');
 
 -- CreateEnum
-CREATE TYPE "MuscleGroup" AS ENUM ('CHEST', 'BACK', 'SHOULDERS', 'BICEPS', 'TRICEPS', 'QUADS', 'HAMSTRINGS', 'GLUTES', 'CALVES', 'CORE');
+CREATE TYPE "ConditionSeverity" AS ENUM ('observe', 'caution', 'strict_contraindication');
 
 -- CreateEnum
-CREATE TYPE "MesocyclePhase" AS ENUM ('BASELINE', 'OVERLOAD', 'PEAK', 'DELOAD');
+CREATE TYPE "MuscleGroup" AS ENUM ('chest', 'back', 'shoulders', 'biceps', 'triceps', 'quads', 'hamstrings', 'glutes', 'calves', 'core');
 
 -- CreateEnum
-CREATE TYPE "ExerciseCategory" AS ENUM ('COMPOUND', 'ACCESSORY', 'ISOLATION');
+CREATE TYPE "MesocyclePhase" AS ENUM ('baseline', 'overload', 'peak', 'deload');
 
 -- CreateEnum
-CREATE TYPE "SwapReason" AS ENUM ('MACHINE_OCCUPIED', 'JOINT_DISCOMFORT', 'TIME_CONSTRAINED', 'EQUIPMENT_MISSING');
+CREATE TYPE "ExerciseCategory" AS ENUM ('compound', 'accessory', 'isolation');
 
 -- CreateEnum
-CREATE TYPE "MealType" AS ENUM ('BREAKFAST', 'LUNCH', 'DINNER', 'SNACK', 'POST_WORKOUT');
+CREATE TYPE "SwapReason" AS ENUM ('machine_occupied', 'joint_discomfort', 'time_constrained', 'equipment_unavailable');
 
 -- CreateEnum
-CREATE TYPE "MessageRole" AS ENUM ('USER', 'ASSISTANT', 'SYSTEM');
+CREATE TYPE "MealType" AS ENUM ('breakfast', 'lunch', 'dinner', 'snack', 'post_workout');
 
 -- CreateEnum
-CREATE TYPE "AdvisorSpecialty" AS ENUM ('CLINICAL_NUTRITION', 'HYPERTROPHY_PERIODIZATION', 'MATERNAL_OBSTETRICS', 'ORTHOPEDIC_REHAB');
+CREATE TYPE "AdvisorSpecialty" AS ENUM ('clinical_nutrition', 'hypertrophy_periodization', 'physical_therapy_rehab', 'obstetric_health', 'general_longevity');
 
 -- CreateEnum
-CREATE TYPE "AdvisorTone" AS ENUM ('SCIENTIFIC_ANALYTICAL', 'EMPATHIC_NURTURING', 'DIRECT_TOUGH_LOVE');
+CREATE TYPE "AdvisorTone" AS ENUM ('scientific_analytical', 'direct_tough_love', 'empathetic_nurturing', 'stoic_concise');
+
+-- CreateEnum
+CREATE TYPE "MessageRole" AS ENUM ('user', 'assistant', 'system');
 
 -- CreateTable
 CREATE TABLE "users" (
-    "id" UUID NOT NULL,
+    "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "password_hash" TEXT,
     "avatar_url" TEXT,
+    "onboarding_completed" BOOLEAN NOT NULL DEFAULT false,
     "biological_sex" "BiologicalSex",
-    "age" INTEGER,
-    "height_cm" DOUBLE PRECISION,
-    "weight_kg" DOUBLE PRECISION,
     "activity_level" "ActivityLevel",
     "caloric_goal" "CaloricGoal",
-    "life_stage" "LifeStage" NOT NULL DEFAULT 'GENERAL_ADULT',
+    "life_stage" "LifeStage" NOT NULL DEFAULT 'general_adult',
+    "weight_kg" DOUBLE PRECISION,
+    "height_cm" DOUBLE PRECISION,
+    "age" INTEGER,
     "available_equipment" TEXT[] DEFAULT ARRAY[]::TEXT[],
     "is_home_gym" BOOLEAN NOT NULL DEFAULT false,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -63,8 +68,8 @@ CREATE TABLE "users" (
 
 -- CreateTable
 CREATE TABLE "health_conditions" (
-    "id" UUID NOT NULL,
-    "user_id" UUID NOT NULL,
+    "id" TEXT NOT NULL,
+    "user_id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "category" "ConditionCategory" NOT NULL,
     "severity" "ConditionSeverity" NOT NULL,
@@ -81,12 +86,12 @@ CREATE TABLE "health_conditions" (
 
 -- CreateTable
 CREATE TABLE "mesocycles" (
-    "id" UUID NOT NULL,
-    "user_id" UUID NOT NULL,
+    "id" TEXT NOT NULL,
+    "user_id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "current_week" INTEGER NOT NULL DEFAULT 1,
     "total_weeks" INTEGER NOT NULL DEFAULT 6,
-    "phase" "MesocyclePhase" NOT NULL DEFAULT 'BASELINE',
+    "phase" "MesocyclePhase" NOT NULL DEFAULT 'baseline',
     "active" BOOLEAN NOT NULL DEFAULT true,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
@@ -96,8 +101,8 @@ CREATE TABLE "mesocycles" (
 
 -- CreateTable
 CREATE TABLE "workout_sessions" (
-    "id" UUID NOT NULL,
-    "mesocycle_id" UUID NOT NULL,
+    "id" TEXT NOT NULL,
+    "mesocycle_id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "week_number" INTEGER NOT NULL,
     "day_number" INTEGER NOT NULL,
@@ -114,8 +119,8 @@ CREATE TABLE "workout_sessions" (
 
 -- CreateTable
 CREATE TABLE "prescribed_exercises" (
-    "id" UUID NOT NULL,
-    "session_id" UUID NOT NULL,
+    "id" TEXT NOT NULL,
+    "session_id" TEXT NOT NULL,
     "exercise_id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "target_muscle" "MuscleGroup" NOT NULL,
@@ -130,8 +135,8 @@ CREATE TABLE "prescribed_exercises" (
 
 -- CreateTable
 CREATE TABLE "set_logs" (
-    "id" UUID NOT NULL,
-    "prescribed_exercise_id" UUID NOT NULL,
+    "id" TEXT NOT NULL,
+    "prescribed_exercise_id" TEXT NOT NULL,
     "set_number" INTEGER NOT NULL,
     "target_reps" INTEGER NOT NULL,
     "actual_reps" INTEGER,
@@ -147,8 +152,8 @@ CREATE TABLE "set_logs" (
 
 -- CreateTable
 CREATE TABLE "exercise_swaps" (
-    "id" UUID NOT NULL,
-    "prescribed_exercise_id" UUID NOT NULL,
+    "id" TEXT NOT NULL,
+    "prescribed_exercise_id" TEXT NOT NULL,
     "original_exercise_id" TEXT NOT NULL,
     "proposed_exercise_id" TEXT NOT NULL,
     "original_name" TEXT NOT NULL,
@@ -164,8 +169,8 @@ CREATE TABLE "exercise_swaps" (
 
 -- CreateTable
 CREATE TABLE "daily_meal_plans" (
-    "id" UUID NOT NULL,
-    "user_id" UUID NOT NULL,
+    "id" TEXT NOT NULL,
+    "user_id" TEXT NOT NULL,
     "date" DATE NOT NULL,
     "target_calories" DOUBLE PRECISION NOT NULL,
     "target_protein" DOUBLE PRECISION NOT NULL,
@@ -181,8 +186,8 @@ CREATE TABLE "daily_meal_plans" (
 
 -- CreateTable
 CREATE TABLE "meal_items" (
-    "id" UUID NOT NULL,
-    "daily_meal_plan_id" UUID NOT NULL,
+    "id" TEXT NOT NULL,
+    "daily_meal_plan_id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "meal_type" "MealType" NOT NULL,
     "calories" DOUBLE PRECISION NOT NULL,
@@ -199,8 +204,8 @@ CREATE TABLE "meal_items" (
 
 -- CreateTable
 CREATE TABLE "advisor_personas" (
-    "id" UUID NOT NULL,
-    "user_id" UUID,
+    "id" TEXT NOT NULL,
+    "user_id" TEXT,
     "name" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "avatar" TEXT NOT NULL,
@@ -218,9 +223,9 @@ CREATE TABLE "advisor_personas" (
 
 -- CreateTable
 CREATE TABLE "chat_messages" (
-    "id" UUID NOT NULL,
-    "user_id" UUID NOT NULL,
-    "advisor_id" UUID,
+    "id" TEXT NOT NULL,
+    "user_id" TEXT NOT NULL,
+    "advisor_id" TEXT,
     "role" "MessageRole" NOT NULL,
     "content" TEXT NOT NULL,
     "auto_assigned" BOOLEAN NOT NULL DEFAULT false,
@@ -299,3 +304,4 @@ ALTER TABLE "chat_messages" ADD CONSTRAINT "chat_messages_user_id_fkey" FOREIGN 
 
 -- AddForeignKey
 ALTER TABLE "chat_messages" ADD CONSTRAINT "chat_messages_advisor_id_fkey" FOREIGN KEY ("advisor_id") REFERENCES "advisor_personas"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+

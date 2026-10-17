@@ -26,6 +26,6 @@ export default defineConfig({
   datasource: {
     url:
       process.env.DATABASE_URL ||
-      "postgresql://yuvarajpattabi:Yuva1213@localhost:5432/vitalai_dev?schema=public",
+      "postgresql://postgres:postgres@localhost:5432/vitalai_dev?schema=public",
   },
 });
