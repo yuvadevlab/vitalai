@@ -1,0 +1,103 @@
+@import "tailwindcss";
+@source "../**";
+@source "../../../../packages/ui";
+@source "../../node_modules/@yuva-devlab/ui";
+@source "../../node_modules/@vitalai/ui";
+
+@import "@yuva-devlab/tokens/preset.css";
+@import "@yuva-devlab/tokens/themes/vitalai.css";
+@import "@yuva-devlab/ui/styles.css";
+@import "@vitalai/ui/styles.css";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-sans), "Manrope", sans-serif;
+  --font-display: var(--font-display), "Sora", sans-serif;
+  --font-mono: var(--font-mono), "JetBrains Mono", monospace;
+  --color-calories: var(--calories);
+  --color-protein: var(--protein);
+  --color-carbs: var(--carbs);
+  --color-fats: var(--fats);
+  --color-water: var(--water);
+  --color-vital: var(--vital);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+
+  p {
+    line-height: 1.625;
+  }
+}
+
+/* ── Responsive Layout Container Tokens ──────────────────────────────────── */
+:root {
+  --page-padding-x: 1rem;
+  --page-padding-y: 1.25rem;
+  --page-max-width: 96rem;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --page-padding-x: 1.5rem;
+    --page-padding-y: 1.5rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  :root {
+    --page-padding-x: 2.5rem;
+    --page-padding-y: 2rem;
+    --page-max-width: 120rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --page-padding-x: 3.5rem;
+    --page-max-width: 160rem;
+  }
+}
+
+/* ── Vital Ambient Bioluminescent Grid Background ────────────────────────── */
+.vital-bg-matrix {
+  background-image:
+    radial-gradient(
+      ellipse 60% 40% at 50% -10%,
+      color-mix(in oklab, var(--primary) 18%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 40% 30% at 85% 90%,
+      color-mix(in oklab, var(--vital) 12%, transparent),
+      transparent 60%
+    );
+  background-attachment: fixed;
+}

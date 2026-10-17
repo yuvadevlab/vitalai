@@ -1,0 +1,22 @@
+@import "@yuva-devlab/tokens/preset.css";
+@import "@yuva-devlab/tokens/themes/vitalai.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-sans), "Manrope", sans-serif;
+  --font-display: var(--font-display), "Sora", sans-serif;
+  --font-mono: var(--font-mono), "JetBrains Mono", monospace;
+  --color-calories: var(--calories);
+  --color-protein: var(--protein);
+  --color-carbs: var(--carbs);
+  --color-fats: var(--fats);
+  --color-water: var(--water);
+  --color-vital: var(--vital);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+}
