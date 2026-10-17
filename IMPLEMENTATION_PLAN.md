@@ -22,16 +22,16 @@
 
 ## 2. Phase-by-Phase Roadmap Matrix
 
-| Phase       | Description                                            | Status                | Target Package / App                                               |
-| :---------- | :----------------------------------------------------- | :-------------------- | :----------------------------------------------------------------- |
-| **Phase 0** | Workspace Foundation, Tooling, CI/CD, Agent Guidelines | **COMPLETED ✅**      | Monorepo Root                                                      |
-| **Phase 1** | Deterministic Science & Domain Foundation Packages     | **READY TO START ⏳** | `packages/shared-types`, `vital-engine`, `constants`, `validation` |
-| **Phase 2** | Database & Persistence Layer (Prisma SQLite)           | **PENDING ⏳**        | `packages/database`                                                |
-| **Phase 3** | Backend API Gateway with Advanced Code-First GraphQL   | **PENDING ⏳**        | `apps/api`                                                         |
-| **Phase 4** | Cognitive AI Advisory Harness (Ollama Multi-Persona)   | **PENDING ⏳**        | `packages/ai-engine`                                               |
-| **Phase 5** | Domain UI Component System & Visual Heatmaps           | **PENDING ⏳**        | `packages/ui`                                                      |
-| **Phase 6** | Next.js 15 Web Application & Feature Modules           | **PENDING ⏳**        | `apps/web`                                                         |
-| **Phase 7** | End-to-End Verification, Performance & Hardening       | **PENDING ⏳**        | Full Monorepo                                                      |
+| Phase       | Description                                            | Status           | Target Package / App                                               |
+| :---------- | :----------------------------------------------------- | :--------------- | :----------------------------------------------------------------- |
+| **Phase 0** | Workspace Foundation, Tooling, CI/CD, Agent Guidelines | **COMPLETED ✅** | Monorepo Root                                                      |
+| **Phase 1** | Deterministic Science & Domain Foundation Packages     | **COMPLETED ✅** | `packages/shared-types`, `vital-engine`, `constants`, `validation` |
+| **Phase 2** | Database & Persistence Layer (Prisma PostgreSQL)       | **PENDING ⏳**   | `packages/database`                                                |
+| **Phase 3** | Backend API Gateway with Advanced Code-First GraphQL   | **PENDING ⏳**   | `apps/api`                                                         |
+| **Phase 4** | Cognitive AI Advisory Harness (Ollama Multi-Persona)   | **PENDING ⏳**   | `packages/ai-engine`                                               |
+| **Phase 5** | Domain UI Component System & Visual Heatmaps           | **PENDING ⏳**   | `packages/ui`                                                      |
+| **Phase 6** | Next.js 15 Web Application & Feature Modules           | **PENDING ⏳**   | `apps/web`                                                         |
+| **Phase 7** | End-to-End Verification, Performance & Hardening       | **PENDING ⏳**   | Full Monorepo                                                      |
 
 ---
 
@@ -104,10 +104,11 @@ _Goal_: Build the foundational TypeScript packages containing zero I/O and zero 
 
 ### Phase 2: Database & Persistence Layer (`STATUS: PENDING ⏳`)
 
-_Goal_: Create the single-file SQLite database schema and Prisma repository interfaces.
+_Goal_: Create the PostgreSQL (`vitalai_dev`) database schema and Prisma repository interfaces.
 
-- [ ] Create `packages/database/package.json`, `tsconfig.json`, and `prisma/schema.prisma`.
-- [ ] Define SQLite models:
+- [ ] Create `packages/database/package.json`, `tsconfig.json`, `prisma.config.ts`, and `prisma/schema.prisma`.
+- [ ] Configure PostgreSQL datasource with `DATABASE_URL` pointing to `vitalai_dev`.
+- [ ] Define PostgreSQL models with native UUIDs and Enums:
   - `User`, `HealthMemory`, `Mesocycle`, `WorkoutSession`, `Exercise`, `SetLog`, `MealLog`, `ChatMessage`.
 - [ ] Implement typed repository classes with mandatory `userId` scoping:
   - `UserRepository`, `HealthMemoryRepository`, `WorkoutRepository`, `NutritionRepository`, `ChatRepository`.
