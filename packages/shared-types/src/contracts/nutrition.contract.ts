@@ -4,7 +4,7 @@
  * @module @vitalai/shared-types
  */
 
-import { PurineRiskLevel, GlycemicLoadStatus, MealType } from "../enums";
+import { PurineRiskLevel, GlycemicLoadStatus, MealType, FoodTag } from "../enums";
 
 /**
  * Caloric and macronutrient distribution targets and logs.
@@ -34,7 +34,7 @@ export interface MealItem {
   readonly purineMg: number;
   /** Glycemic load (glycemic index * net carbs / 100) */
   readonly glycemicLoad: number;
-  readonly tags: readonly string[];
+  readonly tags: readonly (FoodTag | string)[];
 }
 
 /**
@@ -59,7 +59,7 @@ export interface PurineRiskReport {
   readonly safeCeilingMg: number;
   readonly isInSafeZone: boolean;
   readonly riskLevel: PurineRiskLevel;
-  readonly offendingFoods: readonly string[];
+  readonly offendingFoods: readonly (FoodTag | string)[];
 }
 
 /**

@@ -4,7 +4,7 @@
  * @module @vitalai/shared-types
  */
 
-import { MuscleGroup, MesocyclePhase, ExerciseCategory, SwapReason } from "../enums";
+import { MuscleGroup, MesocyclePhase, ExerciseCategory, SwapReason, ExerciseId } from "../enums";
 
 /**
  * Volume landmarks defined by scientific hypertrophy physiology (Dr. Mike Israetel).
@@ -19,6 +19,20 @@ export interface VolumeLandmarks {
   readonly mrv: number;
   /** Actual completed sets in the current rolling 7-day period */
   readonly currentWeeklySets: number;
+}
+
+/**
+ * Repetition cadence broken into eccentric, bottom pause, concentric, and top pause (seconds).
+ */
+export interface MovementTempo {
+  /** Seconds lowering the weight under controlled tension */
+  readonly eccentric: number;
+  /** Seconds pausing at the stretched/bottom excursion */
+  readonly pauseBottom: number;
+  /** Seconds lifting the load */
+  readonly concentric: number;
+  /** Seconds pausing at the peak contraction */
+  readonly pauseTop: number;
 }
 
 /**
@@ -40,13 +54,13 @@ export interface WorkoutSet {
  * Prescribed exercise with biomechanical loading specifications.
  */
 export interface Exercise {
-  readonly id: string;
+  readonly id: ExerciseId | string;
   readonly name: string;
   readonly targetMuscle: MuscleGroup;
   readonly secondaryMuscles: readonly MuscleGroup[];
   readonly category: ExerciseCategory;
   readonly sets: readonly WorkoutSet[];
-  readonly tempo: string;
+  readonly tempo: MovementTempo;
   readonly restSeconds: number;
   readonly notes?: string;
 }
@@ -69,7 +83,7 @@ export interface WorkoutSession {
  * Request payload for executing an AI Biomechanical Exercise Swap.
  */
 export interface ExerciseSwapRequest {
-  readonly currentExerciseId: string;
+  readonly currentExerciseId: ExerciseId | string;
   readonly sessionId: string;
   readonly reason: SwapReason;
   readonly notes?: string;

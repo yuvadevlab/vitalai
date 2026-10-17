@@ -4,7 +4,7 @@
  * @module @vitalai/shared-types
  */
 
-import { ConditionCategory, ConditionSeverity, GuardrailType } from "../enums";
+import { ConditionCategory, ConditionSeverity, GuardrailType, ExerciseId, FoodTag } from "../enums";
 
 /**
  * Active automated guardrail rule enforced by the AI reasoning engine.
@@ -41,6 +41,6 @@ export interface CreateHealthConditionDto {
   readonly severity: ConditionSeverity;
   readonly notes: string;
   readonly active: boolean;
-  readonly blacklistedMovements?: readonly string[];
-  readonly blacklistedIngredients?: readonly string[];
+  readonly blacklistedMovements?: readonly (ExerciseId | string)[];
+  readonly blacklistedIngredients?: readonly (FoodTag | string)[];
 }

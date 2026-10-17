@@ -1,8 +1,10 @@
 /**
  * @file packages/shared-types/src/enums/health-condition.enum.ts
- * @description Health Memory Vault classifications and clinical guardrail severities.
+ * @description Health Memory Vault classifications and clinical guardrail severities with UUID generation.
  * @module @vitalai/shared-types
  */
+
+import { generateCatalogUuid } from "../utils/uuid";
 
 /**
  * High-level clinical categories for private health conditions stored in the Health Memory Vault.
@@ -50,3 +52,15 @@ export enum GuardrailType {
   INGREDIENT_EXCLUDE = "ingredient_exclude",
   HYDRATION_SURPLUS = "hydration_surplus",
 }
+
+/**
+ * Canonical clinical condition identifier UUIDs generated via official RFC 4122 v5 standard.
+ */
+export const ConditionId = {
+  ROTATOR_CUFF_IMPINGEMENT: generateCatalogUuid("condition", "rotator_cuff_impingement"),
+  LUMBAR_DISC_BULGE: generateCatalogUuid("condition", "lumbar_disc_bulge"),
+  HYPERURICEMIA_GOUT: generateCatalogUuid("condition", "hyperuricemia_gout"),
+  TYPE_2_DIABETES: generateCatalogUuid("condition", "type_2_diabetes"),
+} as const;
+
+export type ConditionId = (typeof ConditionId)[keyof typeof ConditionId];
