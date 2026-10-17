@@ -67,3 +67,13 @@ export enum SwapReason {
   /** Gym lacks the specific equipment specified in the current workout plan */
   EQUIPMENT_MISSING = "equipment_missing",
 }
+
+/**
+ * Training volume status relative to hypertrophy landmarks (MEV, MAV, MRV).
+ */
+export enum VolumeStatus {
+  BELOW_MEV = "below_mev",
+  OPTIMAL_MAV = "optimal_mav",
+  APPROACHING_MRV = "approaching_mrv",
+  OVERREACHING = "overreaching",
+}

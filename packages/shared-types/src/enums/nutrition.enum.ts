@@ -42,3 +42,31 @@ export enum MealType {
   SNACK = "snack",
   POST_WORKOUT = "post_workout",
 }
+
+/**
+ * Physical activity multiplier tiers for TDEE expenditure calculations.
+ */
+export enum ActivityLevel {
+  SEDENTARY = "sedentary",
+  LIGHTLY_ACTIVE = "lightly_active",
+  MODERATELY_ACTIVE = "moderately_active",
+  VERY_ACTIVE = "very_active",
+  EXTRA_ACTIVE = "extra_active",
+}
+
+/**
+ * Biological sex baseline for Mifflin-St Jeor basal metabolic rate formulas.
+ */
+export enum BiologicalSex {
+  MALE = "male",
+  FEMALE = "female",
+}
+
+/**
+ * Primary caloric intake strategy relative to maintenance TDEE.
+ */
+export enum CaloricGoal {
+  MAINTENANCE = "maintenance",
+  DEFICIT = "deficit",
+  SURPLUS = "surplus",
+}
