@@ -51,7 +51,7 @@ vitalai/
 ├── packages/
 │   ├── ai-engine/               # Clinical Personas, Prompt Templates & ReAct Tool Planning
 │   ├── constants/               # Exercise Database, Food Nutrition & Purine Tables, Contraindications
-│   ├── database/                # Prisma ORM Engine, SQLite Schema & Migrations
+│   ├── database/                # Prisma ORM Engine, PostgreSQL Schema & Migrations
 │   ├── shared-types/            # Canonical Enums, DTO Interfaces, QUERY_KEYS, API_ENDPOINTS
 │   ├── ui/                      # Shared React UI Primitives, Muscle Heatmap & Macro Gauges
 │   ├── validation/              # Centralized Zod Validation Schemas
