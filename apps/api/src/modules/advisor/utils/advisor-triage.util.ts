@@ -5,7 +5,13 @@
  */
 
 import { type AdvisorPersona, type ChatMessage } from "@vitalai/database";
-import { AdvisorSpecialty, AdvisorTone, MessageRole } from "@vitalai/shared-types";
+import {
+  AdvisorSpecialty,
+  AdvisorTone,
+  MessageRole,
+  ClinicalReasoningPhase,
+} from "@vitalai/shared-types";
+import { DynamicAdvisorProfile } from "@vitalai/ai-engine";
 import {
   AdvisorPersonaResponse,
   ChatMessageResponse,
@@ -23,31 +29,64 @@ export function triageAdvisorQuery(
   personas: readonly AdvisorPersona[],
 ): AdvisorPersona {
   const q = query.toLowerCase();
+
   if (
     q.includes("pain") ||
     q.includes("joint") ||
     q.includes("hurt") ||
     q.includes("shoulder") ||
-    q.includes("swap")
+    q.includes("knee") ||
+    q.includes("rehab") ||
+    q.includes("tendon")
   ) {
-    return (
-      personas.find((p) => p.specialty === AdvisorSpecialty.PHYSICAL_THERAPY_REHAB) ?? personas[0]!
-    );
+    const match = personas.find((p) => p.specialty === AdvisorSpecialty.PHYSICAL_THERAPY_REHAB);
+    if (match) return match;
   }
+
+  if (
+    q.includes("pregnancy") ||
+    q.includes("postpartum") ||
+    q.includes("trimester") ||
+    q.includes("pelvic") ||
+    q.includes("gestational") ||
+    q.includes("breastfeeding") ||
+    q.includes("lactation")
+  ) {
+    const match = personas.find((p) => p.specialty === AdvisorSpecialty.OBSTETRIC_HEALTH);
+    if (match) return match;
+  }
+
   if (
     q.includes("purine") ||
     q.includes("food") ||
     q.includes("meal") ||
     q.includes("calorie") ||
-    q.includes("protein")
+    q.includes("protein") ||
+    q.includes("nutrition") ||
+    q.includes("diet") ||
+    q.includes("gout") ||
+    q.includes("glycemic")
   ) {
-    return (
-      personas.find((p) => p.specialty === AdvisorSpecialty.CLINICAL_NUTRITION) ?? personas[0]!
-    );
+    const match = personas.find((p) => p.specialty === AdvisorSpecialty.CLINICAL_NUTRITION);
+    if (match) return match;
   }
+
   return (
     personas.find((p) => p.specialty === AdvisorSpecialty.HYPERTROPHY_PERIODIZATION) ?? personas[0]!
   );
+}
+
+/**
+ * Converts a database AdvisorPersona record into the cognitive engine's DynamicAdvisorProfile.
+ */
+export function toAdvisorProfile(persona: AdvisorPersona): DynamicAdvisorProfile {
+  return {
+    id: persona.id,
+    name: persona.name,
+    title: persona.title,
+    systemInstructions: persona.systemInstructions,
+    enabledTools: persona.enabledTools,
+  };
 }
 
 /**
@@ -65,6 +104,20 @@ export function mapAdvisorPersona(p: AdvisorPersona): AdvisorPersonaResponse {
     isPrebuilt: p.isPrebuilt,
     isActive: p.isActive,
   };
+}
+
+/**
+ * Maps trace phases from the AI reasoning engine to GraphQL reasoning trace steps.
+ */
+export function mapTracePhasesToSteps(
+  phases: readonly ClinicalReasoningPhase[],
+): ReasoningTraceStep[] {
+  return phases.map((phase) => ({
+    phase: phase.title,
+    observation: phase.description,
+    evaluation: phase.passed ? "Verified clinical safety" : "Contraindication flagged",
+    timestamp: new Date().toISOString(),
+  }));
 }
 
 /**

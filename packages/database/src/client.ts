@@ -24,4 +24,5 @@ if (process.env.NODE_ENV !== "production") {
   globalThis.__vitalai_prisma__ = prisma;
 }
 
+export * from "@prisma/client";
 export { PrismaClient };

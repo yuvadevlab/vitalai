@@ -1,61 +1,39 @@
 /**
  * @file apps/api/src/modules/advisor/services/advisor.service.ts
- * @description Business logic service handling persona triage, clinical reasoning traces, and safety guardrails.
+ * @description Business logic service integrating @vitalai/ai-engine ReAct cognitive harness and dynamic database advisors.
  * @module @vitalai/api/advisor
  */
 
-import { Injectable, OnModuleInit } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { Logger } from "@yuva-devlab/logger";
-import {
-  type Prisma,
-  type AdvisorSpecialty as PrismaAdvisorSpecialty,
-  type AdvisorTone as PrismaAdvisorTone,
-  type MessageRole as PrismaMessageRole,
-} from "@vitalai/database";
-import { MessageRole } from "@vitalai/shared-types";
+import { type Prisma, type MessageRole as PrismaMessageRole } from "@vitalai/database";
+import { MessageRole, ConditionId, ExerciseId, FoodTag } from "@vitalai/shared-types";
+import { VitalAdvisorEngine, AdvisorStreamCallbacks } from "@vitalai/ai-engine";
+import { config, buildEngineConfig } from "../../../config";
 import { AdvisorRepository } from "../repositories/advisor.repository";
 import { HealthConditionService } from "../../health-condition/services/health-condition.service";
+import { HealthConditionResponse } from "../../health-condition/dto/health-condition.dto";
 import { encodeCursor, decodeCursor } from "../../../common/pagination/cursor.util";
-import { PREBUILT_PERSONAS } from "./advisor-persona-seed.util";
+import { AdvisorPersonaResponse, ChatMessageResponse, SendMessageInput } from "../dto";
 import {
-  AdvisorPersonaResponse,
-  ChatMessageResponse,
-  ReasoningTraceStep,
-  SendMessageInput,
-} from "../dto";
-import {
-  triageAdvisorQuery,
   mapAdvisorPersona,
   mapAdvisorMessage,
+  mapTracePhasesToSteps,
+  triageAdvisorQuery,
+  toAdvisorProfile,
 } from "../utils/advisor-triage.util";
 
 @Injectable()
-export class AdvisorService implements OnModuleInit {
+export class AdvisorService {
   private readonly logger = new Logger(AdvisorService.name);
+  private readonly engine: VitalAdvisorEngine;
 
   constructor(
     private readonly repository: AdvisorRepository,
     private readonly healthService: HealthConditionService,
-  ) {}
-
-  async onModuleInit() {
-    this.logger.info("[onModuleInit] Synchronizing prebuilt clinical advisor staff");
-    for (const persona of PREBUILT_PERSONAS) {
-      const existing = await this.repository.findPersonaById(persona.name);
-      if (!existing) {
-        await this.repository.createPersona({
-          name: persona.name,
-          title: persona.title,
-          avatar: persona.avatar,
-          specialty: persona.specialty as unknown as PrismaAdvisorSpecialty,
-          tone: persona.tone as unknown as PrismaAdvisorTone,
-          specialties: [...persona.specialties],
-          systemInstructions: persona.systemInstructions,
-          isPrebuilt: true,
-          isActive: true,
-        });
-      }
-    }
+  ) {
+    const engineConfig = buildEngineConfig(config);
+    this.engine = new VitalAdvisorEngine(engineConfig);
   }
 
   async getPersonas(userId: string): Promise<AdvisorPersonaResponse[]> {
@@ -68,32 +46,14 @@ export class AdvisorService implements OnModuleInit {
     return messages.map((m) => mapAdvisorMessage(m));
   }
 
-  async getChatHistoryPaginated(
-    userId: string,
-    first = 20,
-    afterCursor?: string,
-  ): Promise<{
-    edges: { cursor: string; node: ChatMessageResponse }[];
-    pageInfo: {
-      hasNextPage: boolean;
-      hasPreviousPage: boolean;
-      startCursor: string | null;
-      endCursor: string | null;
-    };
-    totalCount: number;
-  }> {
+  async getChatHistoryPaginated(userId: string, first = 20, afterCursor?: string) {
     const afterId = afterCursor ? decodeCursor(afterCursor) : undefined;
     const rawMessages = await this.repository.findChatHistoryPaginated(userId, first, afterId);
     const hasNextPage = rawMessages.length > first;
     const nodes = (hasNextPage ? rawMessages.slice(0, first) : rawMessages).map((m) =>
       mapAdvisorMessage(m),
     );
-
-    const edges = nodes.map((node) => ({
-      cursor: encodeCursor(node.id),
-      node,
-    }));
-
+    const edges = nodes.map((node) => ({ cursor: encodeCursor(node.id), node }));
     const totalCount = await this.repository.countChatMessages(userId);
 
     return {
@@ -108,6 +68,36 @@ export class AdvisorService implements OnModuleInit {
     };
   }
 
+  private async buildUserContext(userId: string) {
+    const conditions = await this.healthService.listConditions(userId, true);
+    const activeConditionIds: ConditionId[] = conditions
+      .filter((c: HealthConditionResponse) => c.active)
+      .map((c: HealthConditionResponse) => c.id as unknown as ConditionId);
+    const contraindications = await this.healthService.getActiveContraindications(userId);
+
+    return {
+      activeConditions: activeConditionIds,
+      blacklistedMovements: contraindications.blacklistedMovements as unknown as ExerciseId[],
+      blacklistedIngredients: contraindications.blacklistedIngredients as unknown as FoodTag[],
+    };
+  }
+
+  private async resolveAdvisor(userId: string, advisorId?: string, query?: string) {
+    if (advisorId) {
+      const match = await this.repository.findPersonaById(advisorId);
+      if (match) return match;
+    }
+
+    const personas = await this.repository.findAllPersonas(userId);
+    if (personas.length === 0) {
+      throw new Error(
+        "No active AI advisors found in the database. Please populate the database via `pnpm --filter @vitalai/database db:seed`.",
+      );
+    }
+
+    return query ? triageAdvisorQuery(query, personas) : personas[0]!;
+  }
+
   async processUserMessage(userId: string, input: SendMessageInput): Promise<ChatMessageResponse> {
     this.logger.info(`[processUserMessage] Processing query for user: ${userId}`);
 
@@ -118,40 +108,61 @@ export class AdvisorService implements OnModuleInit {
       autoAssigned: !input.advisorId,
     });
 
-    const personas = await this.repository.findAllPersonas(userId);
-    const selectedAdvisor = input.advisorId
-      ? (personas.find((p) => p.id === input.advisorId) ?? personas[0]!)
-      : triageAdvisorQuery(input.content, personas);
+    const context = await this.buildUserContext(userId);
+    const matchedAdvisor = await this.resolveAdvisor(userId, input.advisorId, input.content);
+    const advisorProfile = toAdvisorProfile(matchedAdvisor);
 
-    const contraindications = await this.healthService.getActiveContraindications(userId);
+    const advisory = await this.engine.generateAdvisory({
+      query: input.content,
+      advisor: advisorProfile,
+      context,
+    });
 
-    const now = new Date().toISOString();
-    const trace: ReasoningTraceStep[] = [
-      {
-        phase: "Health Vault Inspection",
-        observation: `Active restrictions: ${contraindications.blacklistedMovements.length} movements, ${contraindications.blacklistedIngredients.length} ingredients`,
-        evaluation: "Zero contraindication conflicts detected in prompt context",
-        timestamp: now,
-      },
-      {
-        phase: "Clinical Persona Dispatch",
-        observation: `Routed to ${selectedAdvisor.name} (${selectedAdvisor.title})`,
-        evaluation: `Specialty match aligned with query domain: ${selectedAdvisor.specialty}`,
-        timestamp: now,
-      },
-    ];
-
-    const replyContent = `[${selectedAdvisor.name}]: I have evaluated your request against your Health Vault records. Safe protocol recommendations applied.`;
+    const traceSteps = mapTracePhasesToSteps(advisory.trace.phases);
 
     const assistantMessage = await this.repository.createChatMessage({
       user: { connect: { id: userId } },
-      advisor: { connect: { id: selectedAdvisor.id } },
+      advisor: { connect: { id: matchedAdvisor.id } },
       role: MessageRole.ASSISTANT as unknown as PrismaMessageRole,
-      content: replyContent,
+      content: advisory.answer,
       autoAssigned: !input.advisorId,
-      reasoningTrace: trace as unknown as Prisma.InputJsonValue,
+      reasoningTrace: traceSteps as unknown as Prisma.InputJsonValue,
+      actionProposal: advisory.proposal as unknown as Prisma.InputJsonValue,
     });
 
-    return mapAdvisorMessage(assistantMessage, trace);
+    return mapAdvisorMessage(assistantMessage, traceSteps);
+  }
+
+  async streamUserMessage(
+    userId: string,
+    input: SendMessageInput,
+    callbacks: AdvisorStreamCallbacks,
+  ): Promise<ChatMessageResponse> {
+    this.logger.info(`[streamUserMessage] Streaming advisory for user: ${userId}`);
+
+    const context = await this.buildUserContext(userId);
+    const matchedAdvisor = await this.resolveAdvisor(userId, input.advisorId, input.content);
+    const advisorProfile = toAdvisorProfile(matchedAdvisor);
+
+    const advisory = await this.engine.streamAdvisory({
+      query: input.content,
+      advisor: advisorProfile,
+      context,
+      callbacks,
+    });
+
+    const traceSteps = mapTracePhasesToSteps(advisory.trace.phases);
+
+    const assistantMessage = await this.repository.createChatMessage({
+      user: { connect: { id: userId } },
+      advisor: { connect: { id: matchedAdvisor.id } },
+      role: MessageRole.ASSISTANT as unknown as PrismaMessageRole,
+      content: advisory.answer,
+      autoAssigned: !input.advisorId,
+      reasoningTrace: traceSteps as unknown as Prisma.InputJsonValue,
+      actionProposal: advisory.proposal as unknown as Prisma.InputJsonValue,
+    });
+
+    return mapAdvisorMessage(assistantMessage, traceSteps);
   }
 }
