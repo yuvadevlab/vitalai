@@ -66,7 +66,7 @@ export default tseslint.config(
     settings: {
       tailwindcss: {
         callees: ["cn", "cva"],
-        cssConfigPath: path.resolve(rootDir, "packages/ui/src/styles.css"),
+        cssConfigPath: path.resolve(rootDir, "apps/web/src/app/globals.css"),
       },
     },
   },
@@ -79,6 +79,9 @@ export default tseslint.config(
         ...globals.browser,
         ...globals.node,
       },
+      parserOptions: {
+        tsconfigRootDir: rootDir,
+      },
     },
     plugins: {
       "react-hooks": reactHooks,
@@ -86,19 +89,13 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      "no-restricted-imports": [
-        "error",
+      "no-console": "warn",
+      "react-refresh/only-export-components": [
+        "warn",
         {
-          paths: [
-            {
-              name: "server-only",
-              message: "TanStack Start does not use the Next.js `server-only` package.",
-            },
-          ],
+          allowConstantExport: true,
         },
       ],
-      "no-console": "warn",
-      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
       "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
       "max-lines": [
         "error",
@@ -120,6 +117,18 @@ export default tseslint.config(
           ignoreRegExpLiterals: true,
         },
       ],
+    },
+  },
+  {
+    files: [
+      "**/app/**/page.tsx",
+      "**/app/**/layout.tsx",
+      "**/app/**/loading.tsx",
+      "**/app/**/error.tsx",
+      "**/app/**/not-found.tsx",
+    ],
+    rules: {
+      "react-refresh/only-export-components": "off",
     },
   },
   eslintPluginPrettier,

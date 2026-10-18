@@ -1,0 +1,5 @@
+@import "tailwindcss";
+@source "../**";
+@source "../../../../packages/ui";
+@import "@vitalai/ui/styles.css";
+@import "tw-animate-css";
