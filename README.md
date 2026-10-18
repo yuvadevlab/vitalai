@@ -1,102 +1,92 @@
-# VitalAI — AI Health, Clinical Nutrition & Fitness Intelligence Monorepo
+# VitalAI — Enterprise AI Fitness & Health Coaching Platform
 
-VitalAI is an enterprise-grade, full-stack AI platform combining clinical nutrition therapy, life-stage advisory (maternal & prenatal care), and exercise science into a unified health intelligence system.
-
-Powered by advanced Code-First GraphQL, NestJS, Next.js 15, and modular AI engines, VitalAI delivers personalized, science-backed guidance with deterministic medical safety guardrails.
-
----
-
-## Workspace Navigation & Implementation Roadmap
-
-- 📋 **[Master Implementation Plan & Live Progress Tracker](IMPLEMENTATION_PLAN.md)**: Current phase status, completed tasks, and upcoming implementation specifications for AI agents and developers.
-- 🎨 **[Design System & UI Architecture Dossier](DESIGN_SYSTEM_AND_UI_ARCHITECTURE.md)**: Master UI component hierarchy, package boundaries (@yuva-devlab/ui vs @vitalai/ui), page specifications, and visual tokens.
-- 📐 **[Agent Guidelines & Architecture Standards](AGENTS.md)**: Coding standards, package boundaries, GraphQL rules, and universal invariants.
-- 🏛️ **[Master Technical Dossier](PROJECT_INFO.md)**: Deep architectural dossier, database models, and persona design.
+<p align="center">
+  <img src="https://img.shields.io/badge/Architecture-Polyglot_Monorepo-CCFF00?style=for-the-badge&logo=turborepo&logoColor=black" />
+  <img src="https://img.shields.io/badge/Backend-FastAPI_Python_3.12-00F0FF?style=for-the-badge&logo=fastapi&logoColor=black" />
+  <img src="https://img.shields.io/badge/Frontend-Next.js_15_/_React_19-white?style=for-the-badge&logo=next.js&logoColor=black" />
+  <img src="https://img.shields.io/badge/AI_Engine-LiteLLM_+_Instructor-FF3B30?style=for-the-badge&logo=openai&logoColor=white" />
+  <img src="https://img.shields.io/badge/Design-Muscle_Monster_Theme-CCFF00?style=for-the-badge" />
+</p>
 
 ---
 
-## Workspace Coding Standards & Agent Guidelines (`.agents/AGENTS.md`)
+## 1. Overview
 
-Before writing or modifying code in VitalAI, review the official [**`VitalAI Coding Standards & Agent Guidelines`**](.agents/AGENTS.md):
-
-- 📐 **2-File Feature Modal Pattern**: `<Entity>Form.tsx` (pure presentation) + `<Entity>Dialog.tsx` (Zod validation, GraphQL mutations).
-- 🧮 **Pure Science Engine**: `@vitalai/vital-engine` MUST contain **zero side-effects, zero network, and zero I/O**.
-- 📡 **Advanced GraphQL**: Code-First schema resolution (`@nestjs/graphql`), DataLoader batching to prevent N+1 queries, and SSE streaming for AI token delivery.
-- ✅ **Centralized Validation**: ALL validation schemas MUST reside in `@vitalai/validation` and use `.safeParse()`.
-- 🔄 **State & Cache**: Feature hooks under `src/features/<name>/api/` using `@tanstack/react-query` generated via GraphQL Code Generator.
-- 🎨 **Styling**: Tailwind CSS semantic color tokens (`bg-card`, `bg-background`, `border-border`, `text-primary`) and `@yuva-devlab/tokens`.
+**VitalAI** is a high-performance AI fitness and health coaching platform engineered for serious athletes and strength enthusiasts. Drawing visual inspiration from the raw, kinetic energy of **Muscle Monster**, VitalAI delivers scientific hypertrophy periodization, live active workout telemetry, real-time AI coach conversations, and page-level contextual intelligence.
 
 ---
 
-## Modular Architecture & Rulebooks (`.agents/rules/`)
+## 2. System Architecture
 
-This monorepo follows a strict modular architecture governed by topic-specific rulebooks:
-
-- 🏛️ **[`00-core-invariants.md`](.agents/rules/00-core-invariants.md)**: Monorepo package boundaries, hard 250-line rule, branch protection, and seed safeguards.
-- 💻 **[`01-frontend-web.md`](.agents/rules/01-frontend-web.md)**: SSR boundaries, GraphQL hooks, React Query caching, and `@vitalai/ui`.
-- ⚙️ **[`02-backend-api.md`](.agents/rules/02-backend-api.md)**: 5-layer NestJS architecture, Code-First GraphQL resolvers, DataLoaders, and SSE streaming.
-- 🤖 **[`03-ai-advisor.md`](.agents/rules/03-ai-advisor.md)**: Multi-persona ReAct agent loop, clinical guardrails, and two-phase write confirmations.
-- 🧪 **[`04-testing-standards.md`](.agents/rules/04-testing-standards.md)**: Vitest unit testing, mock contracts, and zero test side-effects.
-
----
-
-## Workspace Directory Map
-
-```text
+```
 vitalai/
 ├── apps/
-│   ├── web/                     # Next.js 15 App Router Frontend (Port 3000)
-│   └── api/                     # NestJS 11 GraphQL API Gateway & AI Orchestrator (Port 4000)
-│
+│   ├── api/                    # Python 3.12+ Enterprise AI Core Engine (FastAPI + Pydantic v2)
+│   └── web/                    # High-Performance Kinetic Frontend (React 19 / TanStack / Next.js)
 ├── packages/
-│   ├── ai-engine/               # Clinical Personas, Prompt Templates & ReAct Tool Planning
-│   ├── constants/               # Exercise Database, Food Nutrition & Purine Tables, Contraindications
-│   ├── database/                # Prisma ORM Engine, PostgreSQL Schema & Migrations
-│   ├── shared-types/            # Canonical Enums, DTO Interfaces, QUERY_KEYS, API_ENDPOINTS
-│   ├── ui/                      # Shared React UI Primitives, Muscle Heatmap & Macro Gauges
-│   ├── validation/              # Centralized Zod Validation Schemas
-│   └── vital-engine/            # Deterministic Exercise Science & Clinical Nutrition Math
-│
-├── .agents/
-│   ├── AGENTS.md                # Agent Guidelines Index
-│   └── rules/                   # Modular Architectural Rulebooks
-│
-├── .github/
-│   ├── actions/                 # Composite GitHub Actions (setup-node-env)
-│   └── workflows/               # CI Pipeline & Pull Request Validation
-│
-├── DESIGN_SYSTEM_AND_UI_ARCHITECTURE.md # Master UI Architecture & Component Catalog
-├── IMPLEMENTATION_PLAN.md       # Master Roadmap & Progress Tracker
-├── package.json                 # Root Workspace Scripts & Tooling
-├── pnpm-workspace.yaml          # Monorepo Workspace Configuration & Package Overrides
-└── turbo.json                   # Turborepo Build & Task Cache Engine
+│   ├── shared-types/           # Canonical TypeScript contracts & Zod schemas
+│   └── ui/                     # Design system tokens (Muscle Monster OKLCH theme)
+├── docs/                       # Staff-level engineering specifications
+│   ├── ARCHITECTURE.md         # End-to-end system topology & data flows
+│   ├── API_SPEC.md             # OpenAPI v1 & SSE streaming protocols
+│   └── MASTER_ROADMAP.md       # Phased implementation plan
+├── Makefile                    # Unified developer CLI automation
+├── docker-compose.yml          # PostgreSQL 16 (pgvector) + Redis 7
+├── turbo.json                  # Turborepo polyglot pipeline
+└── pnpm-workspace.yaml         # Node workspace definition
 ```
 
 ---
 
-## Getting Started
+## 3. Tech Stack
+
+- **Client Tier**: React 19 / Next.js 15, Tailwind CSS v4, Framer Motion, Zustand 5, Radix UI.
+- **Design Tokens**: Obsidian Carbon (`#08090C`), High-Voltage Neon Volt Green (`#CCFF00`), Cyber Cyan (`#00F0FF`), Ember Flame (`#FF3B30`).
+- **API Gateway Tier**: FastAPI 0.115+ (asynchronous ASGI), Pydantic v2 (Rust-backed validation).
+- **AI & Agentic Tier**: LiteLLM (Ollama local + Cloud Gemini 2.0 / Claude 3.5 Sonnet router), Instructor (guaranteed structured outputs), Server-Sent Events (SSE) token streaming.
+- **Data & Memory Tier**: PostgreSQL 16 with `pgvector` for hybrid semantic RAG, Redis 7 for ephemeral session caching.
+
+---
+
+## 4. Quickstart
 
 ### Prerequisites
 
-- **Node.js**: `>= 24.16.0`
-- **Package Manager**: `pnpm >= 10.0.0`
-- **Ollama**: Model runner listening on port `11434` with models installed (`qwen3:14b` / `qwen3:8b`)
+- Node.js >= 20 & `pnpm` >= 9
+- Python >= 3.11 & `uv` >= 0.5 (`curl -LsSf https://astral.sh/uv/install.sh | sh`)
+- Docker & Docker Compose (optional for local PostgreSQL + Redis)
 
-### Development Commands
+### Setup & Installation
 
 ```bash
-# Install all dependencies across the monorepo
-pnpm install
+# Clone and enter the repository
+git clone https://github.com/yuvadevlab/vitalai.git
+cd vitalai
 
-# Start all applications in watch mode (Web: 3000, API: 4000)
-pnpm dev
+# Install all dependencies across TypeScript and Python
+make install
 
-# Run comprehensive workspace verification (lint, typecheck, tests)
-pnpm check
+# Start local infrastructure (Postgres + Redis)
+make db-up
 
-# Generate GraphQL types and client hooks from schema
-pnpm codegen
-
-# Build all applications and packages for production
-pnpm build
+# Start the full stack in development mode
+make dev
 ```
+
+### Individual Service Commands
+
+```bash
+make api-dev   # Starts FastAPI backend on :4004 with auto-reload
+make web-dev   # Starts frontend application on :3000
+make test      # Runs backend (pytest) and frontend (vitest) tests
+make typecheck # Runs mypy (Python) and tsc (TypeScript)
+make lint      # Runs ruff check (Python) and eslint (TypeScript)
+```
+
+---
+
+## 5. Engineering Invariants
+
+- **Hard 250-Line Rule**: No source file may exceed 250 lines of code. Files approaching 200 lines are immediately decomposed.
+- **Zero Seed Runs**: Database seed commands must never be run automatically by CI or AI agents.
+- **Structured Logging**: `.info`, `.warn`, `.error` levels strictly enforced.

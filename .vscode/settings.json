@@ -54,5 +54,6 @@
     "**/.turbo": true,
     "**/dist": true,
     "**/__generated__": true
-  }
+  },
+  "python.defaultInterpreterPath": "${workspaceFolder}/apps/api/.venv/bin/python"
 }
