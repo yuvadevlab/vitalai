@@ -388,8 +388,8 @@ importers:
   packages/ui:
     dependencies:
       '@yuva-devlab/tokens':
-        specifier: link:../../../devlab-shared/packages/tokens
-        version: link:../../../devlab-shared/packages/tokens
+        specifier: ^1.3.0
+        version: 1.3.0
       '@yuva-devlab/ui':
         specifier: ^1.3.2
         version: 1.4.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(sonner@2.0.8(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))
@@ -3365,6 +3365,9 @@ packages:
 
   '@yuva-devlab/tokens@1.2.0':
     resolution: {integrity: sha512-wgt5w0ik5skcUe3nAsQVIOfxsZB6QsE2GWhCxlMEi0XHwqjELnuY7S1aJqU/LtgJBBec5uj1kG+TslvhbazS7g==}
+
+  '@yuva-devlab/tokens@1.3.0':
+    resolution: {integrity: sha512-yfAzbjekLngeI9gDyCN10DJpGxYzp0cgKJmlRfjnIrQNHGojZWk6PdCsuV0VP6W3UpoOHAVl+cd0DLnO9NPu7Q==}
 
   '@yuva-devlab/ui@1.4.0':
     resolution: {integrity: sha512-J8inbhnnlKs9p93hqYhxyotHvNHn+hTDdo5ECfkZyDVEJ3RmBApum2UTSwTFd4/FCHfnzE0FOOVzCRNvNx16HQ==}
@@ -9798,6 +9801,8 @@ snapshots:
       '@yuva-devlab/errors': 0.2.0
 
   '@yuva-devlab/tokens@1.2.0': {}
+
+  '@yuva-devlab/tokens@1.3.0': {}
 
   '@yuva-devlab/ui@1.4.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(sonner@2.0.8(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))':
     dependencies:
