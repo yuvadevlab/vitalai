@@ -53,9 +53,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
           };
 
           if (header.alg === "RS256") {
-            const portalApiUrl =
-              process.env.DEVLAB_PORTAL_API_URL || process.env.GATEWAY_URL || config.gatewayUrl;
-            getDevLabPublicKey(portalApiUrl, header.kid)
+            getDevLabPublicKey(config.portalApiUrl, header.kid)
               .then((pem) => done(null, pem))
               .catch((err) => {
                 this.logger.error("[secretOrKeyProvider] JWKS resolution failed", err);

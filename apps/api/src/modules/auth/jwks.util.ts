@@ -56,14 +56,12 @@ interface JwksResponse {
  * DevLab Portal API JWKS endpoint (`/.well-known/jwks.json`). Caches results in-memory
  * to prevent high-frequency network roundtrips during authentication.
  *
- * @param portalApiUrl - Base URL of the DevLab Portal API (defaults to DEVLAB_PORTAL_API_URL or http://localhost:3015)
+ * @param portalApiUrl - Base URL of the DevLab Portal API
  * @param kid - Optional key ID matching the JWT protected header
  * @returns RSA public key formatted as an SPKI PEM string
  */
 export async function getDevLabPublicKey(
-  portalApiUrl = process.env.DEVLAB_PORTAL_API_URL ||
-    process.env.GATEWAY_URL ||
-    "http://localhost:3015",
+  portalApiUrl = process.env.DEVLAB_PORTAL_API_URL || "http://localhost:3015",
   kid?: string,
 ): Promise<string> {
   const cacheKey = kid || "default";
