@@ -7,6 +7,7 @@
     "dev": "node --env-file-if-exists=.env.local --env-file-if-exists=.env node_modules/next/dist/bin/next dev",
     "build": "next build",
     "start": "node --env-file-if-exists=.env.local --env-file-if-exists=.env node_modules/next/dist/bin/next start",
+    "storybook": "storybook dev -p 6004",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run --passWithNoTests",
