@@ -12,8 +12,8 @@ VitalAI is organized into strict package boundaries. Never leak side-effects acr
 ```text
 vitalai/
 ├── apps/
-│   ├── web/                     # Next.js 15 App Router Frontend (Port 3000)
-│   └── api/                     # NestJS 11 GraphQL API & AI Engine Gateway (Port 4000)
+│   ├── web/                     # Next.js 15 App Router Frontend (Port 3004)
+│   └── api/                     # NestJS 11 GraphQL API & AI Engine Gateway (Port 4004)
 └── packages/
     ├── ai-engine/               # LLM prompts, clinical personas, prompt builders, tool definitions & guards
     ├── vital-engine/            # Pure mathematical calculation engine (zero DB, zero HTTP, zero I/O)
