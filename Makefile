@@ -5,7 +5,7 @@ help:
 	@echo "  make install      - Install both Node (pnpm) and Python (uv) dependencies"
 	@echo "  make dev          - Start full stack (FastAPI backend + Next.js frontend)"
 	@echo "  make api-dev      - Start FastAPI backend (:4004) with auto-reload"
-	@echo "  make web-dev      - Start Next.js frontend (:3000) with Turbopack"
+	@echo "  make web-dev      - Start Next.js frontend (:3004) with Turbopack"
 	@echo "  make test         - Run backend (pytest) and frontend (vitest) tests"
 	@echo "  make lint         - Lint codebase (ruff for Python, eslint for TS)"
 	@echo "  make typecheck    - Typecheck codebase (mypy for Python, tsc for TS)"

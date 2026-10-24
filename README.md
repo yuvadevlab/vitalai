@@ -77,7 +77,7 @@ make dev
 
 ```bash
 make api-dev   # Starts FastAPI backend on :4004 with auto-reload
-make web-dev   # Starts frontend application on :3000
+make web-dev   # Starts frontend application on :3004
 make test      # Runs backend (pytest) and frontend (vitest) tests
 make typecheck # Runs mypy (Python) and tsc (TypeScript)
 make lint      # Runs ruff check (Python) and eslint (TypeScript)

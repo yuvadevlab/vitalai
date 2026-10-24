@@ -23,13 +23,13 @@ Unlike single-purpose gym trackers or generic chat assistants that hallucinate d
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
 │                                VITALAI ARCHITECTURE                                    │
 └────────────────────────────────────────────────────────────────────────────────────────┘
-                 [Next.js 15 Web Dashboard (:3000) — apps/web]
+                 [Next.js 15 Web Dashboard (:3004) — apps/web]
                  (React 19, Tailwind v4, React Query v5, @vitalai/ui, @yuva-devlab/tokens)
                                           │
                                           ├───────────────┬────────────────┐
                             GraphQL POST  │               │ SSE Stream     │
                                           ▼               ▼                │
-                   [NestJS 11 API Gateway (:4000) — apps/api]              │
+                   [NestJS 11 API Gateway (:4004) — apps/api]              │
                    (Fastify Engine, Prisma ORM, 5-Layer Architecture)      │
        ┌──────────────────────────────────┼────────────────────────────────┼─┐
        ▼                                  ▼                                  ▼
@@ -45,7 +45,7 @@ Unlike single-purpose gym trackers or generic chat assistants that hallucinate d
 
 ## 3. Application Directory Breakdown
 
-### 3.1. Web Application (`apps/web` — Port `3000`)
+### 3.1. Web Application (`apps/web` — Port `3004`, Prod: `3014`)
 
 - **Technology Stack**: Next.js 15 (App Router), React 19, Tailwind CSS v4, React Query v5, `@vitalai/ui`, `@yuva-devlab/tokens`.
 - **Feature Modules**:
@@ -56,7 +56,7 @@ Unlike single-purpose gym trackers or generic chat assistants that hallucinate d
   - **Maternal Care**: Trimester timeline, fetal development tracking, and safe movement screening.
   - **Anatomy Visualizer**: Interactive SVG muscle heatmap highlighting primary drivers and secondary stabilizers.
 
-### 3.2. API Gateway (`apps/api` — Port `4000`)
+### 3.2. API Gateway (`apps/api` — Port `4004`, Prod: `4014`)
 
 - **Technology Stack**: NestJS 11, Fastify HTTP adapter, `@nestjs/graphql`, Prisma ORM.
 - **Advanced GraphQL Architecture**:
