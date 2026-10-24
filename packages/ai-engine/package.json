@@ -1,0 +1,39 @@
+{
+  "name": "@vitalai/ai-engine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Multi-persona ReAct cognitive advisory harness with multi-LLM provider switching, deterministic math tool integration, and Tier-1 clinical safety guardrails",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "test": "echo \"ai-engine tests skipped\""
+  },
+  "dependencies": {
+    "@vitalai/constants": "workspace:*",
+    "@vitalai/prompts": "workspace:*",
+    "@vitalai/shared-types": "workspace:*",
+    "@vitalai/validation": "workspace:*",
+    "@vitalai/vital-engine": "workspace:*",
+    "@yuva-devlab/ai-client": "^0.2.0",
+    "@yuva-devlab/logger": "^1.2.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.2"
+  }
+}

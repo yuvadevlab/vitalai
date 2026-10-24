@@ -1,0 +1,68 @@
+@import "@yuva-devlab/tokens/preset.css";
+@import "@yuva-devlab/tokens/themes/vitalai.css";
+@import "@yuva-devlab/ui/styles.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Barlow Condensed", "Inter Variable", sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    background-image:
+      radial-gradient(
+        60rem 30rem at 85% -10%,
+        color-mix(in oklab, var(--volt) 9%, transparent),
+        transparent 60%
+      ),
+      radial-gradient(
+        40rem 30rem at -10% 110%,
+        color-mix(in oklab, var(--cyan) 7%, transparent),
+        transparent 60%
+      );
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+}
+
+@utility glass {
+  background: var(--card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2xl);
+}
+@utility glow-volt {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--volt) 40%, transparent),
+    0 10px 40px -8px color-mix(in oklab, var(--volt) 55%, transparent);
+}
+@utility bg-gradient-volt {
+  background-image: linear-gradient(
+    135deg,
+    var(--volt),
+    color-mix(in oklab, var(--volt) 60%, var(--cyan))
+  );
+}
+@utility font-display-x {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
+}
+@utility tabular {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+@utility text-glow {
+  text-shadow: 0 0 24px color-mix(in oklab, var(--volt) 60%, transparent);
+}

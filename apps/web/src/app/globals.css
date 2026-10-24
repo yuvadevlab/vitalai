@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter/wght.css";
+@import "@fontsource-variable/jetbrains-mono/wght.css";
+@import "@fontsource/barlow-condensed/latin-700.css";
+@import "@fontsource/barlow-condensed/latin-800.css";
+@import "@fontsource/barlow-condensed/latin-900.css";
+@source "../**";
+@source "../../../../packages/ui";
+@import "@vitalai/ui/styles.css";
+@import "tw-animate-css";

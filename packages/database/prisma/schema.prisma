@@ -1,0 +1,427 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Enums ──────────────────────────────────────────────────────────────────
+enum BiologicalSex {
+  male
+  female
+}
+
+enum ActivityLevel {
+  sedentary
+  lightly_active
+  moderately_active
+  very_active
+  extra_active
+}
+
+enum CaloricGoal {
+  maintenance
+  deficit
+  surplus
+}
+
+enum LifeStage {
+  general_adult
+  preconception
+  pregnancy_first_trimester
+  pregnancy_second_trimester
+  pregnancy_third_trimester
+  postpartum_early
+  postpartum_recovery
+  lactation
+  masters_athlete
+}
+
+enum ConditionCategory {
+  orthopedic
+  metabolic
+  cardiovascular
+  hormonal
+  autoimmune
+  digestive
+}
+
+enum ConditionSeverity {
+  observe
+  caution
+  strict_contraindication
+}
+
+enum MuscleGroup {
+  chest
+  back
+  shoulders
+  biceps
+  triceps
+  quads
+  hamstrings
+  glutes
+  calves
+  core
+}
+
+enum MesocyclePhase {
+  baseline
+  overload
+  peak
+  deload
+}
+
+enum ExerciseCategory {
+  compound
+  accessory
+  isolation
+}
+
+enum SwapReason {
+  machine_occupied
+  joint_discomfort
+  time_constrained
+  equipment_unavailable
+}
+
+enum MealType {
+  breakfast
+  lunch
+  dinner
+  snack
+  post_workout
+}
+
+enum AdvisorSpecialty {
+  clinical_nutrition
+  hypertrophy_periodization
+  physical_therapy_rehab
+  obstetric_health
+  general_longevity
+}
+
+enum AdvisorTone {
+  scientific_analytical
+  direct_tough_love
+  empathetic_nurturing
+  stoic_concise
+}
+
+enum MessageRole {
+  user
+  assistant
+  system
+}
+
+// ─── Models ─────────────────────────────────────────────────────────────────
+model User {
+  id                  String         @id @default(uuid())
+  email               String         @unique
+  name                String
+  passwordHash        String?        @map("password_hash")
+  avatarUrl           String?        @map("avatar_url")
+  onboardingCompleted Boolean        @default(false) @map("onboarding_completed")
+  biologicalSex       BiologicalSex? @map("biological_sex")
+  activityLevel       ActivityLevel? @map("activity_level")
+  caloricGoal         CaloricGoal?   @map("caloric_goal")
+  lifeStage           LifeStage      @default(general_adult) @map("life_stage")
+  weightKg            Float?         @map("weight_kg")
+  heightCm            Float?         @map("height_cm")
+  age                 Int?
+  availableEquipment  String[]       @default([]) @map("available_equipment")
+  isHomeGym           Boolean        @default(false) @map("is_home_gym")
+  createdAt           DateTime       @default(now()) @map("created_at")
+  updatedAt           DateTime       @updatedAt @map("updated_at")
+
+  healthConditions HealthCondition[]
+  mesocycles       Mesocycle[]
+  mealPlans        DailyMealPlan[]
+  chatMessages     ChatMessage[]
+  advisorPersonas  AdvisorPersona[]
+
+  @@map("users")
+}
+
+model HealthCondition {
+  id                     String            @id @default(uuid())
+  userId                 String            @map("user_id")
+  name                   String
+  category               ConditionCategory
+  severity               ConditionSeverity
+  notes                  String            @default("")
+  active                 Boolean           @default(true)
+  blacklistedMovements   String[]          @default([]) @map("blacklisted_movements")
+  blacklistedIngredients String[]          @default([]) @map("blacklisted_ingredients")
+  diagnosedAt            DateTime?         @map("diagnosed_at")
+  createdAt              DateTime          @default(now()) @map("created_at")
+  updatedAt              DateTime          @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, active])
+  @@map("health_conditions")
+}
+
+model Mesocycle {
+  id          String         @id @default(uuid())
+  userId      String         @map("user_id")
+  name        String
+  currentWeek Int            @default(1) @map("current_week")
+  totalWeeks  Int            @default(6) @map("total_weeks")
+  phase       MesocyclePhase @default(baseline)
+  active      Boolean        @default(true)
+  createdAt   DateTime       @default(now()) @map("created_at")
+  updatedAt   DateTime       @updatedAt @map("updated_at")
+
+  user     User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessions WorkoutSession[]
+
+  @@index([userId, active])
+  @@map("mesocycles")
+}
+
+model WorkoutSession {
+  id                    String         @id @default(uuid())
+  mesocycleId           String         @map("mesocycle_id")
+  name                  String
+  weekNumber            Int            @map("week_number")
+  dayNumber             Int            @map("day_number")
+  phase                 MesocyclePhase
+  estimatedDurationMins Int            @default(60) @map("estimated_duration_mins")
+  completed             Boolean        @default(false)
+  completedAt           DateTime?      @map("completed_at")
+  notes                 String?
+  createdAt             DateTime       @default(now()) @map("created_at")
+  updatedAt             DateTime       @updatedAt @map("updated_at")
+
+  mesocycle Mesocycle            @relation(fields: [mesocycleId], references: [id], onDelete: Cascade)
+  exercises PrescribedExercise[]
+
+  @@index([mesocycleId, weekNumber])
+  @@map("workout_sessions")
+}
+
+model PrescribedExercise {
+  id           String           @id @default(uuid())
+  sessionId    String           @map("session_id")
+  exerciseId   String           @map("exercise_id")
+  name         String
+  targetMuscle MuscleGroup      @map("target_muscle")
+  category     ExerciseCategory
+  orderIndex   Int              @default(0) @map("order_index")
+  tempo        String           @default("3-0-1-0")
+  restSeconds  Int              @default(90) @map("rest_seconds")
+  notes        String?
+
+  session WorkoutSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  sets    SetLog[]
+  swaps   ExerciseSwap[]
+
+  @@index([sessionId, orderIndex])
+  @@map("prescribed_exercises")
+}
+
+model SetLog {
+  id                   String    @id @default(uuid())
+  prescribedExerciseId String    @map("prescribed_exercise_id")
+  setNumber            Int       @map("set_number")
+  targetReps           Int       @map("target_reps")
+  actualReps           Int?      @map("actual_reps")
+  targetRir            Float     @map("target_rir")
+  actualRir            Float?    @map("actual_rir")
+  weightKg             Float?    @map("weight_kg")
+  completed            Boolean   @default(false)
+  restSeconds          Int       @default(90) @map("rest_seconds")
+  completedAt          DateTime? @map("completed_at")
+
+  exercise PrescribedExercise @relation(fields: [prescribedExerciseId], references: [id], onDelete: Cascade)
+
+  @@index([prescribedExerciseId, setNumber])
+  @@map("set_logs")
+}
+
+model ExerciseSwap {
+  id                     String     @id @default(uuid())
+  prescribedExerciseId   String     @map("prescribed_exercise_id")
+  originalExerciseId     String     @map("original_exercise_id")
+  proposedExerciseId     String     @map("proposed_exercise_id")
+  originalName           String     @map("original_name")
+  proposedName           String     @map("proposed_name")
+  reason                 SwapReason
+  biomechanicalRationale String     @map("biomechanical_rationale")
+  fatigueReductionFactor Float      @default(1.0) @map("fatigue_reduction_factor")
+  accepted               Boolean    @default(false)
+  createdAt              DateTime   @default(now()) @map("created_at")
+
+  exercise PrescribedExercise @relation(fields: [prescribedExerciseId], references: [id], onDelete: Cascade)
+
+  @@index([prescribedExerciseId])
+  @@map("exercise_swaps")
+}
+
+model DailyMealPlan {
+  id             String   @id @default(uuid())
+  userId         String   @map("user_id")
+  date           DateTime @db.Date
+  targetCalories Float    @map("target_calories")
+  targetProtein  Float    @map("target_protein")
+  targetCarbs    Float    @map("target_carbs")
+  targetFats     Float    @map("target_fats")
+  targetWaterMl  Float    @map("target_water_ml")
+  waterLoggedMl  Float    @default(0) @map("water_logged_ml")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  user  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  meals MealItem[]
+
+  @@unique([userId, date])
+  @@index([userId, date])
+  @@map("daily_meal_plans")
+}
+
+model MealItem {
+  id              String   @id @default(uuid())
+  dailyMealPlanId String   @map("daily_meal_plan_id")
+  name            String
+  mealType        MealType @map("meal_type")
+  calories        Float
+  protein         Float
+  carbs           Float
+  fats            Float
+  purineMg        Float    @default(0) @map("purine_mg")
+  glycemicLoad    Float    @default(0) @map("glycemic_load")
+  tags            String[] @default([])
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  plan DailyMealPlan @relation(fields: [dailyMealPlanId], references: [id], onDelete: Cascade)
+
+  @@index([dailyMealPlanId])
+  @@map("meal_items")
+}
+
+model AdvisorPersona {
+  id                 String           @id @default(uuid())
+  slug               String?          @unique
+  userId             String?          @map("user_id")
+  name               String
+  title              String
+  avatar             String
+  specialty          AdvisorSpecialty
+  tone               AdvisorTone
+  specialties        String[]         @default([])
+  systemInstructions String           @map("system_instructions")
+  modelConfig        Json?            @default("{}") @map("model_config")
+  enabledTools       String[]         @default([]) @map("enabled_tools")
+  sortOrder          Int              @default(0) @map("sort_order")
+  isPrebuilt         Boolean          @default(false) @map("is_prebuilt")
+  isActive           Boolean          @default(true) @map("is_active")
+  createdAt          DateTime         @default(now()) @map("created_at")
+  updatedAt          DateTime         @updatedAt @map("updated_at")
+
+  user         User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chatMessages ChatMessage[]
+
+  @@index([userId, isActive])
+  @@map("advisor_personas")
+}
+
+model LlmProvider {
+  id           String     @id @default(uuid())
+  name         String
+  slug         String     @unique
+  providerType String     @map("provider_type")
+  description  String?
+  baseUrl      String?    @map("base_url")
+  config       Json       @default("{}")
+  isEnabled    Boolean    @default(true) @map("is_enabled")
+  sortOrder    Int        @default(0) @map("sort_order")
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+  models       LlmModel[]
+
+  @@map("llm_providers")
+}
+
+model LlmModel {
+  id              String      @id @default(uuid())
+  providerId      String      @map("provider_id")
+  name            String
+  modelIdentifier String      @map("model_identifier")
+  description     String?
+  capabilities    Json        @default("{}")
+  defaultConfig   Json        @default("{}") @map("default_config")
+  contextWindow   Int         @default(8192) @map("context_window")
+  isDefault       Boolean     @default(false) @map("is_default")
+  isEnabled       Boolean     @default(true) @map("is_enabled")
+  sortOrder       Int         @default(0) @map("sort_order")
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
+  provider        LlmProvider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@unique([providerId, modelIdentifier])
+  @@map("llm_models")
+}
+
+model NavItem {
+  id        String   @id @default(uuid())
+  label     String
+  icon      String?
+  href      String
+  roles     String[] @default([])
+  section   String   @default("main")
+  isVisible Boolean  @default(true) @map("is_visible")
+  isEnabled Boolean  @default(true) @map("is_enabled")
+  sortOrder Int      @default(0) @map("sort_order")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("nav_items")
+}
+
+model PlatformConfig {
+  id          String   @id @default(uuid())
+  namespace   String
+  key         String
+  value       Json
+  description String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@unique([namespace, key])
+  @@map("platform_configs")
+}
+
+model SystemPromptTemplate {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  name        String
+  description String?
+  version     Int      @default(1)
+  content     String
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("system_prompt_templates")
+}
+
+model ChatMessage {
+  id             String      @id @default(uuid())
+  userId         String      @map("user_id")
+  advisorId      String?     @map("advisor_id")
+  role           MessageRole
+  content        String
+  autoAssigned   Boolean     @default(false) @map("auto_assigned")
+  reasoningTrace Json?       @map("reasoning_trace")
+  actionProposal Json?       @map("action_proposal")
+  createdAt      DateTime    @default(now()) @map("created_at")
+
+  user    User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  advisor AdvisorPersona? @relation(fields: [advisorId], references: [id], onDelete: SetNull)
+
+  @@index([userId, createdAt])
+  @@map("chat_messages")
+}
