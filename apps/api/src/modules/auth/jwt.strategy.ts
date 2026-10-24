@@ -14,6 +14,7 @@ import { Logger } from "@yuva-devlab/logger";
 import { config } from "@/config";
 import { PrismaService } from "@/modules/prisma/prisma.service";
 import type { RequestUser } from "@/common/decorators/current-user.decorator";
+import { getDevLabPublicKey } from "./jwks.util";
 
 export interface JwtPayload {
   readonly sub: string;
@@ -36,11 +37,36 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         rawJwtToken: string,
         done: (err: unknown, secretOrKey?: string | Buffer) => void,
       ) => {
-        if (!rawJwtToken || typeof rawJwtToken !== "string") {
-          return done(new UnauthorizedException("Token missing or malformed"));
+        try {
+          if (!rawJwtToken || typeof rawJwtToken !== "string") {
+            return done(new UnauthorizedException("Token missing or malformed"));
+          }
+
+          const parts = rawJwtToken.split(".");
+          if (parts.length < 2 || !parts[0]) {
+            return done(new UnauthorizedException("Malformed JWT structure"));
+          }
+
+          const header = JSON.parse(Buffer.from(parts[0], "base64url").toString("utf-8")) as {
+            alg?: string;
+            kid?: string;
+          };
+
+          if (header.alg === "RS256") {
+            getDevLabPublicKey(config.portalApiUrl, header.kid)
+              .then((pem) => done(null, pem))
+              .catch((err) => {
+                this.logger.error("[secretOrKeyProvider] JWKS resolution failed", err);
+                done(err);
+              });
+            return;
+          }
+
+          return done(null, config.jwtSecret);
+        } catch (parseError) {
+          this.logger.error("[secretOrKeyProvider] Error parsing token header", parseError);
+          return done(parseError);
         }
-        // In local development or symmetric mode, verify against config.jwtSecret
-        return done(null, config.jwtSecret);
       },
     });
   }
@@ -58,6 +84,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       where: { id: payload.sub },
       select: { id: true, email: true, name: true, avatarUrl: true, onboardingCompleted: true },
     });
+
+    if (!user && payload.email) {
+      const normalizedEmail = payload.email.toLowerCase().trim();
+      user = await this.prisma.client.user.findUnique({
+        where: { email: normalizedEmail },
+        select: { id: true, email: true, name: true, avatarUrl: true, onboardingCompleted: true },
+      });
+    }
 
     // Just-In-Time (JIT) provisioning for new SSO accounts
     if (!user && payload.email) {

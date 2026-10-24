@@ -35,7 +35,7 @@ async function bootstrap(): Promise<void> {
 
   // Cross-Origin Resource Sharing (CORS)
   app.enableCors({
-    origin: [config.webUrl, config.gatewayUrl],
+    origin: [config.webUrl, config.portalApiUrl],
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   });

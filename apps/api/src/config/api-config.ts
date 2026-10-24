@@ -32,7 +32,7 @@ export function loadApiConfig(): ApiConfig {
     nodeEnv: process.env.NODE_ENV,
     webUrl: process.env.WEB_URL,
     jwtSecret: process.env.JWT_SECRET,
-    gatewayUrl: process.env.GATEWAY_URL,
+    portalApiUrl: process.env.DEVLAB_PORTAL_API_URL,
     logEnabled: process.env.LOG_ENABLED,
     logLevel: process.env.LOG_LEVEL,
     aiProvider: process.env.AI_PROVIDER,

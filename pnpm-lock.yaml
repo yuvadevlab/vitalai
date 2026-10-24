@@ -117,8 +117,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/vital-engine
       '@yuva-devlab/auth-server':
-        specifier: ^0.3.0
-        version: 0.3.0
+        specifier: ^1.0.0
+        version: 1.0.0
       '@yuva-devlab/logger':
         specifier: ^1.2.0
         version: 1.2.0
@@ -177,6 +177,15 @@ importers:
 
   apps/web:
     dependencies:
+      '@fontsource-variable/inter':
+        specifier: ^5.3.0
+        version: 5.3.0
+      '@fontsource-variable/jetbrains-mono':
+        specifier: ^5.3.0
+        version: 5.3.0
+      '@fontsource/barlow-condensed':
+        specifier: ^5.3.0
+        version: 5.3.0
       '@tailwindcss/postcss':
         specifier: ^4.0.0
         version: 4.3.3
@@ -391,8 +400,8 @@ importers:
         specifier: ^1.3.0
         version: 1.3.0
       '@yuva-devlab/ui':
-        specifier: ^1.3.2
-        version: 1.4.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(sonner@2.0.8(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))
+        specifier: ^1.4.1
+        version: 1.4.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(sonner@2.0.8(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -1145,6 +1154,15 @@ packages:
 
   '@floating-ui/utils@0.2.12':
     resolution: {integrity: sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww==}
+
+  '@fontsource-variable/inter@5.3.0':
+    resolution: {integrity: sha512-OupL48va4JNofb97w6NYeF9S7W/kHNKM0Er8Dem5nqi4jeOLrVJDoE8tZEpnMJmtkvNbB1EIPPwHcdkF6b1oUA==}
+
+  '@fontsource-variable/jetbrains-mono@5.3.0':
+    resolution: {integrity: sha512-F32xpS2NsGYoQi2ADSkKTgpJj7ozajsGgDJ8woTnqjmIB+dxDIqImjl4pXZVEExu8UFZ2ndhmX18EBS/hdz3Lw==}
+
+  '@fontsource/barlow-condensed@5.3.0':
+    resolution: {integrity: sha512-RA7MmIx0v3eQ6Gcf74qLVLOwLB0GpPOzx+eU9iG/AmCnSJGcIWYeU8y6CEMGZ210MGwGg5CZhzLkkvyZdTTk1g==}
 
   '@graphql-tools/merge@9.2.3':
     resolution: {integrity: sha512-cKRoXqJGy2zSRBLvotQpkACbXlHAb0yuHLN0l0ypKGCuL3NnF0zofYalkBJqiBxxxpK0lr3s9uowKFHCKi1/ZQ==}
@@ -3351,8 +3369,8 @@ packages:
   '@yuva-devlab/ai-client@0.2.0':
     resolution: {integrity: sha512-0h1+8d0dipgyCIRPNxrRyS0doWoDS0o/vHGt71Qmq9ZPxUPFjNN6ERgV/DT22q3xlmGuImE97PjTMIOGa5x4Gw==}
 
-  '@yuva-devlab/auth-server@0.3.0':
-    resolution: {integrity: sha512-cNLnzcF2jX/mshR74Ckms4cuTYJ0bDVBstBohNfGClEhs/61ffRH921O28fxY2xrR9p8TTKKdLIwlypELJPgLg==}
+  '@yuva-devlab/auth-server@1.0.0':
+    resolution: {integrity: sha512-a5Mxs2VFns+8Zx4YI+t8jJ4bXFrXiUJayUObMX4JNywBJdW2BrWRzwcKK7QjLVHrCOpaqmzubm25mIqFT0Rhiw==}
 
   '@yuva-devlab/errors@0.2.0':
     resolution: {integrity: sha512-eGunJ1eDbkGfEida3MJx9gaWRTeWjx/UPFUHUs+r7m++hkbShw4VKekaH5MMb7gIIc5sUmb4mESgir0TYnE30w==}
@@ -3363,14 +3381,11 @@ packages:
   '@yuva-devlab/resilience@0.2.0':
     resolution: {integrity: sha512-aVNCG6GZHMfVWKcs5vxXe86kKxeYWnd1iaZZSPd/3zqQYHsxIyZHLl+6bWCZ9ldnzb5PkmwIElGGDABUnDwGgg==}
 
-  '@yuva-devlab/tokens@1.2.0':
-    resolution: {integrity: sha512-wgt5w0ik5skcUe3nAsQVIOfxsZB6QsE2GWhCxlMEi0XHwqjELnuY7S1aJqU/LtgJBBec5uj1kG+TslvhbazS7g==}
-
   '@yuva-devlab/tokens@1.3.0':
     resolution: {integrity: sha512-yfAzbjekLngeI9gDyCN10DJpGxYzp0cgKJmlRfjnIrQNHGojZWk6PdCsuV0VP6W3UpoOHAVl+cd0DLnO9NPu7Q==}
 
-  '@yuva-devlab/ui@1.4.0':
-    resolution: {integrity: sha512-J8inbhnnlKs9p93hqYhxyotHvNHn+hTDdo5ECfkZyDVEJ3RmBApum2UTSwTFd4/FCHfnzE0FOOVzCRNvNx16HQ==}
+  '@yuva-devlab/ui@1.4.1':
+    resolution: {integrity: sha512-L0fC1o8EjXiqEO4INDq7E+NBP02Od9HHVrmfOOUBz8cKWFFew3WMaiWIT3ivXNAmFAv8/KktECfz62omJM/+QQ==}
     peerDependencies:
       react: ^19.0.0
       react-dom: ^19.0.0
@@ -7597,6 +7612,12 @@ snapshots:
 
   '@floating-ui/utils@0.2.12': {}
 
+  '@fontsource-variable/inter@5.3.0': {}
+
+  '@fontsource-variable/jetbrains-mono@5.3.0': {}
+
+  '@fontsource/barlow-condensed@5.3.0': {}
+
   '@graphql-tools/merge@9.2.3(graphql@16.14.2)':
     dependencies:
       '@graphql-tools/utils': 12.0.0(graphql@16.14.2)
@@ -9786,7 +9807,7 @@ snapshots:
       '@yuva-devlab/resilience': 0.2.0
       zod: 3.25.76
 
-  '@yuva-devlab/auth-server@0.3.0':
+  '@yuva-devlab/auth-server@1.0.0':
     dependencies:
       '@yuva-devlab/errors': 0.2.0
       '@yuva-devlab/logger': 1.2.0
@@ -9800,11 +9821,9 @@ snapshots:
     dependencies:
       '@yuva-devlab/errors': 0.2.0
 
-  '@yuva-devlab/tokens@1.2.0': {}
-
   '@yuva-devlab/tokens@1.3.0': {}
 
-  '@yuva-devlab/ui@1.4.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(sonner@2.0.8(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))':
+  '@yuva-devlab/ui@1.4.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(sonner@2.0.8(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))':
     dependencies:
       '@radix-ui/react-accordion': 1.3.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@radix-ui/react-alert-dialog': 1.2.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -9832,7 +9851,7 @@ snapshots:
       '@radix-ui/react-toggle': 1.2.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@radix-ui/react-toggle-group': 1.2.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@radix-ui/react-tooltip': 1.4.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
-      '@yuva-devlab/tokens': 1.2.0
+      '@yuva-devlab/tokens': 1.3.0
       class-variance-authority: 0.7.1
       clsx: 2.1.1
       cmdk: 1.1.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)

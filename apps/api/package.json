@@ -28,7 +28,7 @@
     "@vitalai/shared-types": "workspace:*",
     "@vitalai/validation": "workspace:*",
     "@vitalai/vital-engine": "workspace:*",
-    "@yuva-devlab/auth-server": "^0.3.0",
+    "@yuva-devlab/auth-server": "^1.0.0",
     "@yuva-devlab/logger": "^1.2.0",
     "dataloader": "^2.2.3",
     "dotenv": "^17.4.2",
