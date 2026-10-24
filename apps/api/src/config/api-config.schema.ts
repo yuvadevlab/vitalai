@@ -25,7 +25,7 @@ export const apiConfigSchema = z.object({
   jwtSecret: z
     .string({ required_error: "JWT_SECRET is required" })
     .min(32, "JWT_SECRET must be at least 32 characters for security"),
-  portalApiUrl: z.string().url().default("http://localhost:3015"),
+  portalApiUrl: z.string().url().default("http://localhost:4000"),
 
   // Logging Standards
   logEnabled: z
