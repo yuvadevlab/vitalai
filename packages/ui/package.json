@@ -33,8 +33,8 @@
     "react-dom": "^19.0.0"
   },
   "dependencies": {
-    "@yuva-devlab/tokens": "^1.3.0",
-    "@yuva-devlab/ui": "^1.4.3",
+    "@yuva-devlab/tokens": "^2.0.0",
+    "@yuva-devlab/ui": "^2.0.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.475.0",
     "tailwind-merge": "^3.0.1"
