@@ -38,6 +38,12 @@ export default tseslint.config(
       "**/storybook-static/**",
       "**/__generated__/**",
       "**/schema.gql",
+      "**/tsup.config.*",
+      "**/vite.config.*",
+      "**/vitest.config.*",
+      "**/next.config.*",
+      "**/postcss.config.*",
+      "**/commitlint.config.*",
     ],
   },
   {
@@ -80,6 +86,7 @@ export default tseslint.config(
         ...globals.node,
       },
       parserOptions: {
+        projectService: true,
         tsconfigRootDir: rootDir,
       },
     },
@@ -88,6 +95,7 @@ export default tseslint.config(
       "react-refresh": reactRefresh,
     },
     rules: {
+      "@typescript-eslint/no-deprecated": "warn",
       ...reactHooks.configs.recommended.rules,
       "no-console": "warn",
       "react-refresh/only-export-components": [
