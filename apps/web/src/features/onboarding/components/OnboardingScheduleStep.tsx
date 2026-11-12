@@ -7,10 +7,20 @@ export function OnboardingScheduleStep() {
   const { profile, setProfile } = useVital();
 
   return (
-    <div className="space-y-6">
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
       <div>
-        <p className="mb-2 text-sm text-muted-foreground">Days per week</p>
-        <div className="grid grid-cols-4 gap-2">
+        <p
+          style={{ marginBottom: "0.5rem", fontSize: "0.875rem", color: "var(--mutedForeground)" }}
+        >
+          Days per week
+        </p>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+            gap: "0.5rem",
+          }}
+        >
           {[3, 4, 5, 6].map((d) => (
             <Pill key={d} active={profile.days === d} onClick={() => setProfile({ days: d })}>
               {d}
@@ -19,8 +29,18 @@ export function OnboardingScheduleStep() {
         </div>
       </div>
       <div>
-        <p className="mb-2 text-sm text-muted-foreground">Session length</p>
-        <div className="grid grid-cols-4 gap-2">
+        <p
+          style={{ marginBottom: "0.5rem", fontSize: "0.875rem", color: "var(--mutedForeground)" }}
+        >
+          Session length
+        </p>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+            gap: "0.5rem",
+          }}
+        >
           {[30, 45, 60, 75].map((d) => (
             <Pill
               key={d}

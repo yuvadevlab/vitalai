@@ -140,7 +140,7 @@ _Goal_: Build the NestJS 11 Fastify GraphQL API with Code-First schema resolutio
 | **Production**  | API Gateway (`apps/api`)  | `4014` | `http://localhost:4014` |
 | **Production**  | Web Frontend (`apps/web`) | `3014` | `http://localhost:3014` |
 
-> Guaranteed non-conflicting across DevLab platform daemons (`finai`: 3010/4010, `orchestrai`: 3011/4011/4012/4013, `devlab-portal`: 3015, `devlab-logs`: 3020, `devlab-guard`: 8000, `incidentai`: 8085). Production ops blueprint registered in `production/devlab-ops/config/apps/vitalai.env`.
+> Guaranteed non-conflicting across DevLab platform daemons (`finai`: 3011/4011, `orchestrai`: 3012/4012, `devlab-portal`: 3010/4010, `devlab-logs`: 3013/4013, `devlab-guard`: 8000/8010, `incidentai`: 8001/8011). Production ops blueprint registered in `production/devlab-ops/config/apps/vitalai.env`.
 
 #### Task 3.1: Core Infrastructure & SSO Authentication (`apps/api`)
 
@@ -222,7 +222,7 @@ _Goal_: Build presentation components and visual human anatomy maps in `@vitalai
 
 _Goal_: Assemble the responsive user interface adhering to SSR boundary invariants.
 
-- [ ] Create `apps/web` with Next.js 15 (App Router), React 19, and Tailwind CSS v4.
+- [ ] Create `apps/web` with Next.js 15 (App Router), React 19, and Pure Platform CSS with W3C Cascade Layers.
 - [ ] Configure GraphQL Code Generator to compile `.graphql` operations into typed React Query v5 hooks.
 - [ ] Integrate `@yuva-devlab/auth-client` for universal authentication.
 - [ ] Implement feature views under `src/features/<feature>/components/`:

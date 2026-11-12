@@ -7,9 +7,10 @@ import { motion } from "framer-motion";
 interface ThemeSwitchProps {
   variant?: "icon" | "segmented";
   className?: string;
+  style?: React.CSSProperties;
 }
 
-export function ThemeSwitch({ variant = "icon", className = "" }: ThemeSwitchProps) {
+export function ThemeSwitch({ variant = "icon", className = "", style }: ThemeSwitchProps) {
   const { theme, resolvedTheme, setTheme, toggleTheme } = useTheme();
 
   if (variant === "segmented") {
@@ -20,26 +21,24 @@ export function ThemeSwitch({ variant = "icon", className = "" }: ThemeSwitchPro
     ];
 
     return (
-      <div className={`flex rounded-xl border border-border bg-card p-1 ${className}`}>
+      <div className={`vt-theme-switch-segmented ${className}`} style={style}>
         {options.map(({ id, label, icon: Icon }) => {
           const active = theme === id;
           return (
             <button
               key={id}
               onClick={() => setTheme(id)}
-              className={`relative flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-semibold transition ${
-                active ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
-              }`}
+              className={`vt-theme-switch-btn ${active ? "vt-theme-switch-btn--active" : ""}`}
             >
               {active && (
                 <motion.span
                   layoutId="theme-pill"
-                  className="absolute inset-0 rounded-lg bg-volt"
+                  className="vt-theme-switch-pill"
                   transition={{ type: "spring", stiffness: 350, damping: 25 }}
                 />
               )}
-              <Icon className="relative size-3.5" />
-              <span className="relative">{label}</span>
+              <Icon className="vt-theme-switch-icon" />
+              <span>{label}</span>
             </button>
           );
         })}
@@ -52,7 +51,7 @@ export function ThemeSwitch({ variant = "icon", className = "" }: ThemeSwitchPro
       onClick={toggleTheme}
       aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} mode`}
       title={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} mode`}
-      className={`group relative grid size-10 place-items-center rounded-xl border border-border bg-card transition hover:border-volt hover:bg-volt/10 ${className}`}
+      className={`vt-theme-switch-toggle ${className}`}
     >
       <motion.div
         key={resolvedTheme}
@@ -62,9 +61,9 @@ export function ThemeSwitch({ variant = "icon", className = "" }: ThemeSwitchPro
         transition={{ duration: 0.2 }}
       >
         {resolvedTheme === "dark" ? (
-          <Sun className="size-5 text-volt transition group-hover:scale-110" />
+          <Sun className="vt-theme-switch-toggle-icon vt-theme-switch-toggle-icon--dark" />
         ) : (
-          <Moon className="size-5 text-foreground transition group-hover:scale-110" />
+          <Moon className="vt-theme-switch-toggle-icon vt-theme-switch-toggle-icon--light" />
         )}
       </motion.div>
     </button>

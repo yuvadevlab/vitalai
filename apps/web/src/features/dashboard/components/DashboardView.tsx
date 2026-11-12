@@ -49,91 +49,80 @@ export function DashboardView() {
 
   return (
     <AppShell insight="Readiness is at 92%. In today's session, increase load on Incline Bench to 85kg. Maintain a 3-second eccentric on Set 1.">
-      <header className="flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="grid size-12 place-items-center rounded-full bg-gradient-volt font-display-x text-xl text-primary-foreground">
+      <header className="vt-dashboard-header">
+        <div className="vt-dashboard-user">
+          <div className="vt-dashboard-avatar vt-gradient-volt vt-font-display">
             {profile.name[0]}
           </div>
-          <div>
-            <p className="text-xs text-muted-foreground">Welcome back,</p>
-            <h1 className="font-display-x text-3xl">{profile.name}</h1>
+          <div className="vt-dashboard-user-meta">
+            <p className="vt-dashboard-welcome">Welcome back,</p>
+            <h1 className="vt-font-display vt-dashboard-name">{profile.name}</h1>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="tabular rounded-full border border-ember/40 bg-ember/10 px-3 py-1.5 text-sm text-ember">
-            18 Days 🔥
-          </span>
-          <Link
-            href="/workout/active"
-            className="hidden rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground sm:block"
-          >
+        <div className="vt-dashboard-actions">
+          <span className="vt-tabular vt-dashboard-streak">18 Days 🔥</span>
+          <Link href="/workout/active" className="vt-dashboard-start-btn">
             Start Today's Workout
           </Link>
         </div>
       </header>
 
-      <section className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <section className="vt-stats-grid">
         {stats.map((s, i) => (
           <motion.div
             key={s.label}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.06 }}
-            className="glass p-4"
+            className="vt-glass vt-stats-card"
           >
-            <s.icon className="size-5 text-primary" />
-            <p className="mt-3 text-[11px] uppercase tracking-widest text-muted-foreground">
-              {s.label}
-            </p>
-            <p className="tabular mt-1 text-xl font-bold md:text-2xl">{s.value}</p>
-            <p className="mt-1 text-xs text-muted-foreground">{s.sub}</p>
+            <div className="vt-stats-card__top">
+              <span className="vt-stats-card__label">{s.label}</span>
+              <s.icon className="vt-stats-card__icon vt-stats-card__icon--volt" />
+            </div>
+            <p className="vt-tabular vt-stats-card__value">{s.value}</p>
+            <p className="vt-stats-card__sub">{s.sub}</p>
           </motion.div>
         ))}
       </section>
 
-      <section className="mt-6 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-        <div className="glass relative overflow-hidden p-5 md:p-6">
-          <div className="pointer-events-none absolute -right-20 -top-20 size-64 rounded-full bg-primary/10 blur-3xl" />
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
-            Today's Session
-          </p>
-          <h2 className="font-display-x mt-2 text-3xl md:text-4xl">{session.title}</h2>
-          <div className="mt-3 flex flex-wrap gap-4 text-sm text-muted-foreground">
-            <span className="flex items-center gap-1.5">
-              <Clock className="size-4" />
+      <section className="vt-dashboard-split">
+        <div className="vt-glass vt-session-card">
+          <div className="vt-session-card__glow" />
+          <p className="vt-session-card__subtitle">Today's Session</p>
+          <h2 className="vt-font-display vt-session-card__title">{session.title}</h2>
+          <div className="vt-session-card__meta">
+            <span className="vt-session-card__meta-item">
+              <Clock className="vt-session-card__meta-icon" />
               {session.duration} mins
             </span>
-            <span className="flex items-center gap-1.5">
-              <Dumbbell className="size-4" />
+            <span className="vt-session-card__meta-item">
+              <Dumbbell className="vt-session-card__meta-icon" />
               {session.exercises.length} Movements
             </span>
-            <span className="flex items-center gap-1.5">
-              <Activity className="size-4" />
+            <span className="vt-session-card__meta-item">
+              <Activity className="vt-session-card__meta-icon" />
               Target: {session.rir} RIR
             </span>
           </div>
-          <ol className="mt-5 space-y-2">
+          <ol className="vt-session-card__list">
             {session.exercises.map((e, i) => (
-              <li
-                key={e.name}
-                className="flex items-center gap-3 rounded-xl bg-secondary/60 px-3 py-2.5"
-              >
-                <span className="tabular grid size-7 place-items-center rounded-lg bg-background text-xs text-primary">
-                  {i + 1}
-                </span>
-                <span className="flex-1 text-sm font-medium">{e.name}</span>
-                <span className="tabular text-xs text-muted-foreground">
+              <li key={e.name} className="vt-session-card__list-item">
+                <span className="vt-tabular vt-session-card__list-num">{i + 1}</span>
+                <span className="vt-session-card__list-name">{e.name}</span>
+                <span className="vt-tabular vt-session-card__list-sets">
                   {e.sets}×{e.reps} @ {e.load}
                 </span>
               </li>
             ))}
           </ol>
-          <motion.div whileTap={{ scale: 0.97 }} className="mt-6">
+          <motion.div whileTap={{ scale: 0.97 }} style={{ marginTop: "1.5rem" }}>
             <Link
               href="/workout/active"
-              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-volt py-4 font-display-x text-xl text-primary-foreground glow-volt"
+              className="vt-session-card__launch-btn vt-gradient-volt vt-glow-volt"
             >
-              <Play className="size-5" fill="currentColor" /> Launch Workout HUD
+              <Play style={{ width: "1.25rem", height: "1.25rem" }} fill="currentColor" /> Launch
+              Workout HUD
             </Link>
           </motion.div>
         </div>

@@ -25,35 +25,39 @@ export function OnboardingGeneratingStep({ onDone }: OnboardingGeneratingStepPro
   const done = i >= 3;
 
   return (
-    <div className="flex flex-col items-center pt-10 text-center">
-      <div className="relative grid size-48 place-items-center">
+    <div className="vt-generating">
+      <div className="vt-generating__pulse-box">
         {[0, 1, 2].map((k) => (
           <motion.span
             key={k}
-            className="absolute inset-0 rounded-full border-2 border-primary"
+            className="vt-generating__ring"
             animate={{ scale: [0.6, 1.3], opacity: [0.8, 0] }}
             transition={{ duration: 2, repeat: Infinity, delay: k * 0.66 }}
           />
         ))}
-        <div className="grid size-24 place-items-center rounded-full bg-gradient-volt glow-volt">
-          <Zap className="size-10 text-primary-foreground" fill="currentColor" />
+        <div className="vt-generating__icon-circle vt-gradient-volt vt-glow-volt">
+          <Zap
+            style={{ width: "2.5rem", height: "2.5rem" }}
+            color="var(--primaryForeground)"
+            fill="currentColor"
+          />
         </div>
       </div>
-      <div className="mt-10 h-16">
+      <div className="vt-generating__phase-box">
         <AnimatePresence mode="wait">
           <motion.p
             key={i}
             initial={{ x: 30, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -30, opacity: 0 }}
-            className="font-display-x text-2xl"
+            className="vt-font-display vt-generating__phase-text"
           >
             {done ? "Your plan is ready." : phases[i]}
           </motion.p>
         </AnimatePresence>
       </div>
-      <div className="h-1 w-64 overflow-hidden rounded-full bg-secondary">
-        <motion.div className="h-full bg-primary" animate={{ width: `${(i / 3) * 100}%` }} />
+      <div className="vt-generating__track">
+        <motion.div className="vt-generating__fill" animate={{ width: `${(i / 3) * 100}%` }} />
       </div>
       {done && onDone && (
         <motion.button
@@ -61,7 +65,7 @@ export function OnboardingGeneratingStep({ onDone }: OnboardingGeneratingStepPro
           animate={{ opacity: 1, y: 0 }}
           whileTap={{ scale: 0.97 }}
           onClick={onDone}
-          className="mt-10 rounded-2xl bg-primary px-8 py-4 font-display-x text-xl text-primary-foreground glow-volt"
+          className="vt-generating__done-btn vt-glow-volt"
         >
           Enter VitalAI / Start Journey
         </motion.button>

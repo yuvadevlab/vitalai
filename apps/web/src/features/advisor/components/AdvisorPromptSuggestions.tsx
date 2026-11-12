@@ -8,13 +8,9 @@ interface SuggestionsProps {
 
 export function AdvisorPromptSuggestions({ onSelect }: SuggestionsProps) {
   return (
-    <div className="flex flex-wrap gap-2 pt-2">
+    <div className="vt-advisor-prompts">
       {ADVISOR_COPY.chips.map((chip) => (
-        <button
-          key={chip}
-          onClick={() => onSelect(chip)}
-          className="rounded-full border border-border bg-card/60 px-3.5 py-1.5 text-xs text-foreground transition hover:border-volt hover:bg-card"
-        >
+        <button key={chip} onClick={() => onSelect(chip)} className="vt-advisor-prompt-chip">
           {chip}
         </button>
       ))}

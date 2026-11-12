@@ -17,10 +17,8 @@ import { useVital } from "@/lib/store";
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="glass p-5">
-      <p className="text-muted-foreground mb-3 text-xs font-semibold tracking-widest uppercase">
-        {title}
-      </p>
+    <div className="vt-glass vt-profile-section">
+      <p className="vt-profile-section__title">{title}</p>
       {children}
     </div>
   );
@@ -34,14 +32,12 @@ interface ChipsProps<T extends string> {
 
 function Chips<T extends string>({ items, value, onPick }: ChipsProps<T>) {
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="vt-profile-chips">
       {items.map((i) => (
         <button
           key={i}
           onClick={() => onPick(i)}
-          className={`rounded-full border px-4 py-2 text-sm transition ${
-            value(i) ? "border-primary bg-primary/15 text-primary" : "bg-card"
-          }`}
+          className={`vt-profile-chip ${value(i) ? "vt-profile-chip--active" : ""}`}
         >
           {i}
         </button>
@@ -74,12 +70,12 @@ export function ProfileView() {
     <AppShell
       insight={`Target weight delta is ${delta > 0 ? "+" : ""}${delta}kg. Macro targets and volume are calibrated for a lean ${delta >= 0 ? "300 kcal surplus" : "400 kcal deficit"}.`}
     >
-      <h1 className="font-display-x text-5xl">Profile</h1>
-      <div className="mt-6 grid gap-6 lg:grid-cols-[1.3fr_1fr]">
-        <div className="space-y-5">
+      <h1 className="vt-font-display vt-profile-title">Profile</h1>
+      <div className="vt-profile-grid">
+        <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
           <Section title="Name">
             <input
-              className="bg-card focus:border-primary w-full rounded-xl border px-4 py-3 outline-none"
+              className="vt-profile-input"
               value={profile.name}
               onChange={(e) => setProfile({ name: e.target.value })}
             />
@@ -124,14 +120,27 @@ export function ProfileView() {
           </Section>
 
           <Section title="Schedule">
-            <div className="grid grid-cols-4 gap-2">
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+                gap: "0.5rem",
+              }}
+            >
               {[3, 4, 5, 6].map((d) => (
                 <Pill key={d} active={profile.days === d} onClick={() => update({ days: d })}>
                   {d}d
                 </Pill>
               ))}
             </div>
-            <div className="mt-2 grid grid-cols-4 gap-2">
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+                gap: "0.5rem",
+                marginTop: "0.5rem",
+              }}
+            >
               {[30, 45, 60, 75].map((d) => (
                 <Pill
                   key={d}
@@ -149,26 +158,21 @@ export function ProfileView() {
           </Section>
 
           <Section title="Interface theme">
-            <ThemeSwitch variant="segmented" className="max-w-md" />
+            <ThemeSwitch variant="segmented" style={{ maxWidth: "28rem" }} />
           </Section>
         </div>
 
-        <div className="glass h-fit p-5 lg:sticky lg:top-8">
-          <p className="text-primary text-[11px] font-semibold tracking-[0.2em] uppercase">
-            Live plan
-          </p>
-          <h3 className="font-display-x mt-2 text-2xl">{session.title}</h3>
-          <p className="tabular text-muted-foreground mt-1 text-xs">
+        <div className="vt-glass vt-live-plan">
+          <p className="vt-live-plan__badge">Live plan</p>
+          <h3 className="vt-font-display vt-live-plan__title">{session.title}</h3>
+          <p className="vt-tabular vt-live-plan__meta">
             {session.split} • {profile.days}×/wk • {session.duration} min
           </p>
-          <ul className="mt-4 space-y-2 text-sm">
+          <ul className="vt-live-plan__list">
             {session.exercises.map((e) => (
-              <li
-                key={e.name}
-                className="bg-secondary/60 flex justify-between gap-2 rounded-lg px-3 py-2"
-              >
+              <li key={e.name} className="vt-live-plan__item">
                 <span>{e.name}</span>
-                <span className="tabular text-muted-foreground">
+                <span className="vt-tabular" style={{ color: "var(--mutedForeground)" }}>
                   {e.sets}×{e.reps}
                 </span>
               </li>

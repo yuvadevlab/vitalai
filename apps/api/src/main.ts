@@ -30,7 +30,7 @@ async function bootstrap(): Promise<void> {
 
   // Global REST API prefix with exclusions for health and GraphQL routes
   app.setGlobalPrefix("api/v1", {
-    exclude: ["health", "graphql", "graphiql"],
+    exclude: ["health", "api/v1/health", "graphql", "graphiql"],
   });
 
   // Cross-Origin Resource Sharing (CORS)

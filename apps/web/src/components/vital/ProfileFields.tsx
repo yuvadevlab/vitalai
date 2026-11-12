@@ -21,23 +21,20 @@ export function OptionCard({
     <motion.button
       whileTap={{ scale: 0.97 }}
       onClick={onClick}
-      className={`flex w-full items-center justify-between rounded-2xl border px-5 py-4 text-left transition ${active ? "border-primary bg-primary/10 glow-volt" : "bg-card hover:border-foreground/20"}`}
+      className={`vt-option-card ${active ? "vt-option-card--active vt-glow-volt" : ""}`}
     >
       <span>
-        <span className="block font-semibold">{label}</span>
-        {sub && <span className="tabular text-xs text-muted-foreground">{sub}</span>}
+        <span className="vt-option-card__label">{label}</span>
+        {sub && <span className="vt-tabular vt-option-card__sub">{sub}</span>}
       </span>
-      <span
-        className={`grid size-6 place-items-center rounded-full border ${active ? "border-primary bg-primary text-primary-foreground" : ""}`}
-      >
-        {active && <Check className="size-4" />}
+      <span className={`vt-option-card__radio ${active ? "vt-option-card__radio--active" : ""}`}>
+        {active && <Check className="vt-theme-switch-icon" />}
       </span>
     </motion.button>
   );
 }
 
-const field =
-  "tabular w-full rounded-xl border bg-card px-4 py-3 text-foreground outline-none focus:border-primary";
+const fieldClass = "vt-tabular vt-profile-input";
 
 export function BiometricsForm({ onChange }: { onChange?: () => void }) {
   const { profile, setProfile } = useVital();
@@ -48,18 +45,18 @@ export function BiometricsForm({ onChange }: { onChange?: () => void }) {
   const num = (k: "age" | "height" | "weight" | "targetWeight") => (
     <input
       type="number"
-      className={field}
+      className={fieldClass}
       value={profile[k]}
       onChange={(e) => set({ [k]: Number(e.target.value) })}
     />
   );
   return (
-    <div className="grid grid-cols-2 gap-4">
-      <label className="text-sm text-muted-foreground">Age{num("age")}</label>
-      <label className="text-sm text-muted-foreground">
+    <div className="vt-bio-grid">
+      <label className="vt-bio-field">Age{num("age")}</label>
+      <label className="vt-bio-field">
         Gender
         <select
-          className={field}
+          className={fieldClass}
           value={profile.gender}
           onChange={(e) => set({ gender: e.target.value })}
         >
@@ -68,14 +65,14 @@ export function BiometricsForm({ onChange }: { onChange?: () => void }) {
           ))}
         </select>
       </label>
-      <label className="text-sm text-muted-foreground">Height (cm){num("height")}</label>
-      <label className="text-sm text-muted-foreground">Weight (kg){num("weight")}</label>
-      <label className="col-span-2 text-sm text-muted-foreground">
+      <label className="vt-bio-field">Height (cm){num("height")}</label>
+      <label className="vt-bio-field">Weight (kg){num("weight")}</label>
+      <label className="vt-bio-field vt-bio-field--full">
         Target weight (kg){num("targetWeight")}
       </label>
-      <div className="col-span-2">
-        <p className="mb-2 text-sm text-muted-foreground">Joint / injury considerations</p>
-        <div className="flex flex-wrap gap-2">
+      <div className="vt-bio-injuries">
+        <p className="vt-bio-injuries__label">Joint / injury considerations</p>
+        <div className="vt-bio-injuries__list">
           {["Lower Back", "Shoulder", "Knees", "None"].map((j) => {
             const on = profile.injuries.includes(j);
             return (
@@ -87,7 +84,7 @@ export function BiometricsForm({ onChange }: { onChange?: () => void }) {
                   const rest = profile.injuries.filter((x) => x !== "None" && x !== j);
                   set({ injuries: on ? (rest.length ? rest : ["None"]) : [...rest, j] });
                 }}
-                className={`rounded-full border px-4 py-2 text-sm ${on ? "border-primary bg-primary/15 text-primary" : "bg-card"}`}
+                className={`vt-profile-chip ${on ? "vt-profile-chip--active" : ""}`}
               >
                 {j}
               </motion.button>
@@ -112,7 +109,7 @@ export function Pill({
     <motion.button
       whileTap={{ scale: 0.97 }}
       onClick={onClick}
-      className={`tabular rounded-xl border py-4 text-lg font-bold transition ${active ? "border-primary bg-primary/15 text-primary glow-volt" : "bg-card text-foreground"}`}
+      className={`vt-tabular vt-pill-btn ${active ? "vt-pill-btn--active vt-glow-volt" : ""}`}
     >
       {children}
     </motion.button>

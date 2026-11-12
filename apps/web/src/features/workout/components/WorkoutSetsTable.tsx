@@ -18,23 +18,23 @@ export function WorkoutSetsTable({
   onToggleSet,
 }: WorkoutSetsTableProps) {
   return (
-    <div className="glass mt-4 overflow-hidden">
-      <div className="grid grid-cols-[3rem_1fr_1fr_1fr_3.5rem] gap-2 border-b px-4 py-3 text-[10px] uppercase tracking-widest text-muted-foreground">
+    <div className="vt-glass vt-sets-table">
+      <div className="vt-sets-table__header">
         <span>Set</span>
         <span>Prev</span>
         <span>Load</span>
         <span>Reps</span>
-        <span className="text-right">Done</span>
+        <span style={{ textAlign: "right" }}>Done</span>
       </div>
       {Array.from({ length: exercise.sets }).map((_, s) => {
         const on = !!completedSets[`${exerciseIndex}-${s}`];
         return (
           <div
             key={s}
-            className={`tabular grid grid-cols-[3rem_1fr_1fr_1fr_3.5rem] items-center gap-2 px-4 py-3 text-sm transition ${on ? "bg-primary/8" : ""}`}
+            className={`vt-tabular vt-sets-table__row ${on ? "vt-sets-table__row--active" : ""}`}
           >
-            <span className="text-primary">{s + 1}</span>
-            <span className="text-muted-foreground">
+            <span className="vt-sets-table__cell-index">{s + 1}</span>
+            <span className="vt-sets-table__cell-prev">
               {exercise.loadKg ? `${exercise.loadKg - 2.5}×${parseInt(exercise.reps)}` : "—"}
             </span>
             <span>{exercise.load}</span>
@@ -43,9 +43,10 @@ export function WorkoutSetsTable({
               whileTap={{ scale: 0.85 }}
               animate={on ? { scale: [1, 1.25, 1] } : {}}
               onClick={() => onToggleSet(s)}
-              className={`ml-auto grid size-9 place-items-center rounded-lg border ${on ? "border-primary bg-primary text-primary-foreground glow-volt" : ""}`}
+              className={`vt-sets-table__check-btn ${on ? "vt-sets-table__check-btn--checked vt-glow-volt" : ""}`}
+              aria-label={`Mark set ${s + 1} as completed`}
             >
-              {on && <Check className="size-5" />}
+              {on && <Check style={{ width: "1.25rem", height: "1.25rem" }} />}
             </motion.button>
           </div>
         );

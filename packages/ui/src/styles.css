@@ -1,87 +1,53 @@
+/**
+ * @file packages/ui/src/styles.css
+ * @description Master entry point for VitalAI styles using W3C Cascade Layers.
+ * @author yuva.devlab@gmail.com
+ */
+
+@layer dl-reset, dl-tokens, dl-base, dl-components, dl-layout, dl-utilities, dl-app;
+
 @import "@yuva-devlab/tokens/preset.css";
 @import "@yuva-devlab/tokens/themes/vitalai.css";
 @import "@yuva-devlab/ui/styles.css";
 
-@custom-variant dark (&:is(.dark *));
+@import "./styles/reset.css";
+@import "./styles/effects.css";
+@import "./styles/layout.css";
+@import "./styles/theme-switch.css";
+@import "./styles/insight.css";
+@import "./styles/dashboard.css";
+@import "./styles/stats.css";
+@import "./styles/workout-active.css";
+@import "./styles/workout-sets.css";
+@import "./styles/workout-plan.css";
+@import "./styles/advisor.css";
+@import "./styles/analytics.css";
+@import "./styles/heatmap.css";
+@import "./styles/muscle-map.css";
+@import "./styles/profile.css";
+@import "./styles/macro.css";
+@import "./styles/onboarding.css";
 
-@theme inline {
+/* ── Unlayered Token Normalization ────────────────────────────────────────── */
+:root,
+[data-brand="vitalai"],
+[data-theme="vitalai"] {
+  --volt: var(--chart-volt, oklch(0.93 0.23 125));
+  --cyan: var(--chart-cyan, oklch(0.87 0.15 200));
+  --primaryForeground: var(--primary-foreground, oklch(0.12 0.02 128));
+  --mutedForeground: var(--muted-foreground, oklch(0.48 0.025 265));
+  --cardForeground: var(--card-foreground, oklch(0.14 0.02 265));
+  --secondaryForeground: var(--secondary-foreground, oklch(0.2 0.03 265));
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Barlow Condensed", "Inter Variable", sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--cardForeground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popoverForeground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primaryForeground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondaryForeground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--mutedForeground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accentForeground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructiveForeground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
 }
 
-@layer base {
-  * {
-    border-color: var(--border);
-  }
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-sans);
-    background-image:
-      radial-gradient(
-        60rem 30rem at 85% -10%,
-        color-mix(in oklab, var(--volt) 9%, transparent),
-        transparent 60%
-      ),
-      radial-gradient(
-        40rem 30rem at -10% 110%,
-        color-mix(in oklab, var(--cyan) 7%, transparent),
-        transparent 60%
-      );
-    background-attachment: fixed;
-    min-height: 100vh;
-  }
-}
-
-@utility glass {
-  background: var(--card);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-2xl);
-}
-@utility glow-volt {
-  box-shadow:
-    0 0 0 1px color-mix(in oklab, var(--volt) 40%, transparent),
-    0 10px 40px -8px color-mix(in oklab, var(--volt) 55%, transparent);
-}
-@utility bg-gradient-volt {
-  background-image: linear-gradient(
-    135deg,
-    var(--volt),
-    color-mix(in oklab, var(--volt) 60%, var(--cyan))
-  );
-}
-@utility font-display-x {
-  font-family: var(--font-display);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
-  line-height: 0.95;
-}
-@utility tabular {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-}
-@utility text-glow {
-  text-shadow: 0 0 24px color-mix(in oklab, var(--volt) 60%, transparent);
+.dark,
+[data-theme="dark"],
+[data-theme="vitalai"],
+[data-theme="vitalai-dark"] {
+  --primaryForeground: var(--primary-foreground, oklch(0.14 0.02 125));
+  --mutedForeground: var(--muted-foreground, oklch(0.65 0.015 265));
+  --cardForeground: var(--card-foreground, oklch(0.97 0.005 265));
+  --secondaryForeground: var(--secondary-foreground, oklch(0.92 0.008 265));
 }

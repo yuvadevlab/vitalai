@@ -1,0 +1,204 @@
+/**
+ * @file packages/ui/src/styles/workout-sets.css
+ * @description Sets table, rest timer overlay, and exercise swapper bottom sheet for VitalAI.
+ * @author yuva.devlab@gmail.com
+ */
+
+@layer dl-app {
+  /* Sets Table */
+  .vt-sets-table {
+    margin-top: 1rem;
+    overflow: hidden;
+  }
+
+  .vt-sets-table__header {
+    display: grid;
+    grid-template-columns: 3rem 1fr 1fr 1fr 3.5rem;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-sets-table__row {
+    display: grid;
+    grid-template-columns: 3rem 1fr 1fr 1fr 3.5rem;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    transition: background-color 150ms ease;
+  }
+
+  .vt-sets-table__row--active {
+    background-color: color-mix(in oklab, var(--primary) 8%, transparent);
+  }
+
+  .vt-sets-table__cell-index {
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  .vt-sets-table__cell-prev {
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-sets-table__check-btn {
+    margin-left: auto;
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
+    border-radius: var(--radius-lg, 0.5rem);
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--foreground);
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+
+  .vt-sets-table__check-btn--checked {
+    border-color: var(--primary);
+    background-color: var(--primary);
+    color: var(--primary-foreground, var(--primaryForeground));
+  }
+
+  /* Rest Timer Overlay */
+  .vt-rest-timer {
+    position: fixed;
+    inset-inline: 1rem;
+    bottom: 1rem;
+    z-index: 40;
+    margin-inline: auto;
+    display: flex;
+    max-width: 36rem;
+    align-items: center;
+    gap: 1rem;
+    border-radius: var(--radius-2xl, 1rem);
+    border: 1px solid color-mix(in oklab, var(--primary) 40%, transparent);
+    background-color: color-mix(in oklab, var(--card) 95%, transparent);
+    padding: 1rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .vt-rest-timer__label {
+    margin: 0;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-rest-timer__time {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .vt-rest-timer__controls {
+    margin-left: auto;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .vt-rest-timer__btn {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border-radius: var(--radius-xl, 0.75rem);
+    border: none;
+    background-color: var(--secondary);
+    color: var(--foreground);
+    cursor: pointer;
+  }
+
+  .vt-rest-timer__btn--text {
+    width: auto;
+    padding-inline: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  .vt-rest-timer__btn--primary {
+    background-color: var(--primary);
+    color: var(--primary-foreground, var(--primaryForeground));
+  }
+
+  /* Exercise Swapper Bottom Sheet */
+  .vt-swapper-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: flex-end;
+    background-color: color-mix(in oklab, var(--background) 70%, transparent);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .vt-swapper-sheet {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 42rem;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+    border-top: 1px solid var(--border);
+    background-color: var(--popover);
+    padding: 1.5rem;
+  }
+
+  .vt-swapper-sheet__badge {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--primary);
+  }
+
+  .vt-swapper-sheet__title {
+    margin-top: 0.25rem;
+    font-size: 1.5rem;
+  }
+
+  .vt-swapper-sheet__list {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .vt-swapper-sheet__item {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: var(--radius-xl, 0.75rem);
+    border: 1px solid var(--border);
+    background-color: var(--card);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 150ms ease;
+  }
+
+  .vt-swapper-sheet__item:hover {
+    border-color: var(--primary);
+  }
+
+  .vt-swapper-sheet__item-name {
+    font-weight: 500;
+  }
+
+  .vt-swapper-sheet__item-sub {
+    font-size: 0.75rem;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+}

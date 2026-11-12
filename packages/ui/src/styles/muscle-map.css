@@ -1,0 +1,110 @@
+/**
+ * @file packages/ui/src/styles/muscle-map.css
+ * @description Muscle recruitment anterior/posterior interactive anatomical map for VitalAI.
+ * @author yuva.devlab@gmail.com
+ */
+
+@layer dl-app {
+  .vt-muscle-map {
+    padding: 1.25rem;
+  }
+
+  .vt-muscle-map__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .vt-muscle-map__title {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .vt-muscle-map__toggle {
+    display: flex;
+    border-radius: 9999px;
+    background-color: var(--secondary);
+    padding: 0.25rem;
+    font-size: 0.75rem;
+  }
+
+  .vt-muscle-map__toggle-btn {
+    position: relative;
+    border-radius: 9999px;
+    border: none;
+    background: transparent;
+    padding: 0.25rem 0.75rem;
+    font-weight: 600;
+    color: var(--muted-foreground, var(--mutedForeground));
+    cursor: pointer;
+  }
+
+  .vt-muscle-map__toggle-btn--active {
+    color: var(--primary-foreground, var(--primaryForeground));
+  }
+
+  .vt-muscle-map__toggle-pill {
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    background-color: var(--primary);
+  }
+
+  .vt-muscle-map__toggle-label {
+    position: relative;
+  }
+
+  .vt-muscle-map__body {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .vt-muscle-map__svg {
+    height: 18rem;
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .vt-muscle-map__legend-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .vt-muscle-map__hover-text {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-muscle-map__legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .vt-muscle-map__legend-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 9999px;
+  }
+
+  .vt-muscle-map__legend-dot--volt {
+    background-color: var(--volt);
+  }
+
+  .vt-muscle-map__legend-dot--cyan {
+    background-color: var(--cyan);
+  }
+
+  .vt-muscle-map__legend-dot--slate {
+    background-color: var(--slate-muscle, #475569);
+  }
+
+  .vt-muscle-map__legend-label {
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+}

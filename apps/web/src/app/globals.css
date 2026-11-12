@@ -1,10 +1,14 @@
-@import "tailwindcss";
+/**
+ * @file globals.css
+ * @description Master font and stylesheet imports for VitalAI web application.
+ * @author yuva.devlab@gmail.com
+ */
+
+@layer dl-reset, dl-tokens, dl-base, dl-components, dl-layout, dl-utilities, dl-app;
+
 @import "@fontsource-variable/inter/wght.css";
 @import "@fontsource-variable/jetbrains-mono/wght.css";
 @import "@fontsource/barlow-condensed/latin-700.css";
 @import "@fontsource/barlow-condensed/latin-800.css";
 @import "@fontsource/barlow-condensed/latin-900.css";
-@source "../**";
-@source "../../../../packages/ui";
 @import "@vitalai/ui/styles.css";
-@import "tw-animate-css";

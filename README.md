@@ -40,7 +40,7 @@ vitalai/
 
 ## 3. Tech Stack
 
-- **Client Tier**: React 19 / Next.js 15, Tailwind CSS v4, Framer Motion, Zustand 5, Radix UI.
+- **Client Tier**: React 19 / Next.js 15, Pure Platform CSS & W3C Cascade Layers, Framer Motion, Zustand 5, Radix UI.
 - **Design Tokens**: Obsidian Carbon (`#08090C`), High-Voltage Neon Volt Green (`#CCFF00`), Cyber Cyan (`#00F0FF`), Ember Flame (`#FF3B30`).
 - **API Gateway Tier**: FastAPI 0.115+ (asynchronous ASGI), Pydantic v2 (Rust-backed validation).
 - **AI & Agentic Tier**: LiteLLM (Ollama local + Cloud Gemini 2.0 / Claude 3.5 Sonnet router), Instructor (guaranteed structured outputs), Server-Sent Events (SSE) token streaming.

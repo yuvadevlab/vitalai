@@ -1,6 +1,11 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+/**
+ * @file apps/web/src/lib/utils.ts
+ * @description Class name utility using pure clsx.
+ * @author yuva.devlab@gmail.com
+ */
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+import { clsx, type ClassValue } from "clsx";
+
+export function cn(...inputs: ClassValue[]): string {
+  return clsx(inputs);
 }
