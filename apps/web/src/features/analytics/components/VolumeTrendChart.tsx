@@ -10,23 +10,29 @@ export function VolumeTrendChart({ data }: VolumeTrendProps) {
   const maxVolume = Math.max(...data.map((d) => d.volume), 25000);
 
   return (
-    <div className="glass p-5">
-      <h3 className="font-display-x text-2xl">{ANALYTICS_COPY.sections.volumeTrend}</h3>
-      <div className="mt-6 flex h-44 items-end gap-4 border-b border-border pb-3">
+    <div className="vt-glass vt-analytics-card">
+      <h3 className="vt-font-display vt-heatmap-card__title">
+        {ANALYTICS_COPY.sections.volumeTrend}
+      </h3>
+      <div
+        className="vt-volume-chart"
+        style={{ borderBottom: "1px solid var(--border)", paddingBottom: "0.75rem" }}
+      >
         {data.map((item) => {
           const heightPct = Math.round((item.volume / maxVolume) * 100);
           return (
-            <div key={item.week} className="flex flex-1 flex-col items-center gap-2">
-              <span className="tabular text-[10px] font-semibold text-volt">
+            <div key={item.week} className="vt-volume-chart__col">
+              <span className="vt-tabular vt-volume-chart__label" style={{ color: "var(--volt)" }}>
                 {(item.volume / 1000).toFixed(1)}t
               </span>
               <div
-                className="w-full rounded-t-lg bg-secondary/80 relative overflow-hidden"
+                className="vt-volume-chart__bar vt-volume-chart__bar--active"
                 style={{ height: `${heightPct}%` }}
+              />
+              <span
+                className="vt-volume-chart__label"
+                style={{ fontWeight: 600, textTransform: "uppercase" }}
               >
-                <div className="absolute inset-0 bg-linear-to-t from-volt/40 to-volt" />
-              </div>
-              <span className="text-xs font-semibold uppercase text-muted-foreground">
                 {item.week}
               </span>
             </div>

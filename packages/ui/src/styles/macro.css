@@ -1,0 +1,190 @@
+/**
+ * @file packages/ui/src/styles/macro.css
+ * @description Calibrated macro target cards, biometrics forms, option cards, and pill buttons.
+ * @author yuva.devlab@gmail.com
+ */
+
+@layer dl-app {
+  /* Macro Target Card */
+  .vt-macro-card {
+    padding: 1.25rem;
+  }
+
+  .vt-macro-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .vt-macro-card__title {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .vt-macro-card__cal {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--volt);
+  }
+
+  .vt-macro-card__cal-icon {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
+  .vt-macro-card__sub {
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-macro-card__grid {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .vt-macro-card__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .vt-macro-box {
+    border-radius: var(--radius-xl, 0.75rem);
+    border: 1px solid var(--border);
+    background-color: color-mix(in oklab, var(--secondary) 40%, transparent);
+    padding: 0.75rem;
+    text-align: center;
+  }
+
+  .vt-macro-box__icon {
+    margin-inline: auto;
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .vt-macro-box__val {
+    margin-top: 0.25rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-family: var(--font-sans, "Inter Variable", sans-serif);
+  }
+
+  .vt-macro-box__label {
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  /* Biometrics Form & Option Cards */
+  .vt-bio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .vt-bio-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    font-size: 0.875rem;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-bio-field--full {
+    grid-column: span 2;
+  }
+
+  .vt-bio-injuries {
+    grid-column: span 2;
+  }
+
+  .vt-bio-injuries__label {
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-bio-injuries__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .vt-option-card {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: var(--radius-2xl, 1rem);
+    border: 1px solid var(--border);
+    background-color: var(--card);
+    color: var(--foreground);
+    padding: 1rem 1.25rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+
+  .vt-option-card:hover {
+    border-color: color-mix(in oklab, var(--foreground) 20%, transparent);
+  }
+
+  .vt-option-card--active {
+    border-color: var(--primary);
+    background-color: color-mix(in oklab, var(--primary) 10%, transparent);
+    color: var(--primary);
+  }
+
+  .vt-option-card__label {
+    display: block;
+    font-weight: 600;
+    color: inherit;
+  }
+
+  .vt-option-card__sub {
+    font-size: 0.75rem;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-option-card__radio {
+    display: grid;
+    width: 1.5rem;
+    height: 1.5rem;
+    place-items: center;
+    border-radius: 9999px;
+    border: 1px solid var(--border);
+  }
+
+  .vt-option-card__radio--active {
+    border-color: var(--primary);
+    background-color: var(--primary);
+    color: var(--primary-foreground, var(--primaryForeground));
+  }
+
+  .vt-pill-btn {
+    border-radius: var(--radius-xl, 0.75rem);
+    border: 1px solid var(--border);
+    background-color: var(--card);
+    padding: 1rem 0;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--foreground);
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+
+  .vt-pill-btn--active {
+    border-color: var(--primary);
+    background-color: color-mix(in oklab, var(--primary) 15%, transparent);
+    color: var(--primary);
+  }
+}

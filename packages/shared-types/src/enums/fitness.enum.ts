@@ -8,43 +8,93 @@ import { generateCatalogUuid } from "../utils/uuid";
 
 // ─── Onboarding & User Preference Taxonomies ─────────────────────────────────
 
+export enum GoalEnum {
+  HYPERTROPHY = "Hypertrophy",
+  SHRED_AND_CUT = "Shred & Cut",
+  CALISTHENICS_MASTERY = "Calisthenics Mastery",
+  MAXIMUM_STRENGTH = "Maximum Strength",
+  ATHLETIC_STAMINA = "Athletic Stamina",
+}
+export const Goal = GoalEnum;
+export type Goal = `${GoalEnum}`;
+
 export const GOALS = [
-  "Hypertrophy",
-  "Shred & Cut",
-  "Calisthenics Mastery",
-  "Maximum Strength",
-  "Athletic Stamina",
+  GoalEnum.HYPERTROPHY,
+  GoalEnum.SHRED_AND_CUT,
+  GoalEnum.CALISTHENICS_MASTERY,
+  GoalEnum.MAXIMUM_STRENGTH,
+  GoalEnum.ATHLETIC_STAMINA,
 ] as const;
-export type Goal = (typeof GOALS)[number];
+
+export enum EquipmentTypeEnum {
+  FULL_COMMERCIAL_GYM = "Full Commercial Gym",
+  DUMBBELLS_AND_BENCH = "Dumbbells & Bench",
+  RESISTANCE_BANDS_ONLY = "Resistance Bands Only",
+  BODYWEIGHT_ONLY = "Bodyweight Only",
+}
+export const EquipmentType = EquipmentTypeEnum;
+export type Equipment = `${EquipmentTypeEnum}`;
 
 export const EQUIPMENT_TYPES = [
-  "Full Commercial Gym",
-  "Dumbbells & Bench",
-  "Resistance Bands Only",
-  "Bodyweight Only",
+  EquipmentTypeEnum.FULL_COMMERCIAL_GYM,
+  EquipmentTypeEnum.DUMBBELLS_AND_BENCH,
+  EquipmentTypeEnum.RESISTANCE_BANDS_ONLY,
+  EquipmentTypeEnum.BODYWEIGHT_ONLY,
 ] as const;
-export type Equipment = (typeof EQUIPMENT_TYPES)[number];
 
-export const EXPERIENCE_LEVELS = ["Beginner", "Intermediate", "Advanced", "Elite"] as const;
-export type ExperienceLevel = (typeof EXPERIENCE_LEVELS)[number];
+export enum ExperienceLevelEnum {
+  BEGINNER = "Beginner",
+  INTERMEDIATE = "Intermediate",
+  ADVANCED = "Advanced",
+  ELITE = "Elite",
+}
+export const ExperienceLevel = ExperienceLevelEnum;
+export type ExperienceLevel = `${ExperienceLevelEnum}`;
+
+export const EXPERIENCE_LEVELS = [
+  ExperienceLevelEnum.BEGINNER,
+  ExperienceLevelEnum.INTERMEDIATE,
+  ExperienceLevelEnum.ADVANCED,
+  ExperienceLevelEnum.ELITE,
+] as const;
+
+export enum FocusAreaEnum {
+  CHEST_AND_ARMS = "Chest & Arms",
+  CORE_AND_SIX_PACK = "Core & Six-Pack",
+  BACK_AND_SHOULDERS = "Back & Shoulders",
+  QUADS_AND_GLUTES = "Quads & Glutes",
+  FULL_BODY = "Full Body",
+}
+export const FocusArea = FocusAreaEnum;
+export type FocusArea = `${FocusAreaEnum}`;
 
 export const FOCUS_AREAS = [
-  "Chest & Arms",
-  "Core & Six-Pack",
-  "Back & Shoulders",
-  "Quads & Glutes",
-  "Full Body",
+  FocusAreaEnum.CHEST_AND_ARMS,
+  FocusAreaEnum.CORE_AND_SIX_PACK,
+  FocusAreaEnum.BACK_AND_SHOULDERS,
+  FocusAreaEnum.QUADS_AND_GLUTES,
+  FocusAreaEnum.FULL_BODY,
 ] as const;
-export type FocusArea = (typeof FOCUS_AREAS)[number];
 
-export const SPLIT_TYPES = ["Push/Pull/Legs", "Upper/Lower", "Full Body", "Arnold Split"] as const;
-export type SplitType = (typeof SPLIT_TYPES)[number];
+export enum SplitTypeEnum {
+  PUSH_PULL_LEGS = "Push/Pull/Legs",
+  UPPER_LOWER = "Upper/Lower",
+  FULL_BODY = "Full Body",
+  ARNOLD_SPLIT = "Arnold Split",
+}
+export const SplitType = SplitTypeEnum;
+export type SplitType = `${SplitTypeEnum}`;
+
+export const SPLIT_TYPES = [
+  SplitTypeEnum.PUSH_PULL_LEGS,
+  SplitTypeEnum.UPPER_LOWER,
+  SplitTypeEnum.FULL_BODY,
+  SplitTypeEnum.ARNOLD_SPLIT,
+] as const;
 
 // ─── Hypertrophy & Periodization Enums ───────────────────────────────────────
 
-/**
- * Anatomical muscle groups mapped in the interactive Human Muscle Heatmap.
- */
+/** Anatomical muscle groups mapped in the interactive Human Muscle Heatmap. */
 export enum MuscleGroup {
   CHEST = "chest",
   BACK = "back",
@@ -58,9 +108,7 @@ export enum MuscleGroup {
   CORE = "core",
 }
 
-/**
- * Phases of a standard 6-week hypertrophy mesocycle.
- */
+/** Phases of a standard 6-week hypertrophy mesocycle. */
 export enum MesocyclePhase {
   BASELINE = "baseline",
   OVERLOAD = "overload",
@@ -68,18 +116,14 @@ export enum MesocyclePhase {
   DELOAD = "deload",
 }
 
-/**
- * Movement classification determining fatigue accumulation and neurological demand.
- */
+/** Movement classification determining fatigue accumulation and neurological demand. */
 export enum ExerciseCategory {
   COMPOUND = "compound",
   ACCESSORY = "accessory",
   ISOLATION = "isolation",
 }
 
-/**
- * Trigger reason for executing an AI Biomechanical Exercise Swap.
- */
+/** Trigger reason for executing an AI Biomechanical Exercise Swap. */
 export enum SwapReason {
   MACHINE_OCCUPIED = "machine_occupied",
   JOINT_DISCOMFORT = "joint_discomfort",
@@ -87,9 +131,7 @@ export enum SwapReason {
   EQUIPMENT_MISSING = "equipment_missing",
 }
 
-/**
- * Training volume status relative to hypertrophy landmarks (MEV, MAV, MRV).
- */
+/** Training volume status relative to hypertrophy landmarks (MEV, MAV, MRV). */
 export enum VolumeStatus {
   BELOW_MEV = "below_mev",
   OPTIMAL_MAV = "optimal_mav",
@@ -97,9 +139,7 @@ export enum VolumeStatus {
   OVERREACHING = "overreaching",
 }
 
-/**
- * Broad category grouping for gym and home equipment.
- */
+/** Broad category grouping for gym and home equipment. */
 export enum EquipmentCategory {
   BODYWEIGHT = "bodyweight",
   FREE_WEIGHTS = "free_weights",

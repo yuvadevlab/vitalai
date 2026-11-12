@@ -1,0 +1,219 @@
+/**
+ * @file packages/ui/src/styles/onboarding.css
+ * @description Onboarding wizard, multi-step progress bar, biometrics inputs, and generating loader.
+ * @author yuva.devlab@gmail.com
+ */
+
+@layer dl-app {
+  .vt-onboarding {
+    margin-inline: auto;
+    display: flex;
+    min-height: 100vh;
+    max-width: 36rem;
+    flex-direction: column;
+    padding: 1.5rem 1.25rem;
+  }
+
+  .vt-onboarding__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .vt-onboarding__logo-icon {
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
+    border-radius: var(--radius-lg, 0.5rem);
+  }
+
+  .vt-onboarding__brand {
+    font-size: 1.5rem;
+  }
+
+  .vt-onboarding__step-count {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-onboarding__progress {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.375rem;
+  }
+
+  .vt-onboarding__progress-track {
+    height: 0.25rem;
+    flex: 1 1 0%;
+    overflow: hidden;
+    border-radius: 9999px;
+    background-color: var(--secondary);
+  }
+
+  .vt-onboarding__progress-fill {
+    height: 100%;
+    background-color: var(--primary);
+  }
+
+  .vt-onboarding__body {
+    position: relative;
+    margin-top: 2rem;
+    flex: 1 1 0%;
+  }
+
+  .vt-onboarding__title {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 3rem;
+  }
+
+  .vt-onboarding__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .vt-onboarding__footer {
+    margin-top: 2rem;
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .vt-onboarding__back-btn {
+    display: grid;
+    width: 3.5rem;
+    height: 3.5rem;
+    place-items: center;
+    border-radius: var(--radius-2xl, 1rem);
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--foreground);
+    cursor: pointer;
+  }
+
+  .vt-onboarding__next-btn {
+    display: flex;
+    height: 3.5rem;
+    flex: 1 1 0%;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-2xl, 1rem);
+    border: none;
+    background-color: var(--primary);
+    font-family: var(--font-sans, "Inter Variable", sans-serif);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--primary-foreground, var(--primaryForeground));
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+
+  .vt-onboarding__next-btn:hover {
+    filter: brightness(1.06);
+  }
+
+  /* Generating Step */
+  .vt-generating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2.5rem;
+    text-align: center;
+  }
+
+  .vt-generating__pulse-box {
+    position: relative;
+    display: grid;
+    width: 12rem;
+    height: 12rem;
+    place-items: center;
+  }
+
+  .vt-generating__ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    border: 2px solid var(--primary);
+  }
+
+  .vt-generating__icon-circle {
+    display: grid;
+    width: 6rem;
+    height: 6rem;
+    place-items: center;
+    border-radius: 9999px;
+  }
+
+  .vt-generating__phase-box {
+    margin-top: 2.5rem;
+    height: 4rem;
+  }
+
+  .vt-generating__phase-text {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .vt-generating__track {
+    height: 0.25rem;
+    width: 16rem;
+    overflow: hidden;
+    border-radius: 9999px;
+    background-color: var(--secondary);
+  }
+
+  .vt-generating__fill {
+    height: 100%;
+    background-color: var(--primary);
+  }
+
+  .vt-generating__done-btn {
+    margin-top: 2.5rem;
+    border-radius: var(--radius-2xl, 1rem);
+    border: none;
+    background-color: var(--primary);
+    padding: 1rem 2rem;
+    font-family: var(--font-sans, "Inter Variable", sans-serif);
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--primary-foreground, var(--primaryForeground));
+    cursor: pointer;
+  }
+
+  /* Frequency step */
+  .vt-frequency-grid {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .vt-frequency-btn {
+    border-radius: var(--radius-2xl, 1rem);
+    border: 1px solid var(--border);
+    background-color: var(--card);
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.875rem;
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+
+  .vt-frequency-btn--active {
+    border-color: var(--volt);
+    background-color: color-mix(in oklab, var(--volt) 15%, transparent);
+    color: var(--volt);
+  }
+
+  .vt-frequency-btn__sub {
+    display: block;
+    font-size: 0.75rem;
+    font-family: var(--font-sans, "Inter Variable", sans-serif);
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+}

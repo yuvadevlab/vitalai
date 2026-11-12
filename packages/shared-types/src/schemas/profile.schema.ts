@@ -1,12 +1,21 @@
 import { z } from "zod";
-import { GOALS, EQUIPMENT_TYPES, EXPERIENCE_LEVELS, FOCUS_AREAS } from "../enums/fitness.enum";
+import {
+  GOALS,
+  GoalEnum,
+  EQUIPMENT_TYPES,
+  EquipmentTypeEnum,
+  EXPERIENCE_LEVELS,
+  ExperienceLevelEnum,
+  FOCUS_AREAS,
+  FocusAreaEnum,
+} from "../enums/fitness.enum";
 
 export const ProfileSchema = z.object({
   name: z.string().min(1).default("Athlete"),
-  goal: z.enum(GOALS).default("Hypertrophy"),
-  focus: z.array(z.enum(FOCUS_AREAS)).default(["Chest & Arms"]),
-  level: z.enum(EXPERIENCE_LEVELS).default("Intermediate"),
-  equipment: z.enum(EQUIPMENT_TYPES).default("Full Commercial Gym"),
+  goal: z.enum(GOALS).default(GoalEnum.HYPERTROPHY),
+  focus: z.array(z.enum(FOCUS_AREAS)).default([FocusAreaEnum.CHEST_AND_ARMS]),
+  level: z.enum(EXPERIENCE_LEVELS).default(ExperienceLevelEnum.INTERMEDIATE),
+  equipment: z.enum(EQUIPMENT_TYPES).default(EquipmentTypeEnum.FULL_COMMERCIAL_GYM),
   days: z.number().int().min(2).max(7).default(4),
   sessionLength: z.number().int().min(20).max(120).default(60),
   age: z.number().int().min(14).max(100).default(26),

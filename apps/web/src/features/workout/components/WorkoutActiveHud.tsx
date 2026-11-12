@@ -72,7 +72,7 @@ export function WorkoutActiveHud() {
   };
 
   return (
-    <div className="mx-auto min-h-screen max-w-2xl px-4 py-5 pb-36">
+    <div className="vt-active-hud">
       <WorkoutActiveHeader
         currentIndex={idx}
         totalExercises={exs.length}
@@ -87,27 +87,24 @@ export function WorkoutActiveHud() {
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: -35 * dir, opacity: 0 }}
           transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-6"
+          style={{ marginTop: "1.5rem" }}
         >
-          <div className="glass relative overflow-hidden p-5">
+          <div className="vt-glass vt-active-hud__card">
             <motion.div
-              className="pointer-events-none absolute -right-10 -top-10 size-40 rounded-full bg-primary/20 blur-3xl"
+              className="vt-active-hud__card-glow"
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 2.4, repeat: Infinity }}
             />
-            <h1 className="font-display-x relative text-4xl md:text-5xl">{ex.name}</h1>
-            <div className="relative mt-3 flex flex-wrap gap-2">
+            <h1 className="vt-font-display vt-active-hud__exercise-title">{ex.name}</h1>
+            <div className="vt-active-hud__cues">
               {ex.cues.map((c) => (
-                <span key={c} className="rounded-full bg-secondary px-3 py-1 text-xs">
+                <span key={c} className="vt-active-hud__cue">
                   {c}
                 </span>
               ))}
             </div>
-            <button
-              onClick={() => setSwap(true)}
-              className="relative mt-4 flex items-center gap-2 text-sm font-semibold text-cyan"
-            >
-              <Repeat className="size-4" /> Swap exercise
+            <button onClick={() => setSwap(true)} className="vt-active-hud__swap-btn">
+              <Repeat style={{ width: "1rem", height: "1rem" }} /> Swap exercise
             </button>
           </div>
 
@@ -120,26 +117,22 @@ export function WorkoutActiveHud() {
         </motion.div>
       </AnimatePresence>
 
-      <div className="mt-4 flex gap-3">
-        <button
-          disabled={idx === 0}
-          onClick={() => move(-1)}
-          className="flex flex-1 items-center justify-center gap-1 rounded-xl border py-3 text-sm disabled:opacity-30"
-        >
-          <ChevronLeft className="size-4" />
+      <div className="vt-active-hud__nav">
+        <button disabled={idx === 0} onClick={() => move(-1)} className="vt-active-hud__nav-btn">
+          <ChevronLeft style={{ width: "1rem", height: "1rem" }} />
           Prev
         </button>
         <button
           disabled={idx === exs.length - 1}
           onClick={() => move(1)}
-          className="flex flex-1 items-center justify-center gap-1 rounded-xl border py-3 text-sm disabled:opacity-30"
+          className="vt-active-hud__nav-btn"
         >
           Next
-          <ChevronRight className="size-4" />
+          <ChevronRight style={{ width: "1rem", height: "1rem" }} />
         </button>
       </div>
 
-      <div className="mt-6">
+      <div style={{ marginTop: "1.5rem" }}>
         <InsightWidget text="Rest interval optimized: 90 seconds recommended for full ATP replenishment before set 2." />
       </div>
 

@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
+import { VitalStorageKey } from "@vitalai/shared-types";
 import { ThemeContext, type Theme, type ResolvedTheme } from "./theme-context";
 
-const STORAGE_KEY = "vitalai-theme";
+const STORAGE_KEY = VitalStorageKey.THEME;
 
 let listeners: Array<() => void> = [];
 

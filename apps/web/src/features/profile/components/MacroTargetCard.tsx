@@ -9,37 +9,37 @@ export function MacroTargetCard() {
   if (!macros) return null;
 
   return (
-    <div className="glass p-5">
-      <div className="flex items-center justify-between">
-        <h3 className="font-display-x text-2xl">CALIBRATED MACRO TARGETS</h3>
-        <span className="flex items-center gap-1 text-xs font-semibold text-volt">
-          <Flame className="size-3.5" /> {macros.calories} kcal/day
+    <div className="vt-glass vt-macro-card">
+      <div className="vt-macro-card__header">
+        <h3 className="vt-font-display vt-macro-card__title">CALIBRATED MACRO TARGETS</h3>
+        <span className="vt-macro-card__cal">
+          <Flame className="vt-macro-card__cal-icon" /> {macros.calories} kcal/day
         </span>
       </div>
-      <p className="mt-1 text-xs text-muted-foreground">
+      <p className="vt-macro-card__sub">
         Metabolic calibration based on your training volume & lean mass.
       </p>
 
-      <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <div className="rounded-xl border border-border bg-secondary/40 p-3 text-center">
-          <Beef className="mx-auto size-4 text-cyan" />
-          <div className="font-display-x mt-1 text-xl">{macros.protein}g</div>
-          <p className="text-[10px] uppercase text-muted-foreground">Protein</p>
+      <div className="vt-macro-card__grid">
+        <div className="vt-macro-box">
+          <Beef className="vt-macro-box__icon" style={{ color: "var(--cyan)" }} />
+          <div className="vt-tabular vt-macro-box__val">{macros.protein}g</div>
+          <p className="vt-macro-box__label">Protein</p>
         </div>
-        <div className="rounded-xl border border-border bg-secondary/40 p-3 text-center">
-          <Wheat className="mx-auto size-4 text-amber-400" />
-          <div className="font-display-x mt-1 text-xl">{macros.carbs}g</div>
-          <p className="text-[10px] uppercase text-muted-foreground">Carbs</p>
+        <div className="vt-macro-box">
+          <Wheat className="vt-macro-box__icon" style={{ color: "#fbbf24" }} />
+          <div className="vt-tabular vt-macro-box__val">{macros.carbs}g</div>
+          <p className="vt-macro-box__label">Carbs</p>
         </div>
-        <div className="rounded-xl border border-border bg-secondary/40 p-3 text-center">
-          <Droplets className="mx-auto size-4 text-ember" />
-          <div className="font-display-x mt-1 text-xl">{macros.fats}g</div>
-          <p className="text-[10px] uppercase text-muted-foreground">Fats</p>
+        <div className="vt-macro-box">
+          <Droplets className="vt-macro-box__icon" style={{ color: "var(--ember, #f97316)" }} />
+          <div className="vt-tabular vt-macro-box__val">{macros.fats}g</div>
+          <p className="vt-macro-box__label">Fats</p>
         </div>
-        <div className="rounded-xl border border-border bg-secondary/40 p-3 text-center">
-          <GlassWater className="mx-auto size-4 text-volt" />
-          <div className="font-display-x mt-1 text-xl">{macros.waterLiters}L</div>
-          <p className="text-[10px] uppercase text-muted-foreground">Hydration</p>
+        <div className="vt-macro-box">
+          <GlassWater className="vt-macro-box__icon" style={{ color: "var(--volt)" }} />
+          <div className="vt-tabular vt-macro-box__val">{macros.waterLiters}L</div>
+          <p className="vt-macro-box__label">Hydration</p>
         </div>
       </div>
     </div>

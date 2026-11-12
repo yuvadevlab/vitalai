@@ -1,3 +1,5 @@
+import { VitalStorageKey } from "@vitalai/shared-types";
+
 /**
  * appearanceScript
  *
@@ -8,7 +10,7 @@ export const appearanceScript = `
 (function () {
   try {
     var root = document.documentElement;
-    var stored = localStorage.getItem('vitalai-theme');
+    var stored = localStorage.getItem('${VitalStorageKey.THEME}');
     var isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches) || (stored === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
     
     root.setAttribute('data-brand', 'vitalai');

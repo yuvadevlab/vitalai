@@ -24,7 +24,7 @@ Unlike single-purpose gym trackers or generic chat assistants that hallucinate d
 │                                VITALAI ARCHITECTURE                                    │
 └────────────────────────────────────────────────────────────────────────────────────────┘
                  [Next.js 15 Web Dashboard (:3004) — apps/web]
-                 (React 19, Tailwind v4, React Query v5, @vitalai/ui, @yuva-devlab/tokens)
+                 (React 19, Pure Platform CSS, React Query v5, @vitalai/ui, @yuva-devlab/tokens)
                                           │
                                           ├───────────────┬────────────────┐
                             GraphQL POST  │               │ SSE Stream     │
@@ -47,7 +47,7 @@ Unlike single-purpose gym trackers or generic chat assistants that hallucinate d
 
 ### 3.1. Web Application (`apps/web` — Port `3004`, Prod: `3014`)
 
-- **Technology Stack**: Next.js 15 (App Router), React 19, Tailwind CSS v4, React Query v5, `@vitalai/ui`, `@yuva-devlab/tokens`.
+- **Technology Stack**: Next.js 15 (App Router), React 19, Pure Platform CSS & W3C Cascade Layers, React Query v5, `@vitalai/ui`, `@yuva-devlab/tokens`.
 - **Feature Modules**:
   - **Health Vault**: Interactive management of medical conditions, orthopedic history, and pregnancy stages.
   - **Conversational Advisor**: Real-time SSE streaming dialogue with contextual clinical and training personas.

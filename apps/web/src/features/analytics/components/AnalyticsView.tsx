@@ -13,30 +13,28 @@ export function AnalyticsView() {
 
   return (
     <AppShell insight="Your 1RM on Bench has increased by 7.5kg over the last 3 weeks. Progressive overload curve is optimal.">
-      <h1 className="font-display-x text-5xl">Analytics</h1>
-      <div className="mt-6 grid gap-6 lg:grid-cols-2">
-        <div className="glass p-5">
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">
-            Weekly volume (kg)
-          </p>
-          <div className="mt-6 flex h-48 items-end gap-3">
+      <h1 className="vt-font-display vt-analytics-title">Analytics</h1>
+      <div className="vt-analytics-grid">
+        <div className="vt-glass vt-analytics-card">
+          <p className="vt-analytics-card__label">Weekly volume (kg)</p>
+          <div className="vt-volume-chart">
             {volume.map((v, i) => (
-              <div key={i} className="flex flex-1 flex-col items-center gap-2">
+              <div key={i} className="vt-volume-chart__col">
                 <motion.div
                   initial={{ height: 0 }}
                   animate={{ height: `${(v / max) * 100}%` }}
                   transition={{ delay: i * 0.05, duration: 0.6 }}
-                  className={`w-full rounded-t-lg ${i === volume.length - 1 ? "bg-gradient-volt glow-volt" : "bg-surface-2"}`}
+                  className={`vt-volume-chart__bar ${i === volume.length - 1 ? "vt-volume-chart__bar--active" : ""}`}
                 />
-                <span className="tabular text-[10px] text-muted-foreground">W{i + 1}</span>
+                <span className="vt-tabular vt-volume-chart__label">W{i + 1}</span>
               </div>
             ))}
           </div>
         </div>
-        <div className="glass p-5">
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">Bench est. 1RM</p>
-          <p className="tabular mt-2 text-4xl font-bold text-primary text-glow">100 kg</p>
-          <svg viewBox="0 0 400 120" className="mt-4 w-full">
+        <div className="vt-glass vt-analytics-card">
+          <p className="vt-analytics-card__label">Bench est. 1RM</p>
+          <p className="vt-tabular vt-analytics-card__value vt-text-glow">100 kg</p>
+          <svg viewBox="0 0 400 120" className="vt-analytics-chart-svg">
             <motion.polyline
               initial={{ pathLength: 0 }}
               animate={{ pathLength: 1 }}
@@ -50,16 +48,16 @@ export function AnalyticsView() {
           </svg>
         </div>
       </div>
-      <div className="glass mt-6 p-5">
-        <p className="text-xs uppercase tracking-widest text-muted-foreground">History</p>
-        <ul className="mt-3 divide-y divide-border">
+      <div className="vt-glass vt-history-card">
+        <p className="vt-analytics-card__label">History</p>
+        <ul className="vt-history-list">
           {history.map((h, i) => (
-            <li key={i} className="flex items-center justify-between py-3 text-sm">
+            <li key={i} className="vt-history-item">
               <span>
-                <span className="font-semibold">{h.title}</span>{" "}
-                <span className="tabular text-muted-foreground">{h.date}</span>
+                <span className="vt-history-item__title">{h.title}</span>{" "}
+                <span className="vt-tabular vt-history-item__date">{h.date}</span>
               </span>
-              <span className="tabular text-muted-foreground">
+              <span className="vt-tabular vt-history-item__meta">
                 {h.volume.toLocaleString()} kg • {h.sets} sets
                 {h.prs ? ` • ${h.prs} PR` : ""}
               </span>

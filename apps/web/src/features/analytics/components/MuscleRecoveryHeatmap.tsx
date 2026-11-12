@@ -8,37 +8,40 @@ interface HeatmapProps {
 
 export function MuscleRecoveryHeatmap({ items }: HeatmapProps) {
   return (
-    <div className="glass p-5">
-      <h3 className="font-display-x text-2xl">{ANALYTICS_COPY.sections.muscleFatigue}</h3>
-      <div className="mt-4 grid gap-3 md:grid-cols-2">
+    <div className="vt-glass vt-heatmap-card">
+      <h3 className="vt-font-display vt-heatmap-card__title">
+        {ANALYTICS_COPY.sections.muscleFatigue}
+      </h3>
+      <div className="vt-heatmap-grid">
         {items.map((m) => {
-          const color =
+          const badgeType =
             m.recoveryPercent > 75
-              ? "bg-volt text-primary-foreground"
+              ? "vt-heatmap-item__badge--volt"
               : m.recoveryPercent > 50
-                ? "bg-cyan text-primary-foreground"
-                : "bg-ember text-white";
+                ? "vt-heatmap-item__badge--cyan"
+                : "vt-heatmap-item__badge--ember";
+
+          const fillColor =
+            m.recoveryPercent > 75
+              ? "var(--volt)"
+              : m.recoveryPercent > 50
+                ? "var(--cyan)"
+                : "var(--ember, #f97316)";
+
           return (
-            <div
-              key={m.muscle}
-              className="flex items-center justify-between rounded-xl bg-secondary/50 p-3.5"
-            >
+            <div key={m.muscle} className="vt-heatmap-item">
               <div>
-                <span className="font-semibold text-sm">{m.muscle}</span>
-                <p className="text-xs text-muted-foreground">Fatigue: {m.fatigue}%</p>
+                <span className="vt-heatmap-item__name">{m.muscle}</span>
+                <p className="vt-heatmap-item__sub">Fatigue: {m.fatigue}%</p>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-20 bg-secondary rounded-full h-2 overflow-hidden">
+              <div className="vt-heatmap-item__status">
+                <div className="vt-heatmap-item__track">
                   <div
-                    className={"h-full " + color.split(" ")[0]}
-                    style={{ width: `${m.recoveryPercent}%` }}
+                    className="vt-heatmap-item__fill"
+                    style={{ width: `${m.recoveryPercent}%`, backgroundColor: fillColor }}
                   />
                 </div>
-                <span
-                  className={"rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase " + color}
-                >
-                  {m.status}
-                </span>
+                <span className={`vt-heatmap-item__badge ${badgeType}`}>{m.status}</span>
               </div>
             </div>
           );

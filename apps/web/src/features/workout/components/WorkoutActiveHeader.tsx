@@ -19,27 +19,27 @@ export function WorkoutActiveHeader({
 }: WorkoutActiveHeaderProps) {
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <Link href="/" className="grid size-10 place-items-center rounded-xl border">
-          <X className="size-5" />
+      <div className="vt-active-header">
+        <Link href="/" className="vt-active-header__close" aria-label="Close workout">
+          <X style={{ width: "1.25rem", height: "1.25rem" }} />
         </Link>
-        <p className="tabular text-xs text-muted-foreground">
+        <p className="vt-tabular vt-active-header__progress-text">
           EXERCISE {currentIndex + 1} / {totalExercises} • {totalSets} SETS
         </p>
         <motion.button
           whileTap={{ scale: 0.97 }}
           onClick={onFinish}
-          className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
+          className="vt-active-header__finish-btn"
         >
           Finish
         </motion.button>
       </div>
 
-      <div className="mt-4 flex gap-1">
+      <div className="vt-active-header__bars">
         {Array.from({ length: totalExercises }).map((_, i) => (
           <div
             key={i}
-            className={`h-1 flex-1 rounded-full ${i <= currentIndex ? "bg-primary" : "bg-secondary"}`}
+            className={`vt-active-header__bar ${i <= currentIndex ? "vt-active-header__bar--active" : ""}`}
           />
         ))}
       </div>

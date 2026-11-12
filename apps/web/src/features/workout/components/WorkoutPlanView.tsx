@@ -13,11 +13,11 @@ export function WorkoutPlanView() {
 
   return (
     <AppShell insight="Your push-to-pull volume ratio is 1.1:1, perfectly balanced for shoulder health and posture.">
-      <h1 className="font-display-x text-5xl">Weekly Plan</h1>
-      <p className="mt-2 text-sm text-muted-foreground">
+      <h1 className="vt-font-display vt-plan-title">Weekly Plan</h1>
+      <p className="vt-plan-subtitle">
         {profile.goal} • {profile.days} days • {profile.equipment}
       </p>
-      <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
+      <div className="vt-plan-grid">
         {split.map((s, i) => {
           const rest = s === "Rest";
           const today = i === 5;
@@ -27,31 +27,33 @@ export function WorkoutPlanView() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.04 }}
-              className={`glass p-4 ${today ? "border-primary glow-volt" : ""}`}
+              className={`vt-glass vt-plan-card ${today ? "vt-plan-card--today vt-glow-volt" : ""}`}
             >
-              <p className="tabular text-xs text-muted-foreground">
+              <p className="vt-tabular vt-plan-card__day">
                 {DAYS[i]}
                 {today && " • Today"}
               </p>
-              <p className={`font-display-x mt-3 text-2xl ${rest ? "text-muted-foreground" : ""}`}>
+              <p
+                className={`vt-font-display vt-plan-card__split ${rest ? "vt-plan-card__split--rest" : ""}`}
+              >
                 {s}
               </p>
               {!rest && (
-                <p className="tabular mt-2 text-xs text-primary">{profile.sessionLength} min</p>
+                <p className="vt-tabular vt-plan-card__duration">{profile.sessionLength} min</p>
               )}
             </motion.div>
           );
         })}
       </div>
-      <div className="glass mt-6 p-5">
-        <h3 className="font-display-x text-xl">Mesocycle</h3>
-        <div className="mt-4 flex gap-2">
+      <div className="vt-glass vt-mesocycle-card">
+        <h3 className="vt-font-display vt-mesocycle-card__title">Mesocycle</h3>
+        <div className="vt-mesocycle-card__grid">
           {["Base", "Build", "Overload", "Overload", "Peak", "Deload"].map((w, i) => (
-            <div key={i} className="flex-1">
+            <div key={i} className="vt-mesocycle-card__item">
               <div
-                className={`h-2 rounded-full ${i < 2 ? "bg-primary/60" : i === 2 ? "bg-primary glow-volt" : "bg-secondary"}`}
+                className={`vt-mesocycle-card__bar ${i < 2 ? "vt-mesocycle-card__bar--past" : i === 2 ? "vt-mesocycle-card__bar--current vt-glow-volt" : ""}`}
               />
-              <p className="tabular mt-2 text-[10px] text-muted-foreground">
+              <p className="vt-tabular vt-mesocycle-card__week">
                 W{i + 1} {w}
               </p>
             </div>

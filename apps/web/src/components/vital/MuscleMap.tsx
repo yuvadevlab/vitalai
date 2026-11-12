@@ -7,7 +7,7 @@ type Level = "primary" | "secondary" | "rest";
 const fill: Record<Level, string> = {
   primary: "var(--volt)",
   secondary: "var(--cyan)",
-  rest: "var(--slate-muscle)",
+  rest: "var(--slate-muscle, #475569)",
 };
 
 const front: { id: string; label: string; level: Level; d: string }[] = [
@@ -77,37 +77,36 @@ export function MuscleMap() {
   const [hover, setHover] = useState<string | null>(null);
   const parts = view === "front" ? front : back;
   return (
-    <div className="glass p-5">
-      <div className="flex items-center justify-between">
-        <h3 className="font-display-x text-xl">Muscle Recruitment</h3>
-        <div className="flex rounded-full bg-secondary p-1 text-xs">
+    <div className="vt-glass vt-muscle-map">
+      <div className="vt-muscle-map__header">
+        <h3 className="vt-font-display vt-muscle-map__title">Muscle Recruitment</h3>
+        <div className="vt-muscle-map__toggle">
           {(["front", "back"] as const).map((v) => (
             <button
               key={v}
               onClick={() => setView(v)}
-              className={`relative rounded-full px-3 py-1 font-semibold ${view === v ? "text-primary-foreground" : "text-muted-foreground"}`}
+              className={`vt-muscle-map__toggle-btn ${view === v ? "vt-muscle-map__toggle-btn--active" : ""}`}
             >
               {view === v && (
-                <motion.span
-                  layoutId="mmpill"
-                  className="absolute inset-0 rounded-full bg-primary"
-                />
+                <motion.span layoutId="mmpill" className="vt-muscle-map__toggle-pill" />
               )}
-              <span className="relative">{v === "front" ? "Anterior" : "Posterior"}</span>
+              <span className="vt-muscle-map__toggle-label">
+                {v === "front" ? "Anterior" : "Posterior"}
+              </span>
             </button>
           ))}
         </div>
       </div>
-      <div className="mt-4 flex items-center gap-4">
+      <div className="vt-muscle-map__body">
         <motion.svg
           key={view}
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           viewBox="0 0 180 290"
-          className="h-72 w-auto shrink-0"
+          className="vt-muscle-map__svg"
         >
-          <circle cx="90" cy="30" r="16" fill="var(--slate-muscle)" />
-          <rect x="83" y="44" width="14" height="10" fill="var(--slate-muscle)" />
+          <circle cx="90" cy="30" r="16" fill="var(--slate-muscle, #475569)" />
+          <rect x="83" y="44" width="14" height="10" fill="var(--slate-muscle, #475569)" />
           {parts.map((p) => (
             <path
               key={p.id}
@@ -126,22 +125,22 @@ export function MuscleMap() {
             />
           ))}
         </motion.svg>
-        <div className="space-y-3 text-sm">
-          <p className="tabular text-xs text-muted-foreground">{hover ?? "Hover a muscle"}</p>
-          <Legend color="bg-volt" label="Primary movers" />
-          <Legend color="bg-cyan" label="Stabilizers" />
-          <Legend color="bg-slate-muscle" label="Rested" />
+        <div className="vt-muscle-map__legend-list">
+          <p className="vt-tabular vt-muscle-map__hover-text">{hover ?? "Hover a muscle"}</p>
+          <Legend dotClass="vt-muscle-map__legend-dot--volt" label="Primary movers" />
+          <Legend dotClass="vt-muscle-map__legend-dot--cyan" label="Stabilizers" />
+          <Legend dotClass="vt-muscle-map__legend-dot--slate" label="Rested" />
         </div>
       </div>
     </div>
   );
 }
 
-function Legend({ color, label }: { color: string; label: string }) {
+function Legend({ dotClass, label }: { dotClass: string; label: string }) {
   return (
-    <div className="flex items-center gap-2">
-      <span className={`size-3 rounded-full ${color}`} />
-      <span className="text-muted-foreground">{label}</span>
+    <div className="vt-muscle-map__legend-item">
+      <span className={`vt-muscle-map__legend-dot ${dotClass}`} />
+      <span className="vt-muscle-map__legend-label">{label}</span>
     </div>
   );
 }

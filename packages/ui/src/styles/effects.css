@@ -1,0 +1,50 @@
+/**
+ * @file packages/ui/src/styles/utilities.css
+ * @description Design tokens, glass surfaces, volt glows, and typography utility classes.
+ * @author yuva.devlab@gmail.com
+ */
+
+@layer dl-components {
+  .vt-glass {
+    background: var(--card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-2xl, 1rem);
+  }
+
+  .vt-glow-volt {
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--volt) 40%, transparent),
+      0 10px 40px -8px color-mix(in oklab, var(--volt) 55%, transparent);
+  }
+
+  .vt-gradient-volt {
+    background-image: linear-gradient(
+      135deg,
+      var(--volt),
+      color-mix(in oklab, var(--volt) 60%, var(--cyan))
+    );
+  }
+
+  .vt-font-display {
+    font-family: "Barlow Condensed", "Inter Variable", sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 0.95;
+  }
+
+  .vt-tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .vt-mono {
+    font-family: var(--font-mono, monospace);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .vt-text-glow {
+    text-shadow: 0 0 24px color-mix(in oklab, var(--volt) 60%, transparent);
+  }
+}

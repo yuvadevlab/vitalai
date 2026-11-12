@@ -1,0 +1,127 @@
+/**
+ * @file packages/ui/src/styles/analytics.css
+ * @description Analytics dashboard, volume trend bars, and historical workout log for VitalAI.
+ * @author yuva.devlab@gmail.com
+ */
+
+@layer dl-app {
+  .vt-analytics-title {
+    margin: 0;
+    font-size: 3rem;
+  }
+
+  .vt-analytics-grid {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .vt-analytics-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .vt-analytics-card {
+    padding: 1.25rem;
+  }
+
+  .vt-analytics-card__label {
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-analytics-card__value {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .vt-analytics-chart-svg {
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+  /* Volume Trend Bars */
+  .vt-volume-chart {
+    margin-top: 1.5rem;
+    display: flex;
+    height: 12rem;
+    align-items: flex-end;
+    gap: 0.75rem;
+  }
+
+  .vt-volume-chart__col {
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .vt-volume-chart__bar {
+    width: 100%;
+    border-top-left-radius: var(--radius-lg, 0.5rem);
+    border-top-right-radius: var(--radius-lg, 0.5rem);
+    background-color: var(--secondary);
+  }
+
+  .vt-volume-chart__bar--active {
+    background-image: linear-gradient(
+      135deg,
+      var(--volt),
+      color-mix(in oklab, var(--volt) 60%, var(--cyan))
+    );
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--volt) 40%, transparent),
+      0 10px 40px -8px color-mix(in oklab, var(--volt) 55%, transparent);
+  }
+
+  .vt-volume-chart__label {
+    font-size: 0.625rem;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  /* History List */
+  .vt-history-card {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+  }
+
+  .vt-history-list {
+    margin-top: 0.75rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .vt-history-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 0;
+    font-size: 0.875rem;
+  }
+
+  .vt-history-item:last-child {
+    border-bottom: none;
+  }
+
+  .vt-history-item__title {
+    font-weight: 600;
+  }
+
+  .vt-history-item__date {
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-history-item__meta {
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+}

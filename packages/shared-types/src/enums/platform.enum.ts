@@ -22,3 +22,16 @@ export enum SystemPromptSlug {
   REACT_FORMAT = "react-format",
   SUPERVISOR_TRIAGE = "supervisor-triage",
 }
+
+export enum VitalStorageKey {
+  THEME = "vitalai-theme",
+  STORE = "vitalai",
+}
+
+export enum AppRoutePath {
+  HOME = "/",
+  PLAN = "/plan",
+  ANALYTICS = "/analytics",
+  ADVISOR = "/advisor",
+  PROFILE = "/profile",
+}

@@ -11,8 +11,10 @@ interface OnboardingGoalsStepProps {
 export function OnboardingGoalsStep({ selectedGoal, onSelectGoal }: OnboardingGoalsStepProps) {
   return (
     <div>
-      <h2 className="font-display-x text-3xl">WHAT IS YOUR PRIMARY MISSION?</h2>
-      <div className="mt-4 space-y-2.5">
+      <h2 className="vt-font-display" style={{ fontSize: "1.875rem", margin: 0 }}>
+        WHAT IS YOUR PRIMARY MISSION?
+      </h2>
+      <div className="vt-onboarding__list" style={{ marginTop: "1rem" }}>
         {GOALS.map((g) => (
           <OptionCard
             key={g}

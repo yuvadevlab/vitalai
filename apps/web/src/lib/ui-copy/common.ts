@@ -24,6 +24,11 @@ export const COMMON_COPY = {
     confirm: "Confirm",
     recalibrate: "Recalibrate Plan",
     swap: "Swap Exercise",
+    askCoach: "Ask AI Coach",
+  },
+  insight: {
+    badge: "VitalAI Insight",
+    askCoach: "Ask AI Coach",
   },
   status: {
     loading: "Loading athletic intelligence...",

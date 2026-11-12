@@ -1,0 +1,195 @@
+/**
+ * @file packages/ui/src/styles/workout-plan.css
+ * @description Weekly training plan view and workout completion summary modal for VitalAI.
+ * @author yuva.devlab@gmail.com
+ */
+
+@layer dl-app {
+  /* Plan View */
+  .vt-plan-title {
+    margin: 0;
+    font-size: 3rem;
+  }
+
+  .vt-plan-subtitle {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    font-size: 0.875rem;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-plan-grid {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .vt-plan-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .vt-plan-grid {
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+    }
+  }
+
+  .vt-plan-card {
+    padding: 1rem;
+  }
+
+  .vt-plan-card--today {
+    border-color: var(--primary);
+  }
+
+  .vt-plan-card__day {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-plan-card__split {
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+    font-size: 1.5rem;
+  }
+
+  .vt-plan-card__split--rest {
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-plan-card__duration {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    font-size: 0.75rem;
+    color: var(--primary);
+  }
+
+  .vt-mesocycle-card {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+  }
+
+  .vt-mesocycle-card__title {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .vt-mesocycle-card__grid {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .vt-mesocycle-card__item {
+    flex: 1 1 0%;
+  }
+
+  .vt-mesocycle-card__bar {
+    height: 0.5rem;
+    border-radius: 9999px;
+    background-color: var(--secondary);
+  }
+
+  .vt-mesocycle-card__bar--past {
+    background-color: color-mix(in oklab, var(--primary) 60%, transparent);
+  }
+
+  .vt-mesocycle-card__bar--current {
+    background-color: var(--primary);
+  }
+
+  .vt-mesocycle-card__week {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    font-size: 0.625rem;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  /* Workout Summary Modal */
+  .vt-summary-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: grid;
+    place-items: center;
+    background-color: color-mix(in oklab, var(--background) 85%, transparent);
+    padding: 1.5rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .vt-summary-card {
+    width: 100%;
+    max-width: 28rem;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .vt-summary-card__icon {
+    margin-inline: auto;
+    width: 3rem;
+    height: 3rem;
+    color: var(--primary);
+  }
+
+  .vt-summary-card__title {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    font-size: 2.25rem;
+  }
+
+  .vt-summary-card__grid {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .vt-summary-card__stat {
+    border-radius: var(--radius-xl, 0.75rem);
+    background-color: var(--secondary);
+    padding: 0.75rem;
+  }
+
+  .vt-summary-card__stat-val {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .vt-summary-card__stat-label {
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-summary-card__btn {
+    margin-top: 2rem;
+    display: block;
+    width: 100%;
+    border-radius: var(--radius-2xl, 1rem);
+    border: none;
+    background-color: var(--primary);
+    padding: 1rem 0;
+    font-family: var(--font-sans, "Inter Variable", sans-serif);
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--primary-foreground, var(--primaryForeground));
+    cursor: pointer;
+    transition: opacity 150ms ease;
+  }
+
+  .vt-summary-card__btn:hover {
+    opacity: 0.9;
+  }
+}
