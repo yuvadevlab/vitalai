@@ -11,7 +11,7 @@ import { LlmCatalogService } from "../services/llm-catalog.service";
 import { PlatformConfigService } from "../services/platform-config.service";
 
 @ApiTags("Platform")
-@Controller("api/v1/platform")
+@Controller("platform")
 export class PlatformController {
   constructor(
     private readonly navService: NavService,

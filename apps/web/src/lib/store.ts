@@ -1,10 +1,16 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import {
+  Goal,
+  GoalEnum,
+  Equipment,
+  EquipmentTypeEnum,
+  ExperienceLevelEnum,
+  FocusAreaEnum,
+  VitalStorageKey,
+} from "@vitalai/shared-types";
 
-export type Goal =
-  "Hypertrophy" | "Shred & Cut" | "Calisthenics Mastery" | "Maximum Strength" | "Athletic Stamina";
-export type Equipment =
-  "Full Commercial Gym" | "Dumbbells & Bench" | "Resistance Bands Only" | "Bodyweight Only";
+export type { Goal, Equipment };
 
 export interface Profile {
   name: string;
@@ -32,10 +38,10 @@ export interface HistoryEntry {
 
 export const defaultProfile: Profile = {
   name: "Athlete",
-  goal: "Hypertrophy",
-  focus: ["Chest & Arms"],
-  level: "Intermediate",
-  equipment: "Full Commercial Gym",
+  goal: GoalEnum.HYPERTROPHY,
+  focus: [FocusAreaEnum.CHEST_AND_ARMS],
+  level: ExperienceLevelEnum.INTERMEDIATE,
+  equipment: EquipmentTypeEnum.FULL_COMMERCIAL_GYM,
   days: 4,
   sessionLength: 60,
   age: 27,
@@ -74,7 +80,7 @@ export const useVital = create<State>()(
       setCoachContext: (c) => set({ coachContext: c }),
     }),
     {
-      name: "vitalai",
+      name: VitalStorageKey.STORE,
       partialize: (s) => ({ onboarded: s.onboarded, profile: s.profile, history: s.history }),
     },
   ),

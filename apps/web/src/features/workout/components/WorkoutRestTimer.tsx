@@ -23,32 +23,38 @@ export function WorkoutRestTimer({
       initial={{ y: 120, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: 120, opacity: 0 }}
-      className="fixed inset-x-4 bottom-4 z-40 mx-auto flex max-w-xl items-center gap-4 rounded-2xl border border-primary/40 bg-surface/95 p-4 backdrop-blur glow-volt"
+      className="vt-rest-timer vt-glow-volt"
     >
       <div>
-        <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Rest</p>
-        <p className="tabular text-3xl font-bold text-primary">
+        <p className="vt-rest-timer__label">Rest</p>
+        <p className="vt-tabular vt-rest-timer__time">
           {Math.floor(rest / 60)}:{String(rest % 60).padStart(2, "0")}
         </p>
       </div>
-      <div className="ml-auto flex gap-2">
+      <div className="vt-rest-timer__controls">
         <button
           onClick={onTogglePause}
-          className="grid size-11 place-items-center rounded-xl bg-secondary"
+          className="vt-rest-timer__btn"
+          aria-label={paused ? "Resume rest timer" : "Pause rest timer"}
         >
-          {paused ? <Play className="size-5" /> : <Pause className="size-5" />}
+          {paused ? (
+            <Play style={{ width: "1.25rem", height: "1.25rem" }} />
+          ) : (
+            <Pause style={{ width: "1.25rem", height: "1.25rem" }} />
+          )}
         </button>
         <button
           onClick={onAdd30s}
-          className="tabular h-11 rounded-xl bg-secondary px-3 text-sm font-bold"
+          className="vt-tabular vt-rest-timer__btn vt-rest-timer__btn--text"
         >
           +30s
         </button>
         <button
           onClick={onSkip}
-          className="grid size-11 place-items-center rounded-xl bg-primary text-primary-foreground"
+          className="vt-rest-timer__btn vt-rest-timer__btn--primary"
+          aria-label="Skip rest timer"
         >
-          <SkipForward className="size-5" />
+          <SkipForward style={{ width: "1.25rem", height: "1.25rem" }} />
         </button>
       </div>
     </motion.div>

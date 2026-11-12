@@ -1,0 +1,157 @@
+/**
+ * @file packages/ui/src/styles/heatmap.css
+ * @description Muscle recovery fatigue heatmap and personal records table for VitalAI.
+ * @author yuva.devlab@gmail.com
+ */
+
+@layer dl-app {
+  /* Muscle Recovery Heatmap */
+  .vt-heatmap-card {
+    padding: 1.25rem;
+  }
+
+  .vt-heatmap-card__title {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .vt-heatmap-grid {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .vt-heatmap-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .vt-heatmap-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: var(--radius-xl, 0.75rem);
+    background-color: color-mix(in oklab, var(--secondary) 50%, transparent);
+    padding: 0.875rem;
+  }
+
+  .vt-heatmap-item__name {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .vt-heatmap-item__sub {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-heatmap-item__status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .vt-heatmap-item__track {
+    width: 5rem;
+    height: 0.5rem;
+    overflow: hidden;
+    border-radius: 9999px;
+    background-color: var(--secondary);
+  }
+
+  .vt-heatmap-item__fill {
+    height: 100%;
+  }
+
+  .vt-heatmap-item__badge {
+    border-radius: 9999px;
+    padding: 0.125rem 0.625rem;
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .vt-heatmap-item__badge--volt {
+    background-color: var(--volt);
+    color: var(--primary-foreground, var(--primaryForeground));
+  }
+
+  .vt-heatmap-item__badge--cyan {
+    background-color: var(--cyan);
+    color: var(--primary-foreground, var(--primaryForeground));
+  }
+
+  .vt-heatmap-item__badge--ember {
+    background-color: var(--ember, #f97316);
+    color: #ffffff;
+  }
+
+  /* Personal Records Table */
+  .vt-pr-card {
+    padding: 1.25rem;
+  }
+
+  .vt-pr-card__header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .vt-pr-card__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #fbbf24;
+  }
+
+  .vt-pr-card__title {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .vt-pr-list {
+    margin-top: 1rem;
+  }
+
+  .vt-pr-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+    padding: 0.75rem 0;
+    font-size: 0.875rem;
+  }
+
+  .vt-pr-item:last-child {
+    border-bottom: none;
+  }
+
+  .vt-pr-item__name {
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .vt-pr-item__meta {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-pr-item__stat {
+    text-align: right;
+  }
+
+  .vt-pr-item__weight {
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-family: var(--font-sans, "Inter Variable", sans-serif);
+    color: var(--volt);
+  }
+
+  .vt-pr-item__reps {
+    margin-left: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+}

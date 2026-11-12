@@ -23,7 +23,7 @@ npm run dev
 
 ## Built with
 
-- TanStack Start
+- Next.js 15
 - TypeScript
-- React
-- Tailwind CSS
+- React 19
+- Pure Platform CSS & W3C Cascade Layers

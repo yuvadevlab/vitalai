@@ -17,7 +17,7 @@ export function WorkoutExerciseSwapper({
 }: WorkoutExerciseSwapperProps) {
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-end bg-background/70 backdrop-blur-sm"
+      className="vt-swapper-overlay"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -29,22 +29,20 @@ export function WorkoutExerciseSwapper({
         exit={{ y: "100%" }}
         transition={{ type: "spring", damping: 28, stiffness: 300 }}
         onClick={(e) => e.stopPropagation()}
-        className="mx-auto w-full max-w-2xl rounded-t-3xl border bg-popover p-6"
+        className="vt-swapper-sheet"
       >
-        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
-          AI-recommended alternatives
-        </p>
-        <h3 className="font-display-x mt-1 text-2xl">Replace {exerciseName}</h3>
-        <div className="mt-4 space-y-2">
+        <p className="vt-swapper-sheet__badge">AI-recommended alternatives</p>
+        <h3 className="vt-font-display vt-swapper-sheet__title">Replace {exerciseName}</h3>
+        <div className="vt-swapper-sheet__list">
           {alternatives.map((a) => (
             <motion.button
               key={a}
               whileTap={{ scale: 0.97 }}
               onClick={() => onSelectAlternative(a)}
-              className="flex w-full items-center justify-between rounded-xl border bg-card px-4 py-3 text-left hover:border-primary"
+              className="vt-swapper-sheet__item"
             >
-              <span className="font-medium">{a}</span>
-              <span className="text-xs text-muted-foreground">Same muscle targets</span>
+              <span className="vt-swapper-sheet__item-name">{a}</span>
+              <span className="vt-swapper-sheet__item-sub">Same muscle targets</span>
             </motion.button>
           ))}
         </div>

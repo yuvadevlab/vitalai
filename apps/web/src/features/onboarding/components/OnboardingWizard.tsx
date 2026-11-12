@@ -44,22 +44,24 @@ export function OnboardingWizard() {
   };
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-xl flex-col px-5 py-6">
-      <div className="flex items-center gap-3">
-        <div className="grid size-9 place-items-center rounded-lg bg-gradient-volt">
-          <Zap className="size-5 text-primary-foreground" fill="currentColor" />
+    <div className="vt-onboarding">
+      <div className="vt-onboarding__header">
+        <div className="vt-onboarding__logo-icon vt-gradient-volt">
+          <Zap
+            style={{ width: "1.25rem", height: "1.25rem" }}
+            color="var(--primaryForeground)"
+            fill="currentColor"
+          />
         </div>
-        <span className="font-display-x text-2xl">VitalAI</span>
-        <span className="tabular ml-auto text-xs text-muted-foreground">
-          {Math.min(step + 1, 6)} / 6
-        </span>
+        <span className="vt-font-display vt-onboarding__brand">VitalAI</span>
+        <span className="vt-tabular vt-onboarding__step-count">{Math.min(step + 1, 6)} / 6</span>
       </div>
 
-      <div className="mt-4 flex gap-1.5">
+      <div className="vt-onboarding__progress">
         {titles.slice(0, 6).map((_, i) => (
-          <div key={i} className="h-1 flex-1 overflow-hidden rounded-full bg-secondary">
+          <div key={i} className="vt-onboarding__progress-track">
             <motion.div
-              className="h-full bg-primary"
+              className="vt-onboarding__progress-fill"
               initial={false}
               animate={{ width: i <= step ? "100%" : "0%" }}
               transition={{ duration: 0.4 }}
@@ -68,7 +70,7 @@ export function OnboardingWizard() {
         ))}
       </div>
 
-      <div className="relative mt-8 flex-1">
+      <div className="vt-onboarding__body">
         <AnimatePresence mode="wait" custom={dir}>
           <motion.div
             key={step}
@@ -78,10 +80,10 @@ export function OnboardingWizard() {
             exit={{ x: -35 * dir, opacity: 0 }}
             transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
           >
-            {step < 6 && <h1 className="font-display-x mb-6 text-5xl">{titles[step]}</h1>}
+            {step < 6 && <h1 className="vt-font-display vt-onboarding__title">{titles[step]}</h1>}
 
             {step === 0 && (
-              <div className="space-y-3">
+              <div className="vt-onboarding__list">
                 {GOALS.map((g) => (
                   <OptionCard
                     key={g}
@@ -94,7 +96,7 @@ export function OnboardingWizard() {
             )}
 
             {step === 1 && (
-              <div className="space-y-3">
+              <div className="vt-onboarding__list">
                 {FOCUS.map((f) => (
                   <OptionCard
                     key={f}
@@ -113,7 +115,7 @@ export function OnboardingWizard() {
             )}
 
             {step === 2 && (
-              <div className="space-y-3">
+              <div className="vt-onboarding__list">
                 {LEVELS.map((l) => (
                   <OptionCard
                     key={l}
@@ -127,7 +129,7 @@ export function OnboardingWizard() {
             )}
 
             {step === 3 && (
-              <div className="space-y-3">
+              <div className="vt-onboarding__list">
                 {EQUIP.map((e) => (
                   <OptionCard
                     key={e}
@@ -149,22 +151,24 @@ export function OnboardingWizard() {
       </div>
 
       {step < 6 && (
-        <div className="mt-8 flex gap-3">
+        <div className="vt-onboarding__footer">
           {step > 0 && (
             <motion.button
               whileTap={{ scale: 0.97 }}
               onClick={() => go(-1)}
-              className="grid size-14 place-items-center rounded-2xl border"
+              className="vt-onboarding__back-btn"
+              aria-label="Previous step"
             >
-              <ArrowLeft className="size-5" />
+              <ArrowLeft style={{ width: "1.25rem", height: "1.25rem" }} />
             </motion.button>
           )}
           <motion.button
             whileTap={{ scale: 0.97 }}
             onClick={() => go(1)}
-            className="flex h-14 flex-1 items-center justify-center gap-2 rounded-2xl bg-primary font-display-x text-xl text-primary-foreground glow-volt"
+            className="vt-onboarding__next-btn vt-glow-volt"
           >
-            {step === 5 ? "Generate My Plan" : "Continue"} <ArrowRight className="size-5" />
+            {step === 5 ? "Generate My Plan" : "Continue"}{" "}
+            <ArrowRight style={{ width: "1.25rem", height: "1.25rem" }} />
           </motion.button>
         </div>
       )}

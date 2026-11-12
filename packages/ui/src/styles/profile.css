@@ -1,0 +1,130 @@
+/**
+ * @file packages/ui/src/styles/profile.css
+ * @description User profile settings, biometrics, and sticky live workout plan for VitalAI.
+ * @author yuva.devlab@gmail.com
+ */
+
+@layer dl-app {
+  .vt-profile-title {
+    margin: 0;
+    font-size: 3rem;
+  }
+
+  .vt-profile-grid {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .vt-profile-grid {
+      grid-template-columns: 1.3fr 1fr;
+    }
+  }
+
+  .vt-profile-section {
+    padding: 1.25rem;
+  }
+
+  .vt-profile-section__title {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-profile-input {
+    width: 100%;
+    border-radius: var(--radius-xl, 0.75rem);
+    border: 1px solid var(--border);
+    background-color: var(--card);
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    outline: none;
+    transition: border-color 150ms ease;
+  }
+
+  .vt-profile-input:focus {
+    border-color: var(--primary);
+  }
+
+  .vt-profile-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .vt-profile-chip {
+    border-radius: 9999px;
+    border: 1px solid var(--border);
+    background-color: var(--card);
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+
+  .vt-profile-chip--active {
+    border-color: var(--primary);
+    background-color: color-mix(in oklab, var(--primary) 15%, transparent);
+    color: var(--primary);
+  }
+
+  /* Profile Sticky Live Plan */
+  .vt-live-plan {
+    padding: 1.25rem;
+    height: fit-content;
+  }
+
+  @media (min-width: 1024px) {
+    .vt-live-plan {
+      position: sticky;
+      top: 2rem;
+    }
+  }
+
+  .vt-live-plan__badge {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--primary);
+  }
+
+  .vt-live-plan__title {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    font-size: 1.5rem;
+  }
+
+  .vt-live-plan__meta {
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-live-plan__list {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .vt-live-plan__item {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    border-radius: var(--radius-lg, 0.5rem);
+    background-color: color-mix(in oklab, var(--secondary) 60%, transparent);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+  }
+}

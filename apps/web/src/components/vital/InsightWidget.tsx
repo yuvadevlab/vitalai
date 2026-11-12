@@ -2,24 +2,23 @@
 
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
+import { Sparkles, ArrowRight } from "lucide-react";
 import { useVital } from "@/lib/store";
+import { COMMON_COPY } from "@/lib/ui-copy";
 
 export function InsightWidget({ text }: { text: string }) {
   const router = useRouter();
   const setCtx = useVital((s) => s.setCoachContext);
   return (
-    <div className="glass relative overflow-hidden p-4 md:p-5">
-      <div className="pointer-events-none absolute -right-16 -top-16 size-48 rounded-full bg-primary/15 blur-3xl" />
-      <div className="relative flex flex-col gap-3 sm:flex-row sm:items-center">
-        <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary/15 text-primary">
-          <Sparkles className="size-5" />
+    <div className="vt-glass vt-insight-widget">
+      <div className="vt-insight-widget__glow" />
+      <div className="vt-insight-widget__body">
+        <div className="vt-insight-widget__icon-wrap">
+          <Sparkles className="vt-insight-widget__icon" />
         </div>
-        <div className="flex-1">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
-            VitalAI Insight
-          </p>
-          <p className="mt-1 text-sm leading-relaxed text-foreground/90">{text}</p>
+        <div className="vt-insight-widget__content">
+          <p className="vt-insight-widget__badge">{COMMON_COPY.insight.badge}</p>
+          <p className="vt-insight-widget__text">{text}</p>
         </div>
         <motion.button
           whileTap={{ scale: 0.97 }}
@@ -27,9 +26,10 @@ export function InsightWidget({ text }: { text: string }) {
             setCtx(text);
             router.push("/advisor");
           }}
-          className="rounded-full border border-primary/40 px-4 py-2 text-xs font-semibold text-primary transition hover:bg-primary/10"
+          className="vt-insight-widget__btn"
         >
-          Ask AI Coach
+          {COMMON_COPY.insight.askCoach}
+          <ArrowRight style={{ width: "0.875rem", height: "0.875rem" }} />
         </motion.button>
       </div>
     </div>

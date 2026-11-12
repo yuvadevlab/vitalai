@@ -1,0 +1,216 @@
+/**
+ * @file packages/ui/src/styles/dashboard.css
+ * @description Dashboard home view, greeting header, split grid, and workout session launcher.
+ * @author yuva.devlab@gmail.com
+ */
+
+@layer dl-app {
+  .vt-dashboard-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .vt-dashboard-user {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .vt-dashboard-avatar {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border-radius: 9999px;
+    font-size: 1.25rem;
+    color: var(--primary-foreground, var(--primaryForeground));
+  }
+
+  .vt-dashboard-user-meta {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .vt-dashboard-welcome {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-dashboard-name {
+    margin: 0;
+    font-size: 1.875rem;
+  }
+
+  .vt-dashboard-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .vt-dashboard-streak {
+    border-radius: 9999px;
+    border: 1px solid color-mix(in oklab, var(--ember, #f97316) 40%, transparent);
+    background-color: color-mix(in oklab, var(--ember, #f97316) 10%, transparent);
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    font-family: var(--font-sans, "Inter Variable", sans-serif);
+    letter-spacing: -0.01em;
+    color: var(--ember, #f97316);
+  }
+
+  .vt-dashboard-start-btn {
+    display: none;
+    border-radius: 9999px;
+    background-color: var(--primary);
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--primary-foreground, var(--primaryForeground));
+    text-decoration: none;
+  }
+
+  @media (min-width: 640px) {
+    .vt-dashboard-start-btn {
+      display: block;
+    }
+  }
+
+  /* Dashboard Split Grid */
+  .vt-dashboard-split {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .vt-dashboard-split {
+      grid-template-columns: 1.4fr 1fr;
+    }
+  }
+
+  .vt-session-card {
+    position: relative;
+    overflow: hidden;
+    padding: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .vt-session-card {
+      padding: 1.5rem;
+    }
+  }
+
+  .vt-session-card__glow {
+    pointer-events: none;
+    position: absolute;
+    top: -5rem;
+    right: -5rem;
+    width: 16rem;
+    height: 16rem;
+    border-radius: 9999px;
+    background-color: color-mix(in oklab, var(--primary) 10%, transparent);
+    filter: blur(48px);
+  }
+
+  .vt-session-card__subtitle {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin: 0;
+  }
+
+  .vt-session-card__title {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    font-size: 1.875rem;
+  }
+
+  @media (min-width: 768px) {
+    .vt-session-card__title {
+      font-size: 2.25rem;
+    }
+  }
+
+  .vt-session-card__meta {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.875rem;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-session-card__meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .vt-session-card__meta-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .vt-session-card__list {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .vt-session-card__list-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-radius: var(--radius-xl, 0.75rem);
+    background-color: color-mix(in oklab, var(--secondary) 60%, transparent);
+    padding: 0.625rem 0.75rem;
+  }
+
+  .vt-session-card__list-num {
+    display: grid;
+    width: 1.75rem;
+    height: 1.75rem;
+    place-items: center;
+    border-radius: var(--radius-lg, 0.5rem);
+    background-color: var(--background);
+    font-size: 0.75rem;
+    color: var(--primary);
+  }
+
+  .vt-session-card__list-name {
+    flex: 1 1 0%;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .vt-session-card__list-sets {
+    font-size: 0.75rem;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-session-card__launch-btn {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-2xl, 1rem);
+    padding: 1rem 0;
+    font-family: var(--font-sans, "Inter Variable", sans-serif);
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--primary-foreground, var(--primaryForeground));
+    text-decoration: none;
+  }
+}

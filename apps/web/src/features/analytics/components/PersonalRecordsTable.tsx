@@ -9,23 +9,25 @@ interface PrProps {
 
 export function PersonalRecordsTable({ records }: PrProps) {
   return (
-    <div className="glass p-5">
-      <div className="flex items-center gap-2">
-        <Trophy className="size-5 text-amber-400" />
-        <h3 className="font-display-x text-2xl">{ANALYTICS_COPY.sections.personalRecords}</h3>
+    <div className="vt-glass vt-pr-card">
+      <div className="vt-pr-card__header">
+        <Trophy className="vt-pr-card__icon" />
+        <h3 className="vt-font-display vt-pr-card__title">
+          {ANALYTICS_COPY.sections.personalRecords}
+        </h3>
       </div>
-      <div className="mt-4 divide-y divide-border/60">
+      <div className="vt-pr-list">
         {records.map((r) => (
-          <div key={r.exercise} className="flex items-center justify-between py-3 text-sm">
+          <div key={r.exercise} className="vt-pr-item">
             <div>
-              <p className="font-medium text-foreground">{r.exercise}</p>
-              <p className="text-xs text-muted-foreground">
+              <p className="vt-pr-item__name">{r.exercise}</p>
+              <p className="vt-pr-item__meta">
                 {r.date} • RPE {r.rpe}
               </p>
             </div>
-            <div className="tabular text-right">
-              <span className="font-display-x text-xl text-volt">{r.weight}kg</span>
-              <span className="text-xs text-muted-foreground ml-1">× {r.reps} reps</span>
+            <div className="vt-tabular vt-pr-item__stat">
+              <span className="vt-pr-item__weight">{r.weight}kg</span>
+              <span className="vt-pr-item__reps">× {r.reps} reps</span>
             </div>
           </div>
         ))}

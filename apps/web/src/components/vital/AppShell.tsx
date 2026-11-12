@@ -5,15 +5,16 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { Bot, CalendarDays, LayoutDashboard, LineChart, User, Zap } from "lucide-react";
 import type { ReactNode } from "react";
+import { AppRoutePath } from "@vitalai/shared-types";
 import { InsightWidget } from "./InsightWidget";
 import { ThemeSwitch } from "./ThemeSwitch";
 
 const nav = [
-  { to: "/", label: "Home", icon: LayoutDashboard },
-  { to: "/plan", label: "Plan", icon: CalendarDays },
-  { to: "/analytics", label: "Stats", icon: LineChart },
-  { to: "/advisor", label: "Coach", icon: Bot },
-  { to: "/profile", label: "Profile", icon: User },
+  { to: AppRoutePath.HOME, label: "Home", icon: LayoutDashboard },
+  { to: AppRoutePath.PLAN, label: "Plan", icon: CalendarDays },
+  { to: AppRoutePath.ANALYTICS, label: "Stats", icon: LineChart },
+  { to: AppRoutePath.ADVISOR, label: "Coach", icon: Bot },
+  { to: AppRoutePath.PROFILE, label: "Profile", icon: User },
 ] as const;
 
 export function PageSlide({ children }: { children: ReactNode }) {
@@ -32,13 +33,14 @@ export function PageSlide({ children }: { children: ReactNode }) {
 export function AppShell({ children, insight }: { children: ReactNode; insight: string }) {
   const pathname = usePathname();
   return (
-    <div className="min-h-screen pb-28 md:pb-10 md:pl-24">
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-24 flex-col items-center gap-3 border-r bg-surface/60 py-6 backdrop-blur md:flex">
+    <div className="vt-shell">
+      <aside className="vt-sidebar">
         <Link
-          href="/"
-          className="mb-6 grid size-11 place-items-center rounded-xl bg-gradient-volt glow-volt"
+          href={AppRoutePath.HOME}
+          className="vt-sidebar__logo vt-gradient-volt vt-glow-volt"
+          aria-label="VitalAI Home"
         >
-          <Zap className="size-6 text-primary-foreground" fill="currentColor" />
+          <Zap className="vt-sidebar__logo-icon" fill="currentColor" />
         </Link>
         {nav.map(({ to, label, icon: Icon }) => {
           const active = pathname === to;
@@ -46,50 +48,39 @@ export function AppShell({ children, insight }: { children: ReactNode; insight: 
             <Link
               key={to}
               href={to}
-              className={`flex w-16 flex-col items-center gap-1 rounded-xl py-2.5 text-[11px] font-medium transition ${
-                active
-                  ? "bg-primary/10 text-primary"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
+              className={`vt-sidebar__nav-link ${active ? "vt-sidebar__nav-link--active" : ""}`}
             >
-              <Icon className="size-5" />
+              <Icon className="vt-sidebar__nav-icon" />
               {label}
             </Link>
           );
         })}
-        <div className="mt-auto flex w-12 justify-center border-t border-border/40 pt-4">
+        <div className="vt-sidebar__footer">
           <ThemeSwitch />
         </div>
       </aside>
 
-      <main className="mx-auto max-w-6xl px-4 pt-5 md:px-8 md:pt-8">
+      <main className="vt-shell__main">
         <PageSlide key={pathname}>
           {children}
-          <div className="mt-6">
+          <div className="vt-shell__insight">
             <InsightWidget text={insight} />
           </div>
         </PageSlide>
       </main>
 
-      <nav className="fixed inset-x-3 bottom-3 z-30 flex justify-around rounded-2xl border bg-surface/90 p-1.5 backdrop-blur md:hidden">
+      <nav className="vt-mobile-nav">
         {nav.map(({ to, label, icon: Icon }) => {
           const active = pathname === to;
           return (
-            <Link
-              key={to}
-              href={to}
-              className="relative flex flex-1 flex-col items-center gap-0.5 py-2 text-[10px] font-medium"
-            >
-              {active && (
-                <motion.span
-                  layoutId="navpill"
-                  className="absolute inset-0 rounded-xl bg-primary/12 ring-1 ring-primary/40"
-                />
-              )}
+            <Link key={to} href={to} className="vt-mobile-nav__link">
+              {active && <motion.span layoutId="navpill" className="vt-mobile-nav__active-pill" />}
               <Icon
-                className={`relative size-5 ${active ? "text-primary" : "text-muted-foreground"}`}
+                className={`vt-mobile-nav__icon ${active ? "vt-mobile-nav__icon--active" : "vt-mobile-nav__icon--inactive"}`}
               />
-              <span className={`relative ${active ? "text-primary" : "text-muted-foreground"}`}>
+              <span
+                className={`vt-mobile-nav__label ${active ? "vt-mobile-nav__label--active" : "vt-mobile-nav__label--inactive"}`}
+              >
                 {label}
               </span>
             </Link>

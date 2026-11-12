@@ -42,10 +42,10 @@ Every interactive creation/editing dialog follows the strict two-file pattern:
 
 ## 4. Design System & Styling Tokens
 
-1. **Semantic Tailwind Tokens**: Use semantic tokens exclusively from `@yuva-devlab/tokens`:
-   - Surfaces: `bg-background`, `bg-card`, `bg-muted`
-   - Borders: `border-border`, `border-input`
-   - Accents: `text-primary`, `bg-primary`, `text-destructive`
+1. **Semantic Platform Tokens**: Use semantic tokens exclusively from `@yuva-devlab/tokens`:
+   - Surfaces: `var(--background)`, `var(--card)`, `var(--muted)`
+   - Borders: `var(--border)`, `var(--input)`
+   - Accents: `var(--primary)`, `var(--destructive)`
 2. **Icons**: Use `lucide-react` icons exclusively with standard sizing (`size={16}` or `size={20}`).
 
 ---

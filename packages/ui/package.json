@@ -8,7 +8,10 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": {
+        "import": "./dist/index.d.ts",
+        "require": "./dist/index.d.cts"
+      },
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
@@ -34,10 +37,9 @@
   },
   "dependencies": {
     "@yuva-devlab/tokens": "^2.0.0",
-    "@yuva-devlab/ui": "^2.1.0",
+    "@yuva-devlab/ui": "^2.2.1",
     "clsx": "^2.1.1",
-    "lucide-react": "^0.475.0",
-    "tailwind-merge": "^3.0.1"
+    "lucide-react": "^0.475.0"
   },
   "devDependencies": {
     "@types/react": "^19.0.8",

@@ -1,0 +1,175 @@
+/**
+ * @file packages/ui/src/styles/workout-active.css
+ * @description Active workout HUD, header, and exercise card for VitalAI.
+ * @author yuva.devlab@gmail.com
+ */
+
+@layer dl-app {
+  /* Active HUD Container */
+  .vt-active-hud {
+    margin-inline: auto;
+    min-height: 100vh;
+    max-width: 42rem;
+    padding: 1.25rem 1rem 9rem;
+  }
+
+  /* Header & Progress Bar */
+  .vt-active-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .vt-active-header__close {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border-radius: var(--radius-xl, 0.75rem);
+    border: 1px solid var(--border);
+    color: var(--foreground);
+    text-decoration: none;
+    transition: background-color 150ms ease;
+  }
+
+  .vt-active-header__close:hover {
+    background-color: var(--secondary);
+  }
+
+  .vt-active-header__progress-text {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground, var(--mutedForeground));
+  }
+
+  .vt-active-header__finish-btn {
+    border-radius: var(--radius-xl, 0.75rem);
+    border: none;
+    background-color: var(--primary);
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--primary-foreground, var(--primaryForeground));
+    cursor: pointer;
+    transition: opacity 150ms ease;
+  }
+
+  .vt-active-header__finish-btn:hover {
+    opacity: 0.9;
+  }
+
+  .vt-active-header__bars {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .vt-active-header__bar {
+    height: 0.25rem;
+    flex: 1 1 0%;
+    border-radius: 9999px;
+    background-color: var(--secondary);
+    transition: background-color 200ms ease;
+  }
+
+  .vt-active-header__bar--active {
+    background-color: var(--primary);
+  }
+
+  /* Active Exercise Card */
+  .vt-active-hud__card {
+    position: relative;
+    overflow: hidden;
+    padding: 1.25rem;
+  }
+
+  .vt-active-hud__card-glow {
+    pointer-events: none;
+    position: absolute;
+    top: -2.5rem;
+    right: -2.5rem;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 9999px;
+    background-color: color-mix(in oklab, var(--primary) 20%, transparent);
+    filter: blur(48px);
+  }
+
+  .vt-active-hud__exercise-title {
+    position: relative;
+    margin: 0;
+    font-size: 2.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .vt-active-hud__exercise-title {
+      font-size: 3rem;
+    }
+  }
+
+  .vt-active-hud__cues {
+    position: relative;
+    margin-top: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .vt-active-hud__cue {
+    border-radius: 9999px;
+    background-color: var(--secondary);
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    color: var(--foreground);
+  }
+
+  .vt-active-hud__swap-btn {
+    position: relative;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: none;
+    background: transparent;
+    padding: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--cyan);
+    cursor: pointer;
+  }
+
+  .vt-active-hud__swap-btn:hover {
+    text-decoration: underline;
+  }
+
+  .vt-active-hud__nav {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .vt-active-hud__nav-btn {
+    display: flex;
+    flex: 1 1 0%;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    border-radius: var(--radius-xl, 0.75rem);
+    border: 1px solid var(--border);
+    background: transparent;
+    padding: 0.75rem 0;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+
+  .vt-active-hud__nav-btn:hover:not(:disabled) {
+    background-color: var(--secondary);
+  }
+
+  .vt-active-hud__nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}

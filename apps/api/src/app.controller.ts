@@ -24,14 +24,18 @@ export class AppController {
    *
    * @returns Health status payload with timestamp and database state
    */
-  @Get("health")
-  @ApiOperation({ summary: "System liveness and database readiness probe" })
+  @Get(["health", "api/v1/health"])
+  @ApiOperation({
+    summary: "System liveness and database readiness probe (dual /health and /api/v1/health)",
+  })
   @ApiResponse({ status: 200, description: "System is healthy and database is connected" })
   @ApiResponse({ status: 503, description: "Database is unreachable" })
   async getHealth(): Promise<{
     status: string;
     timestamp: string;
     service: string;
+    version: string;
+    uptime: number;
     database: string;
   }> {
     this.logger.info("[getHealth] Health check requested");
@@ -49,6 +53,8 @@ export class AppController {
       status: dbStatus === "connected" ? "ok" : "degraded",
       timestamp: new Date().toISOString(),
       service: "vitalai-api",
+      version: "1.0.0",
+      uptime: process.uptime(),
       database: dbStatus,
     };
   }

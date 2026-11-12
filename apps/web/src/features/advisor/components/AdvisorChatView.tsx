@@ -16,13 +16,13 @@ const prompts = [
 
 function Rich({ text }: { text: string }) {
   return (
-    <div className="space-y-1">
+    <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
       {text.split("\n").map((line, i) => {
         const bullet = line.startsWith("- ");
         const parts = (bullet ? line.slice(2) : line).split(/\*\*(.+?)\*\*/g);
         const content = parts.map((p, j) =>
           j % 2 ? (
-            <strong key={j} className="text-primary">
+            <strong key={j} className="vt-advisor-rich-strong">
               {p}
             </strong>
           ) : (
@@ -30,12 +30,14 @@ function Rich({ text }: { text: string }) {
           ),
         );
         return bullet ? (
-          <div key={i} className="flex gap-2">
-            <span className="text-primary">▸</span>
+          <div key={i} className="vt-advisor-rich-item">
+            <span className="vt-advisor-rich-bullet">▸</span>
             <span>{content}</span>
           </div>
         ) : (
-          <p key={i}>{content}</p>
+          <p key={i} style={{ margin: 0 }}>
+            {content}
+          </p>
         );
       })}
     </div>
@@ -85,46 +87,44 @@ export function AdvisorChatView() {
 
   return (
     <AppShell insight="Ask anything about load, recovery or nutrition — I factor in your injuries and logged tonnage.">
-      <div className="flex items-center gap-3">
-        <div className="grid size-11 place-items-center rounded-xl bg-gradient-volt glow-volt">
-          <Bot className="size-6 text-primary-foreground" />
+      <div className="vt-advisor-header">
+        <div className="vt-advisor-avatar vt-gradient-volt vt-glow-volt">
+          <Bot className="vt-advisor-avatar__icon" />
         </div>
         <div>
-          <h1 className="font-display-x text-4xl">AI Coach</h1>
-          <p className="text-xs text-muted-foreground">Scientifically rigorous. Zero fluff.</p>
+          <h1 className="vt-font-display vt-advisor-title">AI Coach</h1>
+          <p className="vt-advisor-subtitle">Scientifically rigorous. Zero fluff.</p>
         </div>
       </div>
-      <div className="glass mt-5 flex h-[60vh] flex-col p-4">
-        <div className="flex-1 space-y-3 overflow-y-auto pr-1">
+      <div className="vt-glass vt-advisor-box">
+        <div className="vt-advisor-messages">
           <AnimatePresence initial={false}>
             {msgs.map((m, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, x: m.role === "user" ? 30 : -30 }}
                 animate={{ opacity: 1, x: 0 }}
-                className={`flex ${m.role === "user" ? "justify-end" : ""}`}
+                className={`vt-advisor-turn ${m.role === "user" ? "vt-advisor-turn--user" : ""}`}
               >
                 <div
-                  className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
-                    m.role === "user" ? "bg-primary text-primary-foreground" : "bg-secondary"
+                  className={`vt-advisor-bubble ${
+                    m.role === "user" ? "vt-advisor-bubble--user" : "vt-advisor-bubble--coach"
                   }`}
                 >
                   {m.role === "user" ? m.text : <Rich text={m.text} />}
                   {m.confidence && (
-                    <span className="tabular mt-2 inline-block rounded-full bg-primary/15 px-2 py-0.5 text-[10px] text-primary">
-                      {m.confidence}
-                    </span>
+                    <span className="vt-tabular vt-advisor-confidence">{m.confidence}</span>
                   )}
                 </div>
               </motion.div>
             ))}
           </AnimatePresence>
           {typing && (
-            <div className="flex gap-1 px-2">
+            <div className="vt-advisor-typing">
               {[0, 1, 2].map((k) => (
                 <motion.span
                   key={k}
-                  className="size-2 rounded-full bg-primary"
+                  className="vt-advisor-typing-dot"
                   animate={{ opacity: [0.2, 1, 0.2] }}
                   transition={{ duration: 1, repeat: Infinity, delay: k * 0.2 }}
                 />
@@ -133,13 +133,9 @@ export function AdvisorChatView() {
           )}
           <div ref={end} />
         </div>
-        <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
+        <div className="vt-advisor-prompts">
           {prompts.map((p) => (
-            <button
-              key={p}
-              onClick={() => send(p)}
-              className="shrink-0 rounded-full border px-3 py-1.5 text-xs text-muted-foreground hover:border-primary hover:text-primary"
-            >
+            <button key={p} onClick={() => send(p)} className="vt-advisor-prompt-chip">
               {p}
             </button>
           ))}
@@ -149,19 +145,20 @@ export function AdvisorChatView() {
             e.preventDefault();
             send(input);
           }}
-          className="mt-3 flex gap-2"
+          className="vt-advisor-form"
         >
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask your coach..."
-            className="flex-1 rounded-xl border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
+            className="vt-advisor-input"
           />
           <motion.button
             whileTap={{ scale: 0.97 }}
-            className="grid size-12 place-items-center rounded-xl bg-primary text-primary-foreground"
+            className="vt-advisor-send-btn"
+            aria-label="Send message"
           >
-            <Send className="size-5" />
+            <Send style={{ width: "1.25rem", height: "1.25rem" }} />
           </motion.button>
         </form>
       </div>

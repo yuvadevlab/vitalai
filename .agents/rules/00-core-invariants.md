@@ -5,6 +5,14 @@
 
 ---
 
+## 0. Strict Git Commit & Push Restriction (CRITICAL)
+
+- **NEVER** run `git commit`, `git push`, or create pull requests without explicit, affirmative user authorization in the current turn.
+- General task triggers like "start", "proceed", or "fix" authorize code authoring, linting, and testing ONLY.
+- Changes must remain in the working tree or staging until the user explicitly commands to commit.
+
+---
+
 ## 1. Monorepo Package Boundaries & Placement
 
 VitalAI is organized into strict package boundaries. Never leak side-effects across package boundaries:
@@ -90,6 +98,9 @@ vitalai/
    - **React Query Keys**: Use `QUERY_KEYS` from `@vitalai/shared-types`. Always use `as const` tuples (`readonly (readonly unknown[])[]`). Never use raw string arrays like `["healthVault"]`.
    - **API Endpoints**: Use `API_ENDPOINTS` from `@vitalai/shared-types`.
    - **Route Paths**: Use `APP_ROUTES` and `API_ROUTES` from `@/lib/routes.ts`. Never hardcode raw URLs like `"/advisor"` or `"/advisor/${id}"`.
+   - **URL Query Parameters**: Never hardcode raw query parameter strings or fragments like `"?redirect="` or `searchParams.get("token")`. Use centralized enums/constants and construct URLs via `URLSearchParams`.
+   - **Enums Over Raw String Unions**: Avoid raw string union types. Use TypeScript `enum`s or `as const` key-value dictionaries so changing an underlying value only requires updating the definition.
+   - **Environment Isolation**: Consumer apps manage environment variables explicitly and pass them as props/args to shared packages. Shared packages must never read `process.env`.
 4. **UI Copy Dictionaries**:
    - Zero hardcoded user-facing strings in UI components. All labels, headers, button copy, and error messages MUST be imported from `@/lib/ui-copy/`.
 
@@ -112,3 +123,14 @@ vitalai/
    - `new Logger(ClassName.name)` already prepends `[ClassName]`.
    - Log payloads must NOT repeat the class name.
    - Prefix only with the method/action tag: `[methodName] message`.
+
+---
+
+## 8. Organization Standards & .github Inheritance
+
+- **Attribution**: Author and committer metadata standardized to `yuva.devlab@gmail.com`.
+- **Branch Naming**: Must strictly follow: `^(feat|fix|refactor|perf|chore|docs|test|ci|hotfix)/[a-z0-9-]+$`.
+- **Pull Requests**: Must conform to the 5-section high-signal template in `yuvadevlab/.github` (Summary, Changes, How to Test, Proof of Verification, Risks).
+- **Conventional Commits**: `<type>(<optional-scope>): <imperative summary>`.
+- **Pure Platform CSS**: Zero references to legacy utility-first CSS frameworks. All styles use W3C Cascade Layers (`@layer dl-*`) and `@yuva-devlab/tokens`.
+- **Semantic Component Architecture (90/10 Standard)**: UI components must declare purpose-revealing semantic classes (`.vt-card`, `.vt-glass`, `.vt-stats-panel`) in domain-scoped modular stylesheets (`< 200 lines`, strictly `< 250 lines`) under `@layer dl-components`. Multi-class utility soup in JSX (`className="class-1 class-2 class-3..."`) is strictly prohibited for component definitions; utilities are reserved exclusively for macro layout orchestration (10% glue). Component themes and variants must be parameterized via CSS variables mapped to `@yuva-devlab/tokens`.

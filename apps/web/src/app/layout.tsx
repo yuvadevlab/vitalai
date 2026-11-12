@@ -27,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script dangerouslySetInnerHTML={{ __html: appearanceScript }} />
       </head>
-      <body className="antialiased">
+      <body>
         <AppProviders>{children}</AppProviders>
       </body>
     </html>

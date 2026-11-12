@@ -1,0 +1,90 @@
+/**
+ * @file packages/ui/src/styles/theme-switch.css
+ * @description Segmented control and single-toggle theme switch styling for VitalAI.
+ * @author yuva.devlab@gmail.com
+ */
+
+@layer dl-components {
+  .vt-theme-switch-segmented {
+    display: flex;
+    border-radius: var(--radius-xl, 0.75rem);
+    border: 1px solid var(--border);
+    background-color: var(--card);
+    padding: 0.25rem;
+  }
+
+  .vt-theme-switch-btn {
+    position: relative;
+    display: flex;
+    flex: 1 1 0%;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    border-radius: var(--radius-lg, 0.5rem);
+    border: none;
+    background: transparent;
+    padding: 0.5rem 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted-foreground, var(--mutedForeground));
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+
+  .vt-theme-switch-btn:hover {
+    color: var(--foreground);
+  }
+
+  .vt-theme-switch-btn--active {
+    color: var(--primary-foreground, var(--primaryForeground));
+  }
+
+  .vt-theme-switch-pill {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-lg, 0.5rem);
+    background-color: var(--volt);
+  }
+
+  .vt-theme-switch-icon {
+    position: relative;
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
+  .vt-theme-switch-toggle {
+    position: relative;
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border-radius: var(--radius-xl, 0.75rem);
+    border: 1px solid var(--border);
+    background-color: var(--card);
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+
+  .vt-theme-switch-toggle:hover {
+    border-color: var(--volt);
+    background-color: color-mix(in oklab, var(--volt) 10%, transparent);
+  }
+
+  .vt-theme-switch-toggle-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: transform 150ms ease;
+  }
+
+  .vt-theme-switch-toggle:hover .vt-theme-switch-toggle-icon {
+    transform: scale(1.1);
+  }
+
+  .vt-theme-switch-toggle-icon--dark {
+    color: var(--volt);
+  }
+
+  .vt-theme-switch-toggle-icon--light {
+    color: var(--foreground);
+  }
+}
